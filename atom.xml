@@ -1,28 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-    <id>https://outlaws-bai.github.io</id>
+    <id>http://localhost:4000</id>
     <title>outlaws&apos; blog</title>
-    <updated>2021-03-18T04:07:39.533Z</updated>
+    <updated>2021-03-18T04:08:19.694Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
-    <link rel="alternate" href="https://outlaws-bai.github.io"/>
-    <link rel="self" href="https://outlaws-bai.github.io/atom.xml"/>
+    <link rel="alternate" href="http://localhost:4000"/>
+    <link rel="self" href="http://localhost:4000/atom.xml"/>
     <subtitle>生如逆旅，一苇以航。</subtitle>
-    <logo>https://outlaws-bai.github.io/images/avatar.png</logo>
-    <icon>https://outlaws-bai.github.io/favicon.ico</icon>
+    <logo>http://localhost:4000/images/avatar.png</logo>
+    <icon>http://localhost:4000/favicon.ico</icon>
     <rights>All rights reserved 2021, outlaws&apos; blog</rights>
     <entry>
-        <title type="html"><![CDATA[123]]></title>
-        <id>https://outlaws-bai.github.io/post/123/</id>
-        <link href="https://outlaws-bai.github.io/post/123/">
-        </link>
-        <updated>2021-03-18T04:06:52.000Z</updated>
-        <content type="html"><![CDATA[<p>123</p>
-]]></content>
-    </entry>
-    <entry>
         <title type="html"><![CDATA[php序列化与反序列化]]></title>
-        <id>https://outlaws-bai.github.io/post/php-serialize&amp;unserialize/</id>
-        <link href="https://outlaws-bai.github.io/post/php-serialize&amp;unserialize/">
+        <id>http://localhost:4000/post/php-serialize&amp;unserialize/</id>
+        <link href="http://localhost:4000/post/php-serialize&amp;unserialize/">
         </link>
         <updated>2021-03-18T03:59:36.000Z</updated>
         <content type="html"><![CDATA[<h1 id="序列化与反序列化">序列化与反序列化</h1>
@@ -804,8 +795,8 @@ https://xz.aliyun.com/t/2715<br>
     </entry>
     <entry>
         <title type="html"><![CDATA[Hello Gridea]]></title>
-        <id>https://outlaws-bai.github.io/post/hello-gridea/</id>
-        <link href="https://outlaws-bai.github.io/post/hello-gridea/">
+        <id>http://localhost:4000/post/hello-gridea/</id>
+        <link href="http://localhost:4000/post/hello-gridea/">
         </link>
         <updated>2018-12-11T16:00:00.000Z</updated>
         <summary type="html"><![CDATA[<p>👏  欢迎使用 <strong>Gridea</strong> ！<br>
