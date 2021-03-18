@@ -1,20 +1,13 @@
-<!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8" >
-
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>php序列化与反序列化 | outlaws&#39; blog</title>
-
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-<link rel="shortcut icon" href="https://outlaws-bai.github.io/favicon.ico?v=1616043757334">
+<link rel="shortcut icon" href="https://outlaws-bai.github.io/favicon.ico?v=1616047425282">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
 <link rel="stylesheet" href="https://outlaws-bai.github.io/styles/main.css">
-
-
-
-<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
-<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<link rel="alternate" type="application/atom+xml" title="php序列化与反序列化 | outlaws&#39; blog - Atom Feed" href="https://outlaws-bai.github.io/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
 
 
 
@@ -26,81 +19,90 @@
     class test{
         public $name=&quot;..." />
     <meta name="keywords" content="knowledge-web" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
   </head>
   <body>
-    <div id="app" class="main">
-
-      <div class="sidebar" :class="{ 'full-height': menuVisible }">
-  <div class="top-container" data-aos="fade-right">
-    <div class="top-header-container">
-      <a class="site-title-container" href="https://outlaws-bai.github.io">
-        <img src="https://outlaws-bai.github.io/images/avatar.png?v=1616043757334" class="site-logo">
-        <h1 class="site-title">outlaws&#39; blog</h1>
-      </a>
-      <div class="menu-btn" @click="menuVisible = !menuVisible">
-        <div class="line"></div>
-      </div>
-    </div>
-    <div>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://outlaws-bai.github.io">
+  <img class="avatar" src="https://outlaws-bai.github.io/images/avatar.png?v=1616047425282" alt="">
+  </a>
+  <h1 class="site-title">
+    outlaws&#39; blog
+  </h1>
+  <p class="site-description">
+    生如逆旅，一苇以航。
+  </p>
+  <div class="menu-container">
+    
       
-        
-          <a href="/" class="site-nav">
-            首页
-          </a>
-        
+        <a href="/" class="menu">
+          首页
+        </a>
       
-        
-          <a href="/archives" class="site-nav">
-            文章总览
-          </a>
-        
+    
       
-        
-          <a href="/tags" class="site-nav">
-            标签
-          </a>
-        
+        <a href="/archives" class="menu">
+          文章总览
+        </a>
       
-        
-          <a href="/post/about" class="site-nav">
-            关于
-          </a>
-        
+    
       
-    </div>
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
   </div>
-  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
-    <div class="social-container">
+  <div class="social-container">
+    
       
-        
+        <a href="https://github.com/outlaws-bai" target="_blank">
+          <i class="ri-github-line"></i>
+        </a>
       
-        
+    
       
-        
+    
       
-        
+    
       
-        
+    
       
-    </div>
-    <div class="site-description">
-      生如逆旅，一苇以航。
-    </div>
-    <div class="site-footer">
-      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://outlaws-bai.github.io/atom.xml" target="_blank">RSS</a>
-    </div>
+    
   </div>
 </div>
 
-
-      <div class="main-container">
-        <div class="content-container" data-aos="fade-up">
-          <div class="post-detail">
-            <h2 class="post-title">php序列化与反序列化</h2>
-            <div class="post-date">2021-03-18</div>
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              php序列化与反序列化
+            </h2>
+            <div class="post-info">
+              <span>
+                2021-03-18
+              </span>
+              <span>
+                26 min read
+              </span>
+              
+                <a href="https://outlaws-bai.github.io/tag/g6GKCnb6O/" class="post-tag">
+                  # knowledge-web
+                </a>
+              
+            </div>
             
-            <div class="post-content" v-pre>
-              <h1 id="序列化与反序列化">序列化与反序列化</h1>
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <h1 id="序列化与反序列化">序列化与反序列化</h1>
 <h2 id="序列化">序列化</h2>
 <p>定义：利用<code>serialize()</code>函数将一个对象转换为字符串形式<br>
 我们先看一下直接输出对象是什么效果，代码如下</p>
@@ -876,53 +878,131 @@ https://blog.csdn.net/u011474028/article/details/54973571<br>
 https://xz.aliyun.com/t/2715<br>
 <a href="https://kylingit.com/blog/%E7%94%B1phpggc%E7%90%86%E8%A7%A3php%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E/">https://kylingit.com/blog/%E7%94%B1phpggc%E7%90%86%E8%A7%A3php%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E/</a></p>
 
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li><a href="#%E5%BA%8F%E5%88%97%E5%8C%96%E4%B8%8E%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96">序列化与反序列化</a>
+<ul>
+<li><a href="#%E5%BA%8F%E5%88%97%E5%8C%96">序列化</a></li>
+<li><a href="#%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96">反序列化</a></li>
+</ul>
+</li>
+<li><a href="#%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86">反序列化漏洞原理</a></li>
+<li><a href="#cve-2016-7124-__wakeup%E7%BB%95%E8%BF%87">CVE-2016-7124 __wakeup绕过</a></li>
+<li><a href="#%E6%B3%A8%E5%85%A5%E5%AF%B9%E8%B1%A1%E6%9E%84%E9%80%A0%E6%96%B9%E6%B3%95">注入对象构造方法</a>
+<ul>
+<li><a href="#%E5%BD%93%E7%9B%AE%E6%A0%87%E5%AF%B9%E8%B1%A1%E8%A2%ABprivate-protected%E4%BF%AE%E9%A5%B0%E6%97%B6%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E7%9A%84%E5%88%A9%E7%94%A8">当目标对象被private、protected修饰时反序列化漏洞的利用</a></li>
+<li><a href="#%E5%90%8C%E5%90%8D%E6%96%B9%E6%B3%95%E7%9A%84%E5%88%A9%E7%94%A8">同名方法的利用</a></li>
+</ul>
+</li>
+<li><a href="#session%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E">session反序列化漏洞</a>
+<ul>
+<li><a href="#%E4%BB%80%E4%B9%88%E6%98%AFsession">什么是session</a></li>
+<li><a href="#php-session%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B">PHP session工作流程</a></li>
+<li><a href="#phpini%E9%85%8D%E7%BD%AE">php.ini配置</a></li>
+<li><a href="#php-session-%E7%9A%84%E5%AD%98%E5%82%A8%E6%9C%BA%E5%88%B6">PHP session 的存储机制</a>
+<ul>
+<li><a href="#php%E5%A4%84%E7%90%86%E5%99%A8">php处理器</a></li>
+<li><a href="#php_binary%E5%A4%84%E7%90%86%E5%99%A8">php_binary处理器</a></li>
+<li><a href="#php_serialize-%E5%A4%84%E7%90%86%E5%99%A8">php_serialize 处理器</a></li>
+</ul>
+</li>
+<li><a href="#session%E7%9A%84%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8">session的反序列化漏洞利用</a></li>
+<li><a href="#%E4%B8%80%E9%81%93ctf%E9%A2%98phpinfo">一道CTF题:PHPINFO</a></li>
+</ul>
+</li>
+<li><a href="#phar%E6%8B%93%E5%B1%95%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%94%BB%E5%87%BB%E9%9D%A2">phar拓展反序列化攻击面</a>
+<ul>
+<li><a href="#phar%E6%96%87%E4%BB%B6%E7%AE%80%E4%BB%8B">phar文件简介</a>
+<ul>
+<li><a href="#%E6%A6%82%E5%BF%B5">概念</a></li>
+<li><a href="#phar%E7%BB%84%E6%88%90%E7%BB%93%E6%9E%84">phar组成结构</a></li>
+<li><a href="#%E5%89%8D%E6%8F%90%E6%9D%A1%E4%BB%B6">前提条件</a></li>
+</ul>
+</li>
+<li><a href="#phar%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E">phar反序列化漏洞</a>
+<ul>
+<li><a href="#demo%E6%B5%8B%E8%AF%95">demo测试</a></li>
+<li><a href="#%E5%B0%86phar%E4%BC%AA%E9%80%A0%E6%88%90%E5%85%B6%E4%BB%96%E6%A0%BC%E5%BC%8F%E7%9A%84%E6%96%87%E4%BB%B6">将phar伪造成其他格式的文件</a>
+<ul>
+<li><a href="#%E5%88%A9%E7%94%A8%E6%9D%A1%E4%BB%B6">利用条件</a></li>
+<li><a href="#%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0">漏洞复现</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5">参考链接</a></li>
+</ul>
+
+              </div>
             </div>
-            
-              <div class="tag-container">
-                
-                  <a href="https://outlaws-bai.github.io/tag/g6GKCnb6O/" class="tag">
-                    knowledge-web
-                  </a>
-                
-              </div>
-            
-            
-              <div class="next-post">
-                <div class="next">下一篇</div>
-                <a href="https://outlaws-bai.github.io/post/hello-gridea/">
-                  <h3 class="post-title">
-                    Hello Gridea
-                  </h3>
-                </a>
-              </div>
-            
-
-            
-
-          </div>
-
+          </article>
         </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://outlaws-bai.github.io/post/hello-gridea/">
+              <h3 class="post-title">
+                Hello Gridea
+              </h3>
+            </a>
+          </div>
+        
+
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://outlaws-bai.github.io/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
       </div>
     </div>
 
-    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
-<script type="application/javascript">
+    <script>
+      hljs.initHighlightingOnLoad()
 
-AOS.init();
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
 
-var app = new Vue({
-  el: '#app',
-  data: {
-    menuVisible: false,
-  },
-})
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
 
-</script>
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
 
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
 
-
-
-
-
+    </script>
   </body>
 </html>
