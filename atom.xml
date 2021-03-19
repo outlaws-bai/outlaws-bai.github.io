@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-    <id>http://localhost:4000</id>
+    <id>https://outlaws-bai.github.io</id>
     <title>outlaws&apos; blog</title>
-    <updated>2021-03-19T01:22:08.642Z</updated>
+    <updated>2021-03-19T01:24:20.523Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
-    <link rel="alternate" href="http://localhost:4000"/>
-    <link rel="self" href="http://localhost:4000/atom.xml"/>
+    <link rel="alternate" href="https://outlaws-bai.github.io"/>
+    <link rel="self" href="https://outlaws-bai.github.io/atom.xml"/>
     <subtitle>生如逆旅，一苇以航。</subtitle>
-    <logo>http://localhost:4000/images/avatar.png</logo>
-    <icon>http://localhost:4000/favicon.ico</icon>
+    <logo>https://outlaws-bai.github.io/images/avatar.png</logo>
+    <icon>https://outlaws-bai.github.io/favicon.ico</icon>
     <rights>All rights reserved 2021, outlaws&apos; blog</rights>
     <entry>
         <title type="html"><![CDATA[XXE]]></title>
-        <id>http://localhost:4000/post/xxe/</id>
-        <link href="http://localhost:4000/post/xxe/">
+        <id>https://outlaws-bai.github.io/post/xxe/</id>
+        <link href="https://outlaws-bai.github.io/post/xxe/">
         </link>
         <updated>2021-03-19T01:14:20.000Z</updated>
         <content type="html"><![CDATA[<h1 id="xxe">XXE</h1>
@@ -143,8 +143,8 @@ eg:
     </entry>
     <entry>
         <title type="html"><![CDATA[php序列化与反序列化]]></title>
-        <id>http://localhost:4000/post/php-serialize&amp;unserialize/</id>
-        <link href="http://localhost:4000/post/php-serialize&amp;unserialize/">
+        <id>https://outlaws-bai.github.io/post/php-serialize&amp;unserialize/</id>
+        <link href="https://outlaws-bai.github.io/post/php-serialize&amp;unserialize/">
         </link>
         <updated>2021-03-18T03:59:36.000Z</updated>
         <content type="html"><![CDATA[<h1 id="序列化与反序列化">序列化与反序列化</h1>
