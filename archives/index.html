@@ -9,7 +9,7 @@
 <meta name="description" content="生如逆旅，一苇以航。">
 <meta name="theme-color" content="#000">
 <title>outlaws&#39; blog</title>
-<link rel="shortcut icon" href="/favicon.ico?v=1616471096851">
+<link rel="shortcut icon" href="/favicon.ico?v=1616471649491">
 <link rel="stylesheet" href="/media/css/pisces.css">
 <link rel="stylesheet" href="/media/fonts/font-awesome.css">
 <link
@@ -648,13 +648,12 @@ show_source(__FILE__);
 &lt;p&gt;1.绕过preg_match(&#39;/[oc]:\d+:/i&#39;, $pop, $result);处正则，只需使得O:+9即可，但要注意+需使用url编码后的%2B，否则会被解析为空格&lt;/p&gt;
 &lt;p&gt;2.绕过__wakeup()  O:9:&amp;quot;getresult&amp;quot;:2:{   将2改为3&lt;/p&gt;
 &lt;p&gt;3.escapeshellcmd()&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;escapeshellcmd()函数对字符串中可能会欺骗shell 命令执行任意命令的字符进行转义。 此函数保证用户输入的数据在传送到 exec()或 system() 函数，或者执行操作符之前进行转义。
-反斜线（\）会在以下字符之前插入： &amp;amp;#;`|*?~&amp;lt;&amp;gt;^()[]{}$\,\x0A 和 \xFF。 &#39; 和 &amp;quot; 仅在不配对儿的时候被转义。 在 Windows平台上，所有这些字符以及 % 和 ! 字符都会被空格代替。
-而find命令，如果想多执行别的命令，可以利用-or，并且-exec 参数后面跟的是command命令，该命令的终止是以;为结束标志的，并且要注意前面的空格，所以这句命令后面的分号是不可缺少的，考虑到各个系统中分号会有不同的意义，所以前面加反斜杠。
-所以可以构造payload为：find /tmp -iname sth -or -exec ls \;
-所以我们的输入为：sth -or -exec ls / ;，这里没有\，是因为上一个函数自动帮你加了\。
-读取flag文件，获取flag。
-&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;escapeshellcmd()函数对字符串中可能会欺骗shell 命令执行任意命令的字符进行转义。 此函数保证用户输入的数据在传送到 exec()或 system() 函数，或者执行操作符之前进行转义。&lt;br&gt;
+反斜线（\）会在以下字符之前插入： &amp;amp;#;`|*?~&amp;lt;&amp;gt;^()[]{}$,\x0A 和 \xFF。 &#39; 和 &amp;quot; 仅在不配对儿的时候被转义。 在 Windows平台上，所有这些字符以及 % 和 ! 字符都会被空格代替。&lt;br&gt;
+而find命令，如果想多执行别的命令，可以利用-or，并且-exec 参数后面跟的是command命令，该命令的终止是以;为结束标志的，并且要注意前面的空格，所以这句命令后面的分号是不可缺少的，考虑到各个系统中分号会有不同的意义，所以前面加反斜杠。&lt;br&gt;
+所以可以构造payload为：find /tmp -iname sth -or -exec ls ;&lt;br&gt;
+所以我们的输入为：sth -or -exec ls / ;，这里没有\，是因为上一个函数自动帮你加了\。&lt;br&gt;
+读取flag文件，获取flag。&lt;/p&gt;
 &lt;p&gt;构造pop：&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-php&#34;&gt;&amp;lt;?php   
 class getresult{
