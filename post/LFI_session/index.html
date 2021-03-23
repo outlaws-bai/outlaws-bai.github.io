@@ -9,7 +9,7 @@
 <meta name="description" content="生如逆旅，一苇以航。">
 <meta name="theme-color" content="#000">
 <title>记一道session文件包含题目 | outlaws&#39; blog</title>
-<link rel="shortcut icon" href="/favicon.ico?v=1616471986183">
+<link rel="shortcut icon" href="/favicon.ico?v=1616472215869">
 <link rel="stylesheet" href="/media/css/pisces.css">
 <link rel="stylesheet" href="/media/fonts/font-awesome.css">
 <link
@@ -1231,8 +1231,8 @@ show_source(__FILE__);
 &lt;p&gt;escapeshellcmd()函数对字符串中可能会欺骗shell 命令执行任意命令的字符进行转义。 此函数保证用户输入的数据在传送到 exec()或 system() 函数，或者执行操作符之前进行转义。&lt;br&gt;
 反斜线（\）会在以下字符之前插入： &amp;amp;#;`|*?~&amp;lt;&amp;gt;^()[]{}$,\x0A 和 \xFF。 &#39; 和 &amp;quot; 仅在不配对儿的时候被转义。 在 Windows平台上，所有这些字符以及 % 和 ! 字符都会被空格代替。&lt;br&gt;
 而find命令，如果想多执行别的命令，可以利用-or，并且-exec 参数后面跟的是command命令，该命令的终止是以;为结束标志的，并且要注意前面的空格，所以这句命令后面的分号是不可缺少的，考虑到各个系统中分号会有不同的意义，所以前面加反斜杠。&lt;br&gt;
-所以可以构造后payload为：find /tmp -iname sth -or -exec ls &lt;br&gt;
-读取flag文件，获取flag。&lt;/p&gt;
+所以可以构造后payload为：find /tmp -iname sth -or -exec ls ;&lt;br&gt;
+在构造pop时不添加\是因为escapeshellcmd()函数会为;自动添加，命令执行成功后即可读取flag文件，获取flag。&lt;/p&gt;
 &lt;p&gt;构造pop：&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-php&#34;&gt;&amp;lt;?php   
 class getresult{
@@ -1262,8 +1262,8 @@ echo serialize($g);
 &lt;figure data-type=&#34;image&#34; tabindex=&#34;2&#34;&gt;&lt;img src=&#34;https://outlaws-bai.github.io/post-images/1616470360978.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
 &lt;h1 id=&#34;小结&#34;&gt;小结&lt;/h1&gt;
 &lt;p&gt;find命令，如果想多执行别的命令，可以利用-or，并且-exec 参数后面跟的是command命令，该命令的终止是以;为结束标志的，并且要注意前面的空格，所以这句命令后面的分号是不可缺少的，考虑到各个系统中分号会有不同的意义，所以前面加反斜杠。&lt;br&gt;
-所以可以构造payload为：find /tmp -iname sth -or -exec ls &lt;br&gt;
-读取flag文件，获取flag。&lt;/p&gt;
+所以可以构造payload为：find /tmp -iname sth -or -exec ls ;&lt;br&gt;
+在构造pop时不添加\是因为escapeshellcmd()函数会为;自动添加，命令执行成功后即可读取flag文件，获取flag。&lt;/p&gt;
 ">记一道反序列化&find命令执行题目</a>
       </div>
       
