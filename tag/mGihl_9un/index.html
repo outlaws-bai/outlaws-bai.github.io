@@ -9,7 +9,7 @@
 <meta name="description" content="生如逆旅，一苇以航。">
 <meta name="theme-color" content="#000">
 <title>outlaws&#39; blog</title>
-<link rel="shortcut icon" href="/favicon.ico?v=1616472215869">
+<link rel="shortcut icon" href="/favicon.ico?v=1616556362354">
 <link rel="stylesheet" href="/media/css/pisces.css">
 <link rel="stylesheet" href="/media/fonts/font-awesome.css">
 <link
@@ -206,19 +206,19 @@
     <div class="sidebar-item-box">
       <a href="/archives/">
         
-        <span class="site-item-stat-count">4</span>
+        <span class="site-item-stat-count">5</span>
         <span class="site-item-stat-name language" data-lan="article">文章</span>
       </a>
     </div>
     <div class="sidebar-item-box">
       <a href="">
-        <span class="site-item-stat-count">8</span>
+        <span class="site-item-stat-count">9</span>
         <span class="site-item-stat-name language" data-lan="category">分类</span>
       </a>
     </div>
     <div class="sidebar-item-box">
       <a href="/tags/">
-        <span class="site-item-stat-count">8</span>
+        <span class="site-item-stat-count">9</span>
         <span class="site-item-stat-name language" data-lan="tag">标签</span>
       </a>
     </div>
@@ -270,6 +270,12 @@
           <small class="language" data-lan="tag">标签</small>
         </h2>
       </div>
+      
+      
+      
+      
+      
+      
       
       
       
@@ -568,6 +574,271 @@
       <hr>
     </div>
     <div class="result" id="result">
+      
+      <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://outlaws-bai.github.io/post/ssrf/"" data-c="
+          &lt;h1 id=&#34;漏洞简介&#34;&gt;漏洞简介&lt;/h1&gt;
+&lt;p&gt;SSRF(Server-Side Request Forgery)，服务器端请求伪造，利用漏洞伪造服务器端发起请求，从而突破客户端获取不到数据的限制。&lt;/p&gt;
+&lt;p&gt;网站中对外发起网络请求的地方都可能存在ssrf漏洞。&lt;/p&gt;
+&lt;h1 id=&#34;漏洞危害&#34;&gt;漏洞危害&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;1、被当做跳板对外网服务DDOS&lt;/li&gt;
+&lt;li&gt;2、对服务器所在内网存活主机扫描、以及对这些主机的端口指纹进行识别(dict协议)&lt;/li&gt;
+&lt;li&gt;3、攻击运行在内网或本地的脆弱组件或应用程序（比如redis、mysql等）&lt;/li&gt;
+&lt;li&gt;4、对内网Web应用进行指纹识别，通过访问默认文件实现&lt;/li&gt;
+&lt;li&gt;5、读本地文件(file协议)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&#34;漏洞挖掘&#34;&gt;漏洞挖掘&lt;/h1&gt;
+&lt;h2 id=&#34;从web功能上寻找&#34;&gt;从web功能上寻找&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;1、分享功能：通过URL地址分享网页内容&lt;/li&gt;
+&lt;li&gt;2、转码服务：通过URL地址把原地址的网页内容调优为适合手机屏幕游览&lt;/li&gt;
+&lt;li&gt;3、在线翻译：通过URL翻译对应文本的内容&lt;/li&gt;
+&lt;li&gt;4、图片加载与下载：通过URL地址加载或下载图片&lt;/li&gt;
+&lt;li&gt;5、图片和文章的收藏功能&lt;/li&gt;
+&lt;li&gt;6、未公开的api实现以及其他调用URL的功能&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;从url关键字中寻找&#34;&gt;从URL关键字中寻找&lt;/h2&gt;
+&lt;p&gt;share、wap、url、link、src、source、target、u、3g、display、sourceURL、imageURL、domain&lt;/p&gt;
+&lt;h1 id=&#34;源代码&#34;&gt;源代码&lt;/h1&gt;
+&lt;h2 id=&#34;php&#34;&gt;php&lt;/h2&gt;
+&lt;p&gt;下面是一段通过URL地址加载图片的php代码实现&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&amp;lt;?php
+    if(isset($_GET[&#39;url&#39;])){
+        $content=file_get_contents($_GET[&#39;url&#39;]);
+        $filename=&#39;&#39;.rand().&#39;img.png&#39;;
+        $fopen = fopen($filename,&#39;wb&#39;);
+        file_put_contents($filename, $content);
+        $img=&amp;quot;&amp;lt;img src=\&amp;quot;&amp;quot;.$filename.&amp;quot;\&amp;quot;/&amp;gt;&amp;quot;;
+        echo $img;
+    }
+?&amp;gt;
+
+#http://127.0.0.1/ssrf.php?url=http://127.0.0.1/1.png
+#此时就可以利用http://127.0.0.1/ssrf.php?url=http://127.0.0.1/index.php读取index.php的内容
+#php中可能触发ssrf的函数有：file_put_contents,fsockopen,curl_exec
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;java&#34;&gt;JAVA&lt;/h2&gt;
+&lt;p&gt;下面是一段通过URL连接加载内容并输出的java代码实现&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;//HttpURLConnection ssrf vul
+String url = request.getParameter(&amp;quot;url&amp;quot;);
+URL u = new URL(url);
+URLConnection urlConnection = u.openConnection();  
+HttpURLConnection httpUrl = (HttpURLConnection)urlConnection;   
+BufferedReader in = new BufferedReader(new InputStreamReader(httpUrl.getInputStream())); //发起请求,触发漏洞String inputLine;
+StringBuffer html = new StringBuffer(); 
+while ((inputLine = in.readLine()) != null) {
+	html.append(inputLine);
+	}        
+System.out.println(&amp;quot;html:&amp;quot; + html.toString());
+in.close();
+
+#java可触发的有:HttpURLConnection,urlConnection,ImageIO,Request,openStream,OkHttpClinet,HttpClinets
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h1 id=&#34;绕过技巧&#34;&gt;绕过技巧&lt;/h1&gt;
+&lt;p&gt;主要取决于代码对url的检测&lt;/p&gt;
+&lt;h2 id=&#34;符号&#34;&gt;@符号&lt;/h2&gt;
+&lt;p&gt;url格式为&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;http://username:password@ip:port/path&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;可以利用@绕过，如&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;http://example.com@127.0.0.1&lt;/code&gt;&lt;/p&gt;
+&lt;h2 id=&#34;添加端口&#34;&gt;添加端口&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;http://127.0.0.1:80
+http://localhost:22
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;&#34;&gt;[::]&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;利用[::]绕过localhost
+http://[::]:80/  &amp;gt;&amp;gt;&amp;gt;  http://127.0.0.1
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;短地址&#34;&gt;短地址&lt;/h2&gt;
+&lt;p&gt;302跳转&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;http://dwz.cn/11SMa  &amp;gt;&amp;gt;&amp;gt;  http://127.0.0.1
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;xipio&#34;&gt;xip.io&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;http://127.0.0.1.xip.io/   &amp;gt;&amp;gt;&amp;gt;  http://127.0.0.1
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;进制转换&#34;&gt;进制转换&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;十进制&lt;/li&gt;
+&lt;li&gt;八进制&lt;/li&gt;
+&lt;li&gt;十六进制&lt;/li&gt;
+&lt;li&gt;不同进制组合转换&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code&gt;http://127.0.0.1  &amp;gt;&amp;gt;&amp;gt;  http://2130706433/
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;dns-rebinding重绑定&#34;&gt;DNS rebinding(重绑定)&lt;/h2&gt;
+&lt;p&gt;后边专题讲吧&lt;/p&gt;
+&lt;h1 id=&#34;可以使用的协议&#34;&gt;可以使用的协议&lt;/h1&gt;
+&lt;p&gt;常见的协议有file://，http://，ftp://，gopher://，php://&lt;/p&gt;
+&lt;p&gt;根据不同语言分类如下(空处主要取决于版本或是否开启设置)&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;&lt;/th&gt;
+&lt;th&gt;php&lt;/th&gt;
+&lt;th&gt;java&lt;/th&gt;
+&lt;th&gt;curl&lt;/th&gt;
+&lt;th&gt;perl&lt;/th&gt;
+&lt;th&gt;asp.net&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;http&lt;/td&gt;
+&lt;td&gt;√&lt;/td&gt;
+&lt;td&gt;√&lt;/td&gt;
+&lt;td&gt;√&lt;/td&gt;
+&lt;td&gt;√&lt;/td&gt;
+&lt;td&gt;√&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;https&lt;/td&gt;
+&lt;td&gt;√&lt;/td&gt;
+&lt;td&gt;√&lt;/td&gt;
+&lt;td&gt;√&lt;/td&gt;
+&lt;td&gt;√&lt;/td&gt;
+&lt;td&gt;√&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;gopher&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;√&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;tftp&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;×&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;×&lt;/td&gt;
+&lt;td&gt;×&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;dict&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;×&lt;/td&gt;
+&lt;td&gt;√&lt;/td&gt;
+&lt;td&gt;×&lt;/td&gt;
+&lt;td&gt;×&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;file&lt;/td&gt;
+&lt;td&gt;√&lt;/td&gt;
+&lt;td&gt;√&lt;/td&gt;
+&lt;td&gt;√&lt;/td&gt;
+&lt;td&gt;√&lt;/td&gt;
+&lt;td&gt;√&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;ftp&lt;/td&gt;
+&lt;td&gt;√&lt;/td&gt;
+&lt;td&gt;√&lt;/td&gt;
+&lt;td&gt;√&lt;/td&gt;
+&lt;td&gt;√&lt;/td&gt;
+&lt;td&gt;√&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;imap&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;×&lt;/td&gt;
+&lt;td&gt;√&lt;/td&gt;
+&lt;td&gt;√&lt;/td&gt;
+&lt;td&gt;×&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;pop3&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;×&lt;/td&gt;
+&lt;td&gt;√&lt;/td&gt;
+&lt;td&gt;√&lt;/td&gt;
+&lt;td&gt;×&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;rtsp&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;√&lt;/td&gt;
+&lt;td&gt;√&lt;/td&gt;
+&lt;td&gt;√&lt;/td&gt;
+&lt;td&gt;√&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;smb&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;√&lt;/td&gt;
+&lt;td&gt;√&lt;/td&gt;
+&lt;td&gt;√&lt;/td&gt;
+&lt;td&gt;√&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;smtp&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;×&lt;/td&gt;
+&lt;td&gt;√&lt;/td&gt;
+&lt;td&gt;×&lt;/td&gt;
+&lt;td&gt;×&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;telnet&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;×&lt;/td&gt;
+&lt;td&gt;√&lt;/td&gt;
+&lt;td&gt;×&lt;/td&gt;
+&lt;td&gt;×&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;ssh2&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;×&lt;/td&gt;
+&lt;td&gt;×&lt;/td&gt;
+&lt;td&gt;×&lt;/td&gt;
+&lt;td&gt;×&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;ogg&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;×&lt;/td&gt;
+&lt;td&gt;×&lt;/td&gt;
+&lt;td&gt;×&lt;/td&gt;
+&lt;td&gt;×&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;expect&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;×&lt;/td&gt;
+&lt;td&gt;×&lt;/td&gt;
+&lt;td&gt;×&lt;/td&gt;
+&lt;td&gt;×&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;idap&lt;/td&gt;
+&lt;td&gt;×&lt;/td&gt;
+&lt;td&gt;×&lt;/td&gt;
+&lt;td&gt;×&lt;/td&gt;
+&lt;td&gt;√&lt;/td&gt;
+&lt;td&gt;×&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;php&lt;/td&gt;
+&lt;td&gt;√&lt;/td&gt;
+&lt;td&gt;×&lt;/td&gt;
+&lt;td&gt;×&lt;/td&gt;
+&lt;td&gt;×&lt;/td&gt;
+&lt;td&gt;×&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;zlib/bzip2/zip&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;×&lt;/td&gt;
+&lt;td&gt;×&lt;/td&gt;
+&lt;td&gt;×&lt;/td&gt;
+&lt;td&gt;×&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+">ssrf详解</a>
+      </div>
       
       <div class="item">
         <a class="result-title" style="opacity: 0;" href="https://outlaws-bai.github.io/post/fanxuliehua&amp;find/"" data-c="

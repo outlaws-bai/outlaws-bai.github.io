@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://outlaws-bai.github.io</id>
     <title>outlaws&apos; blog</title>
-    <updated>2021-03-23T04:04:36.393Z</updated>
+    <updated>2021-03-24T03:27:18.688Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://outlaws-bai.github.io"/>
     <link rel="self" href="https://outlaws-bai.github.io/atom.xml"/>
@@ -10,6 +10,274 @@
     <logo>https://outlaws-bai.github.io/images/avatar.png</logo>
     <icon>https://outlaws-bai.github.io/favicon.ico</icon>
     <rights>All rights reserved 2021, outlaws&apos; blog</rights>
+    <entry>
+        <title type="html"><![CDATA[ssrf详解]]></title>
+        <id>https://outlaws-bai.github.io/post/ssrf/</id>
+        <link href="https://outlaws-bai.github.io/post/ssrf/">
+        </link>
+        <updated>2021-03-24T03:25:05.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="漏洞简介">漏洞简介</h1>
+<p>SSRF(Server-Side Request Forgery)，服务器端请求伪造，利用漏洞伪造服务器端发起请求，从而突破客户端获取不到数据的限制。</p>
+<p>网站中对外发起网络请求的地方都可能存在ssrf漏洞。</p>
+<h1 id="漏洞危害">漏洞危害</h1>
+<ul>
+<li>1、被当做跳板对外网服务DDOS</li>
+<li>2、对服务器所在内网存活主机扫描、以及对这些主机的端口指纹进行识别(dict协议)</li>
+<li>3、攻击运行在内网或本地的脆弱组件或应用程序（比如redis、mysql等）</li>
+<li>4、对内网Web应用进行指纹识别，通过访问默认文件实现</li>
+<li>5、读本地文件(file协议)</li>
+</ul>
+<h1 id="漏洞挖掘">漏洞挖掘</h1>
+<h2 id="从web功能上寻找">从web功能上寻找</h2>
+<ul>
+<li>1、分享功能：通过URL地址分享网页内容</li>
+<li>2、转码服务：通过URL地址把原地址的网页内容调优为适合手机屏幕游览</li>
+<li>3、在线翻译：通过URL翻译对应文本的内容</li>
+<li>4、图片加载与下载：通过URL地址加载或下载图片</li>
+<li>5、图片和文章的收藏功能</li>
+<li>6、未公开的api实现以及其他调用URL的功能</li>
+</ul>
+<h2 id="从url关键字中寻找">从URL关键字中寻找</h2>
+<p>share、wap、url、link、src、source、target、u、3g、display、sourceURL、imageURL、domain</p>
+<h1 id="源代码">源代码</h1>
+<h2 id="php">php</h2>
+<p>下面是一段通过URL地址加载图片的php代码实现</p>
+<pre><code>&lt;?php
+    if(isset($_GET['url'])){
+        $content=file_get_contents($_GET['url']);
+        $filename=''.rand().'img.png';
+        $fopen = fopen($filename,'wb');
+        file_put_contents($filename, $content);
+        $img=&quot;&lt;img src=\&quot;&quot;.$filename.&quot;\&quot;/&gt;&quot;;
+        echo $img;
+    }
+?&gt;
+
+#http://127.0.0.1/ssrf.php?url=http://127.0.0.1/1.png
+#此时就可以利用http://127.0.0.1/ssrf.php?url=http://127.0.0.1/index.php读取index.php的内容
+#php中可能触发ssrf的函数有：file_put_contents,fsockopen,curl_exec
+</code></pre>
+<h2 id="java">JAVA</h2>
+<p>下面是一段通过URL连接加载内容并输出的java代码实现</p>
+<pre><code>//HttpURLConnection ssrf vul
+String url = request.getParameter(&quot;url&quot;);
+URL u = new URL(url);
+URLConnection urlConnection = u.openConnection();  
+HttpURLConnection httpUrl = (HttpURLConnection)urlConnection;   
+BufferedReader in = new BufferedReader(new InputStreamReader(httpUrl.getInputStream())); //发起请求,触发漏洞String inputLine;
+StringBuffer html = new StringBuffer(); 
+while ((inputLine = in.readLine()) != null) {
+	html.append(inputLine);
+	}        
+System.out.println(&quot;html:&quot; + html.toString());
+in.close();
+
+#java可触发的有:HttpURLConnection,urlConnection,ImageIO,Request,openStream,OkHttpClinet,HttpClinets
+</code></pre>
+<h1 id="绕过技巧">绕过技巧</h1>
+<p>主要取决于代码对url的检测</p>
+<h2 id="符号">@符号</h2>
+<p>url格式为</p>
+<p><code>http://username:password@ip:port/path</code></p>
+<p>可以利用@绕过，如</p>
+<p><code>http://example.com@127.0.0.1</code></p>
+<h2 id="添加端口">添加端口</h2>
+<pre><code>http://127.0.0.1:80
+http://localhost:22
+</code></pre>
+<h2 id="">[::]</h2>
+<pre><code>利用[::]绕过localhost
+http://[::]:80/  &gt;&gt;&gt;  http://127.0.0.1
+</code></pre>
+<h2 id="短地址">短地址</h2>
+<p>302跳转</p>
+<pre><code>http://dwz.cn/11SMa  &gt;&gt;&gt;  http://127.0.0.1
+</code></pre>
+<h2 id="xipio">xip.io</h2>
+<pre><code>http://127.0.0.1.xip.io/   &gt;&gt;&gt;  http://127.0.0.1
+</code></pre>
+<h2 id="进制转换">进制转换</h2>
+<ul>
+<li>十进制</li>
+<li>八进制</li>
+<li>十六进制</li>
+<li>不同进制组合转换</li>
+</ul>
+<pre><code>http://127.0.0.1  &gt;&gt;&gt;  http://2130706433/
+</code></pre>
+<h2 id="dns-rebinding重绑定">DNS rebinding(重绑定)</h2>
+<p>后边专题讲吧</p>
+<h1 id="可以使用的协议">可以使用的协议</h1>
+<p>常见的协议有file://，http://，ftp://，gopher://，php://</p>
+<p>根据不同语言分类如下(空处主要取决于版本或是否开启设置)</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>php</th>
+<th>java</th>
+<th>curl</th>
+<th>perl</th>
+<th>asp.net</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>http</td>
+<td>√</td>
+<td>√</td>
+<td>√</td>
+<td>√</td>
+<td>√</td>
+</tr>
+<tr>
+<td>https</td>
+<td>√</td>
+<td>√</td>
+<td>√</td>
+<td>√</td>
+<td>√</td>
+</tr>
+<tr>
+<td>gopher</td>
+<td></td>
+<td></td>
+<td></td>
+<td>√</td>
+<td></td>
+</tr>
+<tr>
+<td>tftp</td>
+<td></td>
+<td>×</td>
+<td></td>
+<td>×</td>
+<td>×</td>
+</tr>
+<tr>
+<td>dict</td>
+<td></td>
+<td>×</td>
+<td>√</td>
+<td>×</td>
+<td>×</td>
+</tr>
+<tr>
+<td>file</td>
+<td>√</td>
+<td>√</td>
+<td>√</td>
+<td>√</td>
+<td>√</td>
+</tr>
+<tr>
+<td>ftp</td>
+<td>√</td>
+<td>√</td>
+<td>√</td>
+<td>√</td>
+<td>√</td>
+</tr>
+<tr>
+<td>imap</td>
+<td></td>
+<td>×</td>
+<td>√</td>
+<td>√</td>
+<td>×</td>
+</tr>
+<tr>
+<td>pop3</td>
+<td></td>
+<td>×</td>
+<td>√</td>
+<td>√</td>
+<td>×</td>
+</tr>
+<tr>
+<td>rtsp</td>
+<td></td>
+<td>√</td>
+<td>√</td>
+<td>√</td>
+<td>√</td>
+</tr>
+<tr>
+<td>smb</td>
+<td></td>
+<td>√</td>
+<td>√</td>
+<td>√</td>
+<td>√</td>
+</tr>
+<tr>
+<td>smtp</td>
+<td></td>
+<td>×</td>
+<td>√</td>
+<td>×</td>
+<td>×</td>
+</tr>
+<tr>
+<td>telnet</td>
+<td></td>
+<td>×</td>
+<td>√</td>
+<td>×</td>
+<td>×</td>
+</tr>
+<tr>
+<td>ssh2</td>
+<td></td>
+<td>×</td>
+<td>×</td>
+<td>×</td>
+<td>×</td>
+</tr>
+<tr>
+<td>ogg</td>
+<td></td>
+<td>×</td>
+<td>×</td>
+<td>×</td>
+<td>×</td>
+</tr>
+<tr>
+<td>expect</td>
+<td></td>
+<td>×</td>
+<td>×</td>
+<td>×</td>
+<td>×</td>
+</tr>
+<tr>
+<td>idap</td>
+<td>×</td>
+<td>×</td>
+<td>×</td>
+<td>√</td>
+<td>×</td>
+</tr>
+<tr>
+<td>php</td>
+<td>√</td>
+<td>×</td>
+<td>×</td>
+<td>×</td>
+<td>×</td>
+</tr>
+<tr>
+<td>zlib/bzip2/zip</td>
+<td></td>
+<td>×</td>
+<td>×</td>
+<td>×</td>
+<td>×</td>
+</tr>
+</tbody>
+</table>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[记一道反序列化&find命令执行题目]]></title>
         <id>https://outlaws-bai.github.io/post/fanxuliehua&amp;find/</id>
