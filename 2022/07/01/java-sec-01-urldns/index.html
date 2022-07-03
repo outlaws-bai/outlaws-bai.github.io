@@ -539,16 +539,16 @@ filed<span class="token punctuation">.</span><span class="token function">setAcc
 
 <p>触发HashMap的readObject()方法</p>
 <h2 id="调用链分析"><a href="#调用链分析" class="headerlink" title="调用链分析"></a>调用链分析</h2><p>通过payload我们发现最终调用的是HashMap的readObject()方法，进入查看</p>
-<p><img src="D:\install2\Typora\images\image-20220701193836412.png" alt="image-20220701193836412"></p>
+<p><img src="https://raw.githubusercontent.com/outlaws-bai/picture/main/img/image-20220703161810739.png"></p>
 <p>再跟进1413行hash(key)</p>
-<p><img src="D:\install2\Typora\images\image-20220703144610966.png" alt="image-20220703144610966"></p>
+<p><img src="https://raw.githubusercontent.com/outlaws-bai/picture/main/img/image-20220703162030960.png"></p>
 <p>此时会去获取key的hashCode()函数获取hashCode，而我们的key是java.net.URL，所以此时会去调用java.net.URL的hashCode()方法，继续更进</p>
-<p><img src="D:\install2\Typora\images\image-20220703144931214.png" alt="image-20220703144931214"></p>
-<p><img src="D:\install2\Typora\images\image-20220703145020048.png" alt="image-20220703145020048"></p>
+<p><img src="https://raw.githubusercontent.com/outlaws-bai/picture/main/img/image-20220703161824219.png"></p>
+<p><img src="https://raw.githubusercontent.com/outlaws-bai/picture/main/img/image-20220703161904508.png"></p>
 <p>发现当hashCode等于-1时，会重新计算hashCode，通过URLStreamHandler的hashCode()方法</p>
-<p><img src="D:\install2\Typora\images\image-20220703151712688.png" alt="image-20220703151712688"></p>
+<p><img src="https://raw.githubusercontent.com/outlaws-bai/picture/main/img/image-20220703161912130.png"></p>
 <p>在这里就会进行一次DNS解析。</p>
-<p><img src="D:\install2\Typora\images\image-20220703153351498.png" alt="image-20220703153351498"></p>
+<p><img src="https://raw.githubusercontent.com/outlaws-bai/picture/main/img/image-20220703161918308.png"></p>
 <p>完整调用链如下：</p>
 <pre class="line-numbers language-none"><code class="language-none">HashMap#readObject()
 HashMap#hash()
