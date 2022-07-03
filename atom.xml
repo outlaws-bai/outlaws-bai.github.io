@@ -6,7 +6,7 @@
   <link href="https://outlaws.top/atom.xml" rel="self"/>
   
   <link href="https://outlaws.top/"/>
-  <updated>2021-09-29T14:23:11.647Z</updated>
+  <updated>2022-07-03T07:34:53.724Z</updated>
   <id>https://outlaws.top/</id>
   
   <author>
@@ -17,48 +17,27 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>php绕过disable_function&amp;open_basedir</title>
-    <link href="https://outlaws.top/2021/09/29/php-rao-guo-disable-function-open-basedir/"/>
-    <id>https://outlaws.top/2021/09/29/php-rao-guo-disable-function-open-basedir/</id>
-    <published>2021-09-29T14:20:12.000Z</published>
-    <updated>2021-09-29T14:23:11.647Z</updated>
+    <title>java-sec: 01. urldns</title>
+    <link href="https://outlaws.top/2022/07/01/java-sec-01-urldns/"/>
+    <id>https://outlaws.top/2022/07/01/java-sec-01-urldns/</id>
+    <published>2022-07-01T11:17:21.000Z</published>
+    <updated>2022-07-03T07:34:53.724Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;h2 id=&quot;glob&quot;&gt;&lt;a href=&quot;#glob&quot; class=&quot;headerlink&quot; title=&quot;glob&quot;&gt;&lt;/a&gt;glob&lt;/h2&gt;&lt;pre class=&quot;line-numbers language-php&quot; data-language=&quot;php&quot;&gt;&lt;code</summary>
+    <summary type="html">&lt;h1 id=&quot;URLDNS&quot;&gt;&lt;a href=&quot;#URLDNS&quot; class=&quot;headerlink&quot;</summary>
         
       
     
     
     
     
-    <category term="php bypass" scheme="https://outlaws.top/tags/php-bypass/"/>
+    <category term="java" scheme="https://outlaws.top/tags/java/"/>
     
-  </entry>
-  
-  <entry>
-    <title>php代码/命令执行</title>
-    <link href="https://outlaws.top/2021/09/29/php-dai-ma-ming-ling-zhi-xing/"/>
-    <id>https://outlaws.top/2021/09/29/php-dai-ma-ming-ling-zhi-xing/</id>
-    <published>2021-09-29T13:04:42.000Z</published>
-    <updated>2021-09-29T13:19:43.834Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h2 id=&quot;1-利用系统变量&quot;&gt;&lt;a href=&quot;#1-利用系统变量&quot; class=&quot;headerlink&quot; title=&quot;1.利用系统变量&quot;&gt;&lt;/a&gt;1.利用系统变量&lt;/h2&gt;&lt;pre class=&quot;line-numbers language-shell&quot;</summary>
-        
-      
-    
-    
-    
-    
-    <category term="php代码/命令执行" scheme="https://outlaws.top/tags/php%E4%BB%A3%E7%A0%81-%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C/"/>
+    <category term="urldns" scheme="https://outlaws.top/tags/urldns/"/>
     
   </entry>
   
