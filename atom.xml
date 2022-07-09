@@ -3,11 +3,11 @@
   <title>outlaws&#39;s blog</title>
   
   <subtitle>生如逆旅，一苇以航。</subtitle>
-  <link href="https://outlaws.top/atom.xml" rel="self"/>
+  <link href="https://outlaws-bai.github.io/atom.xml" rel="self"/>
   
-  <link href="https://outlaws.top/"/>
-  <updated>2022-07-09T09:26:28.778Z</updated>
-  <id>https://outlaws.top/</id>
+  <link href="https://outlaws-bai.github.io/"/>
+  <updated>2022-07-09T09:50:50.521Z</updated>
+  <id>https://outlaws-bai.github.io/</id>
   
   <author>
     <name>outlaws</name>
@@ -18,10 +18,10 @@
   
   <entry>
     <title>java-sec: 03. cc1-way2</title>
-    <link href="https://outlaws.top/2022/07/09/java-sec-03-cc1-way2/"/>
-    <id>https://outlaws.top/2022/07/09/java-sec-03-cc1-way2/</id>
+    <link href="https://outlaws-bai.github.io/2022/07/09/java-sec-03-cc1-way2/"/>
+    <id>https://outlaws-bai.github.io/2022/07/09/java-sec-03-cc1-way2/</id>
     <published>2022-07-09T08:21:40.000Z</published>
-    <updated>2022-07-09T09:26:28.778Z</updated>
+    <updated>2022-07-09T09:50:50.521Z</updated>
     
     
       
@@ -35,18 +35,18 @@
     
     
     
-    <category term="java" scheme="https://outlaws.top/tags/java/"/>
+    <category term="java" scheme="https://outlaws-bai.github.io/tags/java/"/>
     
-    <category term="cc1" scheme="https://outlaws.top/tags/cc1/"/>
+    <category term="cc1" scheme="https://outlaws-bai.github.io/tags/cc1/"/>
     
-    <category term="LazyMap" scheme="https://outlaws.top/tags/LazyMap/"/>
+    <category term="LazyMap" scheme="https://outlaws-bai.github.io/tags/LazyMap/"/>
     
   </entry>
   
   <entry>
     <title>java-sec: 02. cc1</title>
-    <link href="https://outlaws.top/2022/07/03/java-sec-02-cc1/"/>
-    <id>https://outlaws.top/2022/07/03/java-sec-02-cc1/</id>
+    <link href="https://outlaws-bai.github.io/2022/07/03/java-sec-02-cc1/"/>
+    <id>https://outlaws-bai.github.io/2022/07/03/java-sec-02-cc1/</id>
     <published>2022-07-03T08:50:06.000Z</published>
     <updated>2022-07-09T08:43:17.175Z</updated>
     
@@ -62,18 +62,18 @@
     
     
     
-    <category term="java" scheme="https://outlaws.top/tags/java/"/>
+    <category term="java" scheme="https://outlaws-bai.github.io/tags/java/"/>
     
-    <category term="cc1" scheme="https://outlaws.top/tags/cc1/"/>
+    <category term="cc1" scheme="https://outlaws-bai.github.io/tags/cc1/"/>
     
-    <category term="TransformedMap" scheme="https://outlaws.top/tags/TransformedMap/"/>
+    <category term="TransformedMap" scheme="https://outlaws-bai.github.io/tags/TransformedMap/"/>
     
   </entry>
   
   <entry>
     <title>java-sec: 01. urldns</title>
-    <link href="https://outlaws.top/2022/07/01/java-sec-01-urldns/"/>
-    <id>https://outlaws.top/2022/07/01/java-sec-01-urldns/</id>
+    <link href="https://outlaws-bai.github.io/2022/07/01/java-sec-01-urldns/"/>
+    <id>https://outlaws-bai.github.io/2022/07/01/java-sec-01-urldns/</id>
     <published>2022-07-01T11:17:21.000Z</published>
     <updated>2022-07-03T08:24:47.956Z</updated>
     
@@ -89,9 +89,9 @@
     
     
     
-    <category term="java" scheme="https://outlaws.top/tags/java/"/>
+    <category term="java" scheme="https://outlaws-bai.github.io/tags/java/"/>
     
-    <category term="urldns" scheme="https://outlaws.top/tags/urldns/"/>
+    <category term="urldns" scheme="https://outlaws-bai.github.io/tags/urldns/"/>
     
   </entry>
   

@@ -515,10 +515,10 @@
 
     <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<h3 id="payload分析"><a href="#payload分析" class="headerlink" title="payload分析"></a>payload分析</h3><p>与上一篇文章<a target="_blank" rel="noopener" href="https://www.outlaws.top/2022/07/03/java-sec-02-cc1/">cc1-TransformedMap</a>不同之处主要在于LazyMap</p>
+<h3 id="payload分析"><a href="#payload分析" class="headerlink" title="payload分析"></a>payload分析</h3><p>与上一篇文章<a href="https://outlaws-bai.github.io/2022/07/03/java-sec-02-cc1/">cc1-TransformedMap</a>不同之处主要在于LazyMap</p>
 <h3 id="LazyMap"><a href="#LazyMap" class="headerlink" title="LazyMap"></a>LazyMap</h3><p>LazyMap的漏洞触发点和TransformedMap唯一的差别是，TransformedMap是在写入元素的时候执行transform，而LazyMap是在其get方法中执行的 factory.transform() ，factory.transform就会执行我们构造好的transformerChain导致rce。</p>
 <p><img src="https://raw.githubusercontent.com/outlaws-bai/picture/main/img/image-20220709163230790.png" alt="image-20220709163230790"></p>
-<p>在<a target="_blank" rel="noopener" href="https://www.outlaws.top/2022/07/03/java-sec-02-cc1/">cc1-TransformedMap</a>中我们是利用sun.reflect.annotation.AnnotationInvocationHandler的readObject()方法执行了put操作，进而执行TransformedMap中我们的回调transformerChain，从而导致rce。而在LazyMap的利用中我们发现sun.reflect.annotation.AnnotationInvocationHandler的readObject()方法并没有直接执行LazyMap的get方法，但在invoke方法中发现有调用，因此可以用到代理</p>
+<p>在<a href="https://outlaws-bai.github.io/2022/07/03/java-sec-02-cc1/">cc1-TransformedMap</a>中我们是利用sun.reflect.annotation.AnnotationInvocationHandler的readObject()方法执行了put操作，进而执行TransformedMap中我们的回调transformerChain，从而导致rce。而在LazyMap的利用中我们发现sun.reflect.annotation.AnnotationInvocationHandler的readObject()方法并没有直接执行LazyMap的get方法，但在invoke方法中发现有调用，因此可以用到代理</p>
 <p><img src="https://raw.githubusercontent.com/outlaws-bai/picture/main/img/image-20220709163902696.png" alt="image-20220709163902696"></p>
 <h3 id="代理"><a href="#代理" class="headerlink" title="代理"></a>代理</h3><p>示例代码参考<a target="_blank" rel="noopener" href="https://github.com/outlaws-bai/java-sec/tree/main/src/main/java/com/outlaws/basic/proxy">java基础-proxy</a></p>
 <p>FileSystem是一个interface仅有一个list列文件方法。</p>
@@ -572,7 +572,7 @@ ChainedTransformer#transform()<span aria-hidden="true" class="line-numbers-rows"
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://outlaws.top/2022/07/09/java-sec-03-cc1-way2/">https://outlaws.top/2022/07/09/java-sec-03-cc1-way2/</a>
+                    <a href="https://outlaws-bai.github.io/2022/07/09/java-sec-03-cc1-way2/">https://outlaws-bai.github.io/2022/07/09/java-sec-03-cc1-way2/</a>
                 </span>
             </div>
             <div class="reprint__notice">
