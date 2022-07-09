@@ -6,7 +6,7 @@
   <link href="https://outlaws.top/atom.xml" rel="self"/>
   
   <link href="https://outlaws.top/"/>
-  <updated>2022-07-03T10:17:48.215Z</updated>
+  <updated>2022-07-09T09:26:28.778Z</updated>
   <id>https://outlaws.top/</id>
   
   <author>
@@ -17,11 +17,38 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>java-sec: 03. cc1-way2</title>
+    <link href="https://outlaws.top/2022/07/09/java-sec-03-cc1-way2/"/>
+    <id>https://outlaws.top/2022/07/09/java-sec-03-cc1-way2/</id>
+    <published>2022-07-09T08:21:40.000Z</published>
+    <updated>2022-07-09T09:26:28.778Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;CommonCollections1-way2&quot;&gt;&lt;a href=&quot;#CommonCollections1-way2&quot; class=&quot;headerlink&quot; title=&quot;CommonCollections1 -</summary>
+        
+      
+    
+    
+    
+    
+    <category term="java" scheme="https://outlaws.top/tags/java/"/>
+    
+    <category term="cc1" scheme="https://outlaws.top/tags/cc1/"/>
+    
+    <category term="LazyMap" scheme="https://outlaws.top/tags/LazyMap/"/>
+    
+  </entry>
+  
+  <entry>
     <title>java-sec: 02. cc1</title>
     <link href="https://outlaws.top/2022/07/03/java-sec-02-cc1/"/>
     <id>https://outlaws.top/2022/07/03/java-sec-02-cc1/</id>
     <published>2022-07-03T08:50:06.000Z</published>
-    <updated>2022-07-03T10:17:48.215Z</updated>
+    <updated>2022-07-09T08:43:17.175Z</updated>
     
     
       
@@ -35,7 +62,11 @@
     
     
     
+    <category term="java" scheme="https://outlaws.top/tags/java/"/>
+    
     <category term="cc1" scheme="https://outlaws.top/tags/cc1/"/>
+    
+    <category term="TransformedMap" scheme="https://outlaws.top/tags/TransformedMap/"/>
     
   </entry>
   

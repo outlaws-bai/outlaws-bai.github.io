@@ -434,8 +434,16 @@
                     
                     <div class="article-tag">
                         
+                            <a href="/tags/java/">
+                                <span class="chip bg-color">java</span>
+                            </a>
+                        
                             <a href="/tags/cc1/">
                                 <span class="chip bg-color">cc1</span>
+                            </a>
+                        
+                            <a href="/tags/TransformedMap/">
+                                <span class="chip bg-color">TransformedMap</span>
                             </a>
                         
                     </div>
@@ -582,6 +590,11 @@ construct<span class="token punctuation">.</span><span class="token function">se
 <p><img src="https://raw.githubusercontent.com/outlaws-bai/picture/main/img/image-20220703175815363.png" alt="image-20220703175815363"></p>
 <p>我们看到在361行执行了setValue，这样就会触发我们在outerMap设置的装饰器transformerChain，达到rce的目的</p>
 <p><img src="https://raw.githubusercontent.com/outlaws-bai/picture/main/img/image-20220703180055255.png" alt="image-20220703180055255"></p>
+<h2 id="利用链"><a href="#利用链" class="headerlink" title="利用链"></a>利用链</h2><pre class="line-numbers language-none"><code class="language-none">sun.reflect.annotation.AnnotationInvocationHandler#readObject()
+TransformedMap#setValue()
+ChainedTransformer#transform()<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="主要原理"><a href="#主要原理" class="headerlink" title="主要原理"></a>主要原理</h2><p>主要利用TransformedMap的特性，为Map增加一个回调，在进行put操作时触发我们构造好的transformerChain，而该put操作在sun.reflect.annotation.AnnotationInvocationHandler的readObject方法中可找到，因此串起来了整个利用链。</p>
 <h2 id="修复方法"><a href="#修复方法" class="headerlink" title="修复方法"></a>修复方法</h2><p><a target="_blank" rel="noopener" href="http://hg.openjdk.java.net/jdk8u/jdk8u/jdk/rev/f8a528d0379d">http://hg.openjdk.java.net/jdk8u/jdk8u/jdk/rev/f8a528d0379d</a></p>
 <p><img src="https://raw.githubusercontent.com/outlaws-bai/picture/main/img/image-20220703180433526.png" alt="image-20220703180433526"></p>
 <p>官方在这里新创建了一个LinkedHashMap，用于put数据，修复了该漏洞。</p>
@@ -653,8 +666,16 @@ construct<span class="token punctuation">.</span><span class="token function">se
                     
                         <div class="article-tag">
                             
+                                <a href="/tags/java/">
+                                    <span class="chip bg-color">java</span>
+                                </a>
+                            
                                 <a href="/tags/cc1/">
                                     <span class="chip bg-color">cc1</span>
+                                </a>
+                            
+                                <a href="/tags/TransformedMap/">
+                                    <span class="chip bg-color">TransformedMap</span>
                                 </a>
                             
                         </div>
@@ -700,18 +721,17 @@ construct<span class="token punctuation">.</span><span class="token function">se
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="far fa-dot-circle"></i>&nbsp;本篇
-            </div>
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2022/07/03/java-sec-02-cc1/">
+                <a href="/2022/07/09/java-sec-03-cc1-way2/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/9.jpg" class="responsive-img" alt="java-sec: 02. cc1">
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="java-sec: 03. cc1-way2">
                         
-                        <span class="card-title">java-sec: 02. cc1</span>
+                        <span class="card-title">java-sec: 03. cc1-way2</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -721,9 +741,9 @@ construct<span class="token punctuation">.</span><span class="token function">se
                         
                     </div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-07-03
-                            </span>
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2022-07-09
+                        </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
@@ -732,12 +752,19 @@ construct<span class="token punctuation">.</span><span class="token function">se
                         </span>
                     </div>
                 </div>
-
                 
                 <div class="card-action article-tags">
                     
+                    <a href="/tags/java/">
+                        <span class="chip bg-color">java</span>
+                    </a>
+                    
                     <a href="/tags/cc1/">
                         <span class="chip bg-color">cc1</span>
+                    </a>
+                    
+                    <a href="/tags/LazyMap/">
+                        <span class="chip bg-color">LazyMap</span>
                     </a>
                     
                 </div>
