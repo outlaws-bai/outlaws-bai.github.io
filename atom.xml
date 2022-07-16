@@ -6,7 +6,7 @@
   <link href="https://outlaws-bai.github.io/atom.xml" rel="self"/>
   
   <link href="https://outlaws-bai.github.io/"/>
-  <updated>2022-07-09T09:50:50.521Z</updated>
+  <updated>2022-07-16T08:53:28.860Z</updated>
   <id>https://outlaws-bai.github.io/</id>
   
   <author>
@@ -15,6 +15,35 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>java-sec: 04. cc6</title>
+    <link href="https://outlaws-bai.github.io/2022/07/16/java-sec-04-cc6/"/>
+    <id>https://outlaws-bai.github.io/2022/07/16/java-sec-04-cc6/</id>
+    <published>2022-07-16T07:42:15.000Z</published>
+    <updated>2022-07-16T08:53:28.860Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;CommonCollections6&quot;&gt;&lt;a href=&quot;#CommonCollections6&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    
+    <category term="java" scheme="https://outlaws-bai.github.io/tags/java/"/>
+    
+    <category term="LazyMap" scheme="https://outlaws-bai.github.io/tags/LazyMap/"/>
+    
+    <category term="cc6" scheme="https://outlaws-bai.github.io/tags/cc6/"/>
+    
+    <category term="TiedMapEntry" scheme="https://outlaws-bai.github.io/tags/TiedMapEntry/"/>
+    
+  </entry>
   
   <entry>
     <title>java-sec: 03. cc1-way2</title>
