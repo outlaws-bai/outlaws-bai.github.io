@@ -518,12 +518,12 @@
 <h3 id="payload分析"><a href="#payload分析" class="headerlink" title="payload分析"></a>payload分析</h3><p>payload主要分为4个部分:</p>
 <p>1.构造命令执行的恶意类，即获得Runtime.getRuntime().exec(“calc”);</p>
 <p>2.构造反序列化的利用链</p>
-<p>3.为了保证本地不触发命令，在put之后在更改LazyMap中factory的值</p>
+<p>3.为了保证本地不触发命令，在put之后再更改LazyMap中factory的值</p>
 <p>4.生成反序列化流并序列化</p>
 <h4 id="TiedMapEntry"><a href="#TiedMapEntry" class="headerlink" title="TiedMapEntry"></a>TiedMapEntry</h4><p>CC6中新用到的一个类。Entry可以简单理解为一个键值对，Map是多个键值对。</p>
-<h4 id="调用流程"><a href="#调用流程" class="headerlink" title="调用流程"></a>调用流程</h4><p>这次我们方向来分析，通过<a href="https://outlaws-bai.github.io/2022/07/09/java-sec-03-cc1-way2/">cc1-way2</a>，我们可以知道只要想办法通过反序列化调用LazyMap#get()，并使其运行到factory.transform(key)这里，就能触发命令执行，因为factory使我们构造好的ChainedTransformer。</p>
+<h4 id="调用流程"><a href="#调用流程" class="headerlink" title="调用流程"></a>调用流程</h4><p>这次我们反方向来分析，通过<a href="https://outlaws-bai.github.io/2022/07/09/java-sec-03-cc1-way2/">cc1-way2</a>，我们可以知道只要想办法通过反序列化调用LazyMap#get()，并使其运行到factory.transform(key)这里，就能触发命令执行，因为factory使我们构造好的ChainedTransformer。</p>
 <p><img src="https://raw.githubusercontent.com/outlaws-bai/picture/main/img/image-20220716162106822.png" alt="image-20220716162106822"></p>
-<p>那么按照这个思路，应该去找调用了LazyMap#get()的点，这里直接分析结果吧，前辈们已经帮我们找到了TiedMapEntry，TiedMapEntry#getValue()会调用，只要使得其中的map是LazyMap即可</p>
+<p>那么按照这个思路，应该去找调用了LazyMap#get()的点，这里直接分析结果吧，先行者们已经帮我们找到了TiedMapEntry，TiedMapEntry#getValue()会调用，只要使得其中的map是LazyMap即可</p>
 <p><img src="https://raw.githubusercontent.com/outlaws-bai/picture/main/img/image-20220716161218387.png" alt="image-20220716161218387"></p>
 <p>继续找调用了TiedMapEntry#getValue()的方法，可以看到TiedMapEntry#hashCode()就调用了getValue()</p>
 <p><img src="https://raw.githubusercontent.com/outlaws-bai/picture/main/img/image-20220716162119403.png" alt="image-20220716162119403"></p>
@@ -532,23 +532,28 @@
 <p>而hash()又会调用当前HashMap中key的hashCode()方法</p>
 <p><img src="https://raw.githubusercontent.com/outlaws-bai/picture/main/img/image-20220716162559697.png" alt="image-20220716162559697"></p>
 <p>因此只要使得HashMap中的key为TiedMapEntry的实例化对象，就可以将整个链条串起来。</p>
-<h3 id="细节点"><a href="#细节点" class="headerlink" title="细节点"></a>细节点</h3><p><strong>第2部分代码为什么要remove(“key”)</strong></p>
-<p>我们去掉这块代码运行会发现无法触发计算器，我们跟进调试会发现在LazyMap#get()并没有走入if中</p>
+<h3 id="细节点"><a href="#细节点" class="headerlink" title="细节点"></a>细节点</h3><h4 id="第2部分代码为什么要remove-“key”"><a href="#第2部分代码为什么要remove-“key”" class="headerlink" title="第2部分代码为什么要remove(“key”)"></a>第2部分代码为什么要remove(“key”)</h4><p>我们去掉这块代码运行会发现无法触发计算器，我们跟进调试会发现在LazyMap#get()并没有走入if中</p>
 <p><img src="https://raw.githubusercontent.com/outlaws-bai/picture/main/img/image-20220716163225198.png" alt="image-20220716163225198"></p>
-<p>因为LazyMap的map中已经存在key，那么怎么解决呢，**outerMap.remove(“key”);**就可以了。</p>
+<p>因为LazyMap的map中已经存在key，那么怎么解决呢，remove就可以了。</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java">outerMap<span class="token punctuation">.</span><span class="token function">remove</span><span class="token punctuation">(</span><span class="token string">"key"</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
 <p>这里的原因我们也看一下，在LazyMap#get()中打一个断点，我们会发现这里被调用了两次，第一次进入了if，第二次没有进入。第一次进入if有个put操作，会将key put进LazyMap中，第二次当然就不进入了。</p>
 <p><img src="https://raw.githubusercontent.com/outlaws-bai/picture/main/img/image-20220716164702577.png" alt="image-20220716164702577"></p>
-<p>那么这里为什么第一次会被调用呢，继续寻找其实问题出在**expMap.put(tiedMapEntry,”value”);**这里</p>
+<p>那么这里为什么第一次会被调用呢，继续寻找其实问题出在</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java">expMap<span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span>tiedMapEntry<span class="token punctuation">,</span><span class="token string">"value"</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
 <p>HashMap#put()会调用HashMap#hash()，再走到LazyMap#get()方法，相当于把我们的反序列化流程都走了一遍，导致了LazyMap#get()在反序列化时LazyMap的map已经有一个key了。</p>
-<p><strong>为什么有第3部分代码</strong></p>
-<p>这里有两个变动，一个原来在CC1中我们会直接将生成的ChainedTransformer用于初始化LazyMap</p>
+<h4 id="为什么有第3部分代码"><a href="#为什么有第3部分代码" class="headerlink" title="为什么有第3部分代码"></a>为什么有第3部分代码</h4><p>这里有两个变动，一个原来在CC1中我们会直接将生成的ChainedTransformer用于初始化LazyMap</p>
 <pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token class-name">Map</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token operator">?</span><span class="token punctuation">,</span> <span class="token operator">?</span><span class="token punctuation">&gt;</span></span> outerMap <span class="token operator">=</span> <span class="token class-name">LazyMap</span><span class="token punctuation">.</span><span class="token function">decorate</span><span class="token punctuation">(</span>innerMap<span class="token punctuation">,</span> transformerChain<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <p>而在这里我们传入了一个无用的ChainedTransformer</p>
 <pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token class-name">Map</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token operator">?</span><span class="token punctuation">,</span> <span class="token operator">?</span><span class="token punctuation">&gt;</span></span> outerMap <span class="token operator">=</span> <span class="token class-name">LazyMap</span><span class="token punctuation">.</span><span class="token function">decorate</span><span class="token punctuation">(</span>innerMap<span class="token punctuation">,</span> <span class="token keyword">new</span> <span class="token class-name">ConstantTransformer</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <p>另一个就是多了第3部分代码。</p>
-<p>其实理解了上边为什么要remove就可以理解了。expMap.put(tiedMapEntry,”value”);会导致走了一遍我们构造好的反序列化链从而导致本地会触发一次，所以我们选择在put前传入一个无用的ChainedTransformer，在put之后再利用第3段代码，修改LazyMap中的factory变量。</p>
+<p>其实理解了上边为什么要remove就可以理解了。</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java">expMap<span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span>tiedMapEntry<span class="token punctuation">,</span><span class="token string">"value"</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>会导致在本地走了一遍我们构造好的反序列化链从而导致本地会触发一次，所以我们选择在put前传入一个无用的ChainedTransformer，在put之后再利用第3段代码，修改LazyMap中的factory变量。</p>
 <h2 id="利用链"><a href="#利用链" class="headerlink" title="利用链"></a>利用链</h2><pre class="line-numbers language-none"><code class="language-none">ObjectInputStream#readObject()
 HashMap#readObject()
 HashMap#hash()
