@@ -488,9 +488,64 @@
 <p>  4.在测试前先探测是否存在 waf、waf 的厂商、fuzz waf 规则。</p>
 <p>  推荐的扫描工具: xray、burp suite</p>
 <h2 id="危害"><a href="#危害" class="headerlink" title="危害"></a>危害</h2><ul>
-<li>数据泄露</li>
-<li>操控数据库、篡改网页</li>
-<li>操控服务器、获取服务器权限</li>
+<li><p>数据泄露</p>
+</li>
+<li><p>操控数据库、篡改网页</p>
+</li>
+<li><p>操控服务器、获取服务器权限</p>
+</li>
+<li><p>提权</p>
+</li>
+</ul>
+<h2 id="利用方式"><a href="#利用方式" class="headerlink" title="利用方式"></a>利用方式</h2><ul>
+<li><p>操作数据库</p>
+<ul>
+<li>信息泄露、拖库</li>
+<li>恶意破坏、删库</li>
+<li>修改数据库，操控web端的某些流程(如登录后台继续深入测试)</li>
+<li>各种注入手法</li>
+</ul>
+</li>
+<li><p>篡改网页</p>
+</li>
+<li><p>getshell</p>
+<ul>
+<li>php环境下且有文件写权限时，直接写入一句话或操控日志文件再利用文件包含等。</li>
+<li>数据库为mssql，利用<code>xp_dirtree</code>、<code>xp_cmdshell</code>等</li>
+<li>利用mysql udf、mof等提权方式getshell</li>
+</ul>
+</li>
+<li><p>提权</p>
+<ul>
+<li><p>mysql udf提权</p>
+<ul>
+<li><p>写入文件到plugin <code>select unhex(...) into dumpfile "/usr/lib/mysql/plugin/lib_mysqludf_sys.so"</code>，或者直接上传(满足条件)</p>
+</li>
+<li><p>加载恶意链接库创建函数 <code>create function sys_eval returns string soname "lib_mysqludf_sys.so";</code></p>
+</li>
+<li><p>执行命令<code>select sys_eval("whoami");</code></p>
+</li>
+<li><p>清除<code>drop function sys_eval;</code></p>
+</li>
+</ul>
+<p>工具: sqlmap(–os-shell)、msf(exploit/multi/mysql/mysql_udf_payload)、php大马</p>
+</li>
+<li><p>mof提权</p>
+<p>简介：mof是windows系统的一个文件（在c:/windows/system32/wbem/mof/nullevt.mof）叫做”托管对象格式”其作用是每隔五秒就会去监控进程创建和死亡。其就是用了mysql的root权限了以后，然后使用root权限去执行我们上传的mof。隔了一定时间以后这个mof就会被执行，可以再启动写入vbs脚本执行系统命令</p>
+<p>条件：windows、C:\Windows\System32\wbem\MOF目录写权限</p>
+<p>上传之后加载：<code>select load_file("nullevt.mof") into dumpfile "c:/windows/system32/wbem/mof/nullevt.mof"</code></p>
+<p>清理痕迹：想要清理痕迹得先暂时关闭 winmgmt 服务再删除相关 mof 文件，否则mof文件会被一直执行</p>
+<p>msf也支持mof提权并且会自动清理痕迹</p>
+</li>
+<li><p>启动项提权</p>
+<p>条件：windows、C:\Users\用户名\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup目录写权限</p>
+</li>
+<li><p>CVE-2016-6663</p>
+</li>
+<li><p>CVE-2016-6664</p>
+</li>
+</ul>
+</li>
 </ul>
 <h2 id="修复方式"><a href="#修复方式" class="headerlink" title="修复方式"></a>修复方式</h2><h3 id="输入控制"><a href="#输入控制" class="headerlink" title="输入控制"></a>输入控制</h3><ul>
 <li>严格控制输入数据的类型</li>
