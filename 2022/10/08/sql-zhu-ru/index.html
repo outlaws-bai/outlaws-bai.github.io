@@ -481,6 +481,12 @@
                 <h1 id="SQL-注入"><a href="#SQL-注入" class="headerlink" title="SQL 注入"></a>SQL 注入</h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>SQL 注入(SQL injection)，发生于应用程序与数据库间的安全漏洞，注入漏洞的一种。</p>
 <h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>简而言之，是攻击者在应用程序与数据库交互的 SQL 语句中注入恶意的 SQL 指定，如果应用程序存在缺陷，那么这些注入进去的恶意指令就会被数据库服务器误认为是正常的 SQL 命令执行。</p>
 <h2 id="业务场景"><a href="#业务场景" class="headerlink" title="业务场景"></a>业务场景</h2><p>一切与数据库交互的地方</p>
+<h2 id="测试思路"><a href="#测试思路" class="headerlink" title="测试思路"></a>测试思路</h2><p>  一切与数据库交互的地方都有可能存在 SQL 注入漏洞。</p>
+<p>  1.在测试时尽量多以开发角度去思考，如当前交互的 SQL 语句是怎样的、当前测试的字段是在 SQL 语句中的位置。</p>
+<p>  2.开发过程中常常会将重复的代码块抽象出来，如果一处接口的某个字段有漏洞，其他相似功能/接口也有很大可能有问题，甚至同一个公司跨微产品，跨微服务。</p>
+<p>  3.在 java mybatis 场景下尝试测试排序字段及排序方式的字段，因为这两个字段使用预编译(#)会报错。</p>
+<p>  4.在测试前先探测是否存在 waf、waf 的厂商、fuzz waf 规则。</p>
+<p>  推荐的扫描工具: xray、burp suite</p>
 <h2 id="危害"><a href="#危害" class="headerlink" title="危害"></a>危害</h2><ul>
 <li>数据泄露</li>
 <li>操控数据库、篡改网页</li>
@@ -707,7 +713,7 @@
 <h4 id="真正执行的-SQL-语句-3"><a href="#真正执行的-SQL-语句-3" class="headerlink" title="真正执行的 SQL 语句"></a>真正执行的 SQL 语句</h4><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">select</span> <span class="token punctuation">`</span>id<span class="token punctuation">`</span><span class="token punctuation">,</span><span class="token punctuation">`</span>username<span class="token punctuation">`</span><span class="token punctuation">,</span><span class="token punctuation">`</span>role<span class="token punctuation">`</span> <span class="token keyword">from</span> {MySQLTable<span class="token punctuation">.</span>VULS_USER} <span class="token keyword">where</span> id <span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">;</span><span class="token keyword">show</span> <span class="token keyword">tables</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <h3 id="DNSLOG-注入"><a href="#DNSLOG-注入" class="headerlink" title="DNSLOG 注入"></a>DNSLOG 注入</h3><blockquote>
-<p>在 Windows 中，路径以\开头的路径在 Windows 中被定义为 UNC 路径，相当于网络硬盘一样的存在，所以我们填写域名的话，Windows 会先进行 DNS 查询。但是对于 Linux 来说，并没有这一标准，所以 DNSLOG 在 Linux 环境不适用。简单理解这个功能就像链接打印机需要输入<code>\\domain.com</code> ，此时就会发起一次 dns 解析。</p>
+<p>在 Windows 中，路径以\开头的路径在 Windows 中被定义为 UNC 路径，相当于网络硬盘一样的存在，所以我们填写域名的话，Windows 会先进行 DNS 查询。但是对于 Linux 来说，并没有这一标准，所以 DNSLOG 在 Linux 环境不适用。简单理解这个功能就像连接打印机需要输入<code>\\domain.com</code> ，此时就会发起一次 dns 解析。</p>
 </blockquote>
 <h4 id="利用条件-2"><a href="#利用条件-2" class="headerlink" title="利用条件"></a>利用条件</h4><p>服务端为 windows，且 mysql 配置项中的 secure_file_priv 不为 null，但如果条件满足，与三大注入(联合查询注入、盲注、报错注入)做优先级比较，应该是联合查询注入&gt;报错注入&gt;DNSLOG 注入&gt;盲注</p>
 <h4 id="SQL-语句-5"><a href="#SQL-语句-5" class="headerlink" title="SQL 语句"></a>SQL 语句</h4><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">select</span> <span class="token function">count</span><span class="token punctuation">(</span><span class="token operator">*</span><span class="token punctuation">)</span> <span class="token keyword">from</span> {MySQLTable<span class="token punctuation">.</span>VULS_USER} <span class="token keyword">where</span> username <span class="token operator">=</span><span class="token string">'{username}'</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
@@ -841,12 +847,6 @@
 <p><img src="https://raw.githubusercontent.com/outlaws-bai/picture/main/img/image-20221009233645854.png"></p>
 <p>5.getflag</p>
 <p><img src="https://raw.githubusercontent.com/outlaws-bai/picture/main/img/image-20221009233706945.png"></p>
-<h2 id="测试思路"><a href="#测试思路" class="headerlink" title="测试思路"></a>测试思路</h2><p>一切与数据库交互的地方都有可能存在 SQL 注入漏洞。</p>
-<p>1.在测试时尽量多以开发角度去思考，如当前交互的 SQL 语句是怎样的、当前测试的字段是在 SQL 语句中的位置。</p>
-<p>2.开发过程中常常会将重复的代码块抽象出来，如果一处接口的某个字段有漏洞，其他相似功能/接口也有很大可能有问题，甚至同一个公司跨微产品，跨微服务。</p>
-<p>3.在 java mybatis 场景下尝试测试排序字段及排序方式的字段，因为这两个字段使用预编译(#)会报错。</p>
-<p>4.在测试前先探测是否存在 waf、waf 的厂商、fuzz waf 规则。</p>
-<p>推荐的扫描工具: xray、burp suite</p>
 <h2 id="绕过方式"><a href="#绕过方式" class="headerlink" title="绕过方式"></a>绕过方式</h2><h3 id="通用"><a href="#通用" class="headerlink" title="通用"></a>通用</h3><p><code>大小写</code>、<code>双写</code>、<code>编码</code>、<code>注释</code>、<code>HPP</code>、<code>垃圾字符</code>、<code>分块传输</code>、<code>WAF特性</code></p>
 <h3 id="mysql"><a href="#mysql" class="headerlink" title="mysql"></a>mysql</h3><table>
 <thead>
