@@ -6,7 +6,7 @@
   <link href="https://outlaws-bai.github.io/atom.xml" rel="self"/>
   
   <link href="https://outlaws-bai.github.io/"/>
-  <updated>2022-07-16T09:03:12.772Z</updated>
+  <updated>2022-10-09T16:05:33.112Z</updated>
   <id>https://outlaws-bai.github.io/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>SQL 注入</title>
+    <link href="https://outlaws-bai.github.io/2022/10/08/sql-zhu-ru/"/>
+    <id>https://outlaws-bai.github.io/2022/10/08/sql-zhu-ru/</id>
+    <published>2022-10-08T15:20:33.000Z</published>
+    <updated>2022-10-09T16:05:33.112Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;SQL-注入&quot;&gt;&lt;a href=&quot;#SQL-注入&quot; class=&quot;headerlink&quot; title=&quot;SQL 注入&quot;&gt;&lt;/a&gt;SQL 注入&lt;/h1&gt;&lt;h2 id=&quot;简介&quot;&gt;&lt;a href=&quot;#简介&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    
+    <category term="常规Web漏洞" scheme="https://outlaws-bai.github.io/tags/%E5%B8%B8%E8%A7%84Web%E6%BC%8F%E6%B4%9E/"/>
+    
+    <category term="SQL注入" scheme="https://outlaws-bai.github.io/tags/SQL%E6%B3%A8%E5%85%A5/"/>
+    
+  </entry>
   
   <entry>
     <title>java-sec: 04. cc6</title>
