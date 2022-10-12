@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="sqlmap 分析, outlaws&#39;s blog">
+    <meta name="keywords" content="sqlmap 浅析, outlaws&#39;s blog">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>sqlmap 分析 | outlaws&#39;s blog</title>
+    <title>sqlmap 浅析 | outlaws&#39;s blog</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -29,9 +29,9 @@
 
     <script src="/libs/jquery/jquery.min.js"></script>
 
-<meta name="generator" content="Hexo 5.4.0">
+<meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="outlaws's blog" type="application/atom+xml">
+
 <style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
-<link rel="alternate" href="/atom.xml" title="outlaws's blog" type="application/atom+xml">
 </head>
 
 
@@ -313,12 +313,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/12.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/3.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">sqlmap 分析</h1>
+                    <h1 class="description center-align post-title">sqlmap 浅析</h1>
                 </div>
             </div>
         </div>
@@ -478,7 +478,7 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="sqlmap"><a href="#sqlmap" class="headerlink" title="sqlmap"></a>sqlmap</h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>sql 注入测试&amp;利用神器。</p>
+                <h1 id="sqlmap-浅析"><a href="#sqlmap-浅析" class="headerlink" title="sqlmap 浅析"></a>sqlmap 浅析</h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>sql 注入测试&amp;利用神器。</p>
 <p>分析版本为<code>1.6.10.2#dev</code></p>
 <h2 id="配置项"><a href="#配置项" class="headerlink" title="配置项"></a>配置项</h2><p>先看配置项</p>
 <pre class="line-numbers language-none"><code class="language-none">python sqlmap.py -hh &gt; options.txt<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
@@ -517,13 +517,13 @@
 <p>loadPayloads 函数会遍历并加载<code>data/xml/payloads</code> 下不同注入手法的 payload，主要有 bool 盲注、时间盲注、报错注入、堆叠注入、联合查询注入、内联查询注入。</p>
 <p>我们挑一个 payload 看下结构</p>
 <p><img src="https://raw.githubusercontent.com/outlaws-bai/picture/main/img/image-20221010204809555.png"></p>
-<p>分别有 title(对测试项的解释)、等级限制、request 中需要插入的 payload模板、对 response 的 check方式等。</p>
+<p>分别有 title(对测试项的解释)、等级限制、request 中需要插入的 payload 模板、对 response 的 check 方式等。</p>
 <h5 id="loadQueries"><a href="#loadQueries" class="headerlink" title="_loadQueries()"></a>_loadQueries()</h5><p><img src="https://raw.githubusercontent.com/outlaws-bai/picture/main/img/image-20221010205153846.png"></p>
 <p>从<code>data/xml/queries.xml</code>加载 xml，我们看下这个 xml 的内容</p>
 <p><img src="https://raw.githubusercontent.com/outlaws-bai/picture/main/img/image-20221010205327001.png"></p>
 <p>这里记录了很多查询语句以及不同 sql 的语法。</p>
 <p>看到这里，发现<code>data/xml</code> 目录下还有 errors.xml 和 banner 目录没看到，我们看一下</p>
-<p><code>errors.xml</code>  记录了不同 sql 的多种报错信息</p>
+<p><code>errors.xml</code> 记录了不同 sql 的多种报错信息</p>
 <p><img src="https://raw.githubusercontent.com/outlaws-bai/picture/main/img/image-20221010205538887.png"></p>
 <p>banner 底下挑一个看下，看来是通过正则获取一些可能存在 sql 信息泄露位置的信息(用作指纹识别)</p>
 <p><img src="https://raw.githubusercontent.com/outlaws-bai/picture/main/img/image-20221010205626441.png"></p>
@@ -566,7 +566,7 @@
 <p>接着发送请求，通过正则匹配判断本次请求是否有报错信息。</p>
 <p>如果存在报错信息，那么就说明启发式检测成功，此时会输出 log 并且存储报错的 dbms 类型。</p>
 <p><img src="https://raw.githubusercontent.com/outlaws-bai/picture/main/img/image-20221011003648472.png"></p>
-<h4 id="正式注入测试"><a href="#正式注入测试" class="headerlink" title="正式注入测试"></a>正式注入测试</h4><p>跟进<code>checkSqlInjection()</code> ，这里会拿到在<code>oadBoundaries()</code> 阶段加载的用于组成 payload 的前缀、后缀、等级等</p>
+<h4 id="正式注入测试"><a href="#正式注入测试" class="headerlink" title="正式注入测试"></a>正式注入测试</h4><p>跟进<code>checkSqlInjection()</code> ，这里会拿到在<code>loadBoundaries()</code> 阶段加载的用于组成 payload 的前缀、后缀、等级等</p>
 <p><img src="https://raw.githubusercontent.com/outlaws-bai/picture/main/img/image-20221011230932716.png"></p>
 <p>接着通过<code>getSortedInjectionTests()</code> 拿到<code>loadPayloads()</code> 阶段从 xml 中加载的不同注入手法的 payload。</p>
 <p><img src="https://raw.githubusercontent.com/outlaws-bai/picture/main/img/image-20221011231137900.png"></p>
@@ -582,7 +582,7 @@
 <p>然后加载了在 xml 定义好的每种 payload 的检查是否攻击成功的方式，有<code>comparison</code> <code>grep</code> <code>time</code> <code>union</code> 分别对应的操作是比较页面、检索关键字、时间判断、联合判断，对应的 SQL 注入手法是 bool、error、time、union 类型</p>
 <p><img src="https://raw.githubusercontent.com/outlaws-bai/picture/main/img/image-20221011233226275.png"></p>
 <p>这里分别来看下每种检测方式</p>
-<h5 id="bool-注入"><a href="#bool-注入" class="headerlink" title="bool 注入"></a>bool 注入</h5><p>先执行一次false请求，可以理解为and 1=2，接着再执行一次ture请求(and 1=1)，然后会比较原始响应页面、启发式检测响应页面、false请求请求页面，ture请求页面的页面相似比，当大于或小于最大或最小的相似比，则认为存在漏洞</p>
+<h5 id="bool-注入"><a href="#bool-注入" class="headerlink" title="bool 注入"></a>bool 注入</h5><p>先执行一次 false 请求，可以理解为 and 1=2，接着再执行一次 ture 请求(and 1=1)，然后会比较原始响应页面、启发式检测响应页面、false 请求请求页面，ture 请求页面的页面相似比，当大于或小于最大或最小的相似比，则认为存在漏洞</p>
 <p><img src="https://raw.githubusercontent.com/outlaws-bai/picture/main/img/image-20221012012535353.png"></p>
 <p><img src="https://raw.githubusercontent.com/outlaws-bai/picture/main/img/image-20221011235604187.png"></p>
 <p><img src="https://raw.githubusercontent.com/outlaws-bai/picture/main/img/image-20221011235756483.png"></p>
@@ -607,7 +607,7 @@
 <p>带着这个问题，我们回头看下存放 payload 的 xml</p>
 <p><code>stacked_queries.xml</code> ，瞬间明白，原来堆叠注入这里下一条语句都是 sleep，那就说明堆叠注入的 check 其实是在时间注入的阶段做的。</p>
 <p><img src="https://raw.githubusercontent.com/outlaws-bai/picture/main/img/image-20221012004412023.png"></p>
-<p><code>inline_query.xml</code> ，原来这里不是 payload，是对于不同数据库，将多条查询结果进行拼接的SQL语句，看来是用在后续利用的。</p>
+<p><code>inline_query.xml</code> ，原来这里不是 payload，是对于不同数据库，将多条查询结果进行拼接的 SQL 语句，看来是用在后续利用的。</p>
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>分析 sqlmap 的原因一方面是学习 sqlmap 对 sql 注入的测试流程，另一方面是学习如何通过代码判断每种注入手法的 payload 是否攻击成功的思路。这两方面都收获不少。</p>
 <h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a target="_blank" rel="noopener" href="http://wjlshare.com/archives/1733">http://wjlshare.com/archives/1733</a></p>
 
@@ -636,7 +636,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://outlaws-bai.github.io/2022/10/10/sqlmap-fen-xi/">https://outlaws-bai.github.io/2022/10/10/sqlmap-fen-xi/</a>
+                    <a href="https://outlaws-bai.github.io/2022/10/10/sqlmap-qian-xi/">https://outlaws-bai.github.io/2022/10/10/sqlmap-qian-xi/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -730,13 +730,13 @@
                 <i class="far fa-dot-circle"></i>&nbsp;本篇
             </div>
             <div class="card">
-                <a href="/2022/10/10/sqlmap-fen-xi/">
+                <a href="/2022/10/10/sqlmap-qian-xi/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="sqlmap 分析">
+                        <img src="/medias/featureimages/3.jpg" class="responsive-img" alt="sqlmap 浅析">
                         
-                        <span class="card-title">sqlmap 分析</span>
+                        <span class="card-title">sqlmap 浅析</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
