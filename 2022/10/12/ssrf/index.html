@@ -478,11 +478,11 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="SSRF"><a href="#SSRF" class="headerlink" title="SSRF"></a>SSRF</h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>SSRF（Server Side Request Forgery,  服务端请求伪造）服务端漏洞。通常被用来攻击服务端的内部系统。</p>
+                <h1 id="SSRF"><a href="#SSRF" class="headerlink" title="SSRF"></a>SSRF</h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>SSRF（Server Side Request Forgery, 服务端请求伪造）服务端漏洞。通常被用来攻击服务端的内部系统。</p>
 <h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>简单讲就是服务端实现了一个功能，代为访问用户提交的目标。</p>
 <h2 id="业务场景"><a href="#业务场景" class="headerlink" title="业务场景"></a>业务场景</h2><p>需要服务端做为中转的场景，如因为跨域问题服务端代为下载存放在其他站点的文件。</p>
-<h2 id="测试思路"><a href="#测试思路" class="headerlink" title="测试思路"></a>测试思路</h2><p>注意HTTP请求中值为URL格式的字段。</p>
-<p>但有一个点容易忽略，如果是服务端代为下载文件，burp suite的proxy-http history中并不会出现该条请求。</p>
+<h2 id="测试思路"><a href="#测试思路" class="headerlink" title="测试思路"></a>测试思路</h2><p>注意 HTTP 请求中值为 URL 格式的字段。</p>
+<p>但有一个点容易忽略，如果是服务端代为下载文件，burp suite 的 proxy-http history 中并不会出现该条请求。</p>
 <h2 id="危害"><a href="#危害" class="headerlink" title="危害"></a>危害</h2><ul>
 <li>以漏洞服务端作为中转攻击内网</li>
 <li>本地文件泄露，进而造成信息泄露</li>
@@ -490,33 +490,33 @@
 <li>内网信息收集</li>
 <li>绕过安全限制</li>
 </ul>
-<h2 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h2><p>SSRF共有三种类型echo、bool、none，分别为有回显、bool回显、无回显。</p>
+<h2 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h2><p>SSRF 共有三种类型 echo、bool、none，分别为有回显、bool 回显、无回显。</p>
 <h3 id="echo"><a href="#echo" class="headerlink" title="echo"></a>echo</h3><p>中转请求发送完成后将响应返回给客户端</p>
-<p><img src="https://raw.githubusercontent.com/outlaws-bai/picture/main/img/image-20221012202950650.png" alt="image-20221012202950650"></p>
+<p><img src="https://raw.githubusercontent.com/outlaws-bai/picture/main/img/image-20221012202950650.png"></p>
 <h3 id="bool"><a href="#bool" class="headerlink" title="bool"></a>bool</h3><p>中转请求发送后将响应不返回给客户端详细的响应，只是告诉客户端是否请求成功</p>
-<p><img src="https://raw.githubusercontent.com/outlaws-bai/picture/main/img/image-20221012203151731.png" alt="image-20221012203151731"></p>
+<p><img src="https://raw.githubusercontent.com/outlaws-bai/picture/main/img/image-20221012203151731.png"></p>
 <h3 id="none"><a href="#none" class="headerlink" title="none"></a>none</h3><p>中转请求发送后只是告诉客户端已请求</p>
-<p><img src="https://raw.githubusercontent.com/outlaws-bai/picture/main/img/image-20221012203300634.png" alt="image-20221012203300634"></p>
-<p><img src="https://raw.githubusercontent.com/outlaws-bai/picture/main/img/image-20221012203306849.png" alt="image-20221012203306849"></p>
+<p><img src="https://raw.githubusercontent.com/outlaws-bai/picture/main/img/image-20221012203300634.png"></p>
+<p><img src="https://raw.githubusercontent.com/outlaws-bai/picture/main/img/image-20221012203306849.png"></p>
 <h2 id="支持的协议"><a href="#支持的协议" class="headerlink" title="支持的协议"></a>支持的协议</h2><p>有<code>http</code> <code>https</code> <code>file</code> <code>dict</code> <code>gopher</code> <code>ftp</code> <code>telnet</code> <code>ldap</code>等，主要还是看服务端再次发起请求的方式支持哪些协议。</p>
-<h2 id="利用方式"><a href="#利用方式" class="headerlink" title="利用方式"></a>利用方式</h2><h3 id="读取本地文件"><a href="#读取本地文件" class="headerlink" title="读取本地文件"></a>读取本地文件</h3><p>只能在echo类型下使用，利用file协议</p>
+<h2 id="利用方式"><a href="#利用方式" class="headerlink" title="利用方式"></a>利用方式</h2><h3 id="读取本地文件"><a href="#读取本地文件" class="headerlink" title="读取本地文件"></a>读取本地文件</h3><p>只能在 echo 类型下使用，利用 file 协议</p>
 <pre class="line-numbers language-none"><code class="language-none">/api/vuls/ssrf/echo?url=file:///c:/flag.txt<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
-<p><img src="https://raw.githubusercontent.com/outlaws-bai/picture/main/img/image-20221012204135549.png" alt="image-20221012204135549"></p>
+<p><img src="https://raw.githubusercontent.com/outlaws-bai/picture/main/img/image-20221012204135549.png"></p>
 <h3 id="端口扫描"><a href="#端口扫描" class="headerlink" title="端口扫描"></a>端口扫描</h3><p>三种类型均可，只是判断的方式不同</p>
-<p>在echo、bool类型下直接http协议通过响应结果即可判断</p>
-<p><img src="https://raw.githubusercontent.com/outlaws-bai/picture/main/img/image-20221012211237404.png" alt="image-20221012211237404"></p>
-<p>在none类型下，只能通过响应时间判断，前提请求不是异步的</p>
+<p>在 echo、bool 类型下直接 http 协议通过响应结果即可判断</p>
+<p><img src="https://raw.githubusercontent.com/outlaws-bai/picture/main/img/image-20221012211237404.png"></p>
+<p>在 none 类型下，只能通过响应时间判断，前提请求不是异步的</p>
 <p>例如端口开放：4ms</p>
-<p><img src="https://raw.githubusercontent.com/outlaws-bai/picture/main/img/image-20221012210907172.png" alt="image-20221012210907172"></p>
+<p><img src="https://raw.githubusercontent.com/outlaws-bai/picture/main/img/image-20221012210907172.png"></p>
 <p>例如端口不开放：2000ms</p>
-<p><img src="https://raw.githubusercontent.com/outlaws-bai/picture/main/img/image-20221012210846342.png" alt="image-20221012210846342"></p>
-<h3 id="内网主机发现"><a href="#内网主机发现" class="headerlink" title="内网主机发现"></a>内网主机发现</h3><p>与端口扫描测试方式类似，但首先得知道内网肯定会开放的端口，例如在java微服务内网中，web服务采用默认端口8080的话，可以使用http://{host}:8080扫描，再通过响应内容/响应时间判断。</p>
-<h3 id="绕过安全限制"><a href="#绕过安全限制" class="headerlink" title="绕过安全限制"></a>绕过安全限制</h3><p>假设在外网出口做了一些安全限制，比如path名单，这个时候就可以通过ssrf绕过</p>
-<h3 id="攻击内网脆弱组件"><a href="#攻击内网脆弱组件" class="headerlink" title="攻击内网脆弱组件"></a>攻击内网脆弱组件</h3><p>主要利用Gopher协议，可以看下方关于Gopher的介绍。</p>
-<p>简单讲就是Gopher协议允许data段携带类似socket的请求报文来发送请求</p>
-<h2 id="绕过方式"><a href="#绕过方式" class="headerlink" title="绕过方式"></a>绕过方式</h2><p>先来看一下URL的结构</p>
-<p><img src="https://raw.githubusercontent.com/outlaws-bai/picture/main/img/image-20221012231003524.png" alt="image-20221012231003524"></p>
+<p><img src="https://raw.githubusercontent.com/outlaws-bai/picture/main/img/image-20221012210846342.png"></p>
+<h3 id="内网主机发现"><a href="#内网主机发现" class="headerlink" title="内网主机发现"></a>内网主机发现</h3><p>与端口扫描测试方式类似，但首先得知道内网肯定会开放的端口，例如在 java 微服务内网中，web 服务采用默认端口 8080 的话，可以使用 http://{host}:8080 扫描，再通过响应内容/响应时间判断。</p>
+<h3 id="绕过安全限制"><a href="#绕过安全限制" class="headerlink" title="绕过安全限制"></a>绕过安全限制</h3><p>假设在外网出口做了一些安全限制，比如 path 名单，这个时候就可以通过 ssrf 绕过</p>
+<h3 id="攻击内网脆弱组件"><a href="#攻击内网脆弱组件" class="headerlink" title="攻击内网脆弱组件"></a>攻击内网脆弱组件</h3><p>主要利用 Gopher 协议，可以看下方关于 Gopher 的介绍。</p>
+<p>简单讲就是 Gopher 协议允许 data 段携带类似 socket 的请求报文来发送请求</p>
+<h2 id="绕过方式"><a href="#绕过方式" class="headerlink" title="绕过方式"></a>绕过方式</h2><p>先来看一下 URL 的结构</p>
+<p><img src="https://raw.githubusercontent.com/outlaws-bai/picture/main/img/image-20221012231003524.png"></p>
 <table>
 <thead>
 <tr>
@@ -526,39 +526,39 @@
 </tr>
 </thead>
 <tbody><tr>
-<td>host不等于localhost/127.0.0.1</td>
+<td>host 不等于 localhost/127.0.0.1</td>
 <td>域名解析到内网</td>
-<td>sudo.cc A记录解析到127.0.0.1</td>
+<td>sudo.cc A 记录解析到 127.0.0.1</td>
 </tr>
 <tr>
-<td>host不等于localhost/127.0.0.1</td>
-<td><code>0</code> <code>0.0.0.0</code>，仅linux</td>
+<td>host 不等于 localhost/127.0.0.1</td>
+<td><code>0</code> <code>0.0.0.0</code>，仅 linux</td>
 <td><a target="_blank" rel="noopener" href="http://0.0.0.0/">http://0</a><br><a target="_blank" rel="noopener" href="http://0.0.0.0/">http://0.0.0.0</a></td>
 </tr>
 <tr>
-<td>host不等于localhost/127.0.0.1</td>
+<td>host 不等于 localhost/127.0.0.1</td>
 <td>特殊数字</td>
 <td><a target="_blank" rel="noopener" href="http://127.0.0.1/">http://1②7.0.0.1</a></td>
 </tr>
 <tr>
-<td>host不等于localhost/127.0.0.1</td>
+<td>host 不等于 localhost/127.0.0.1</td>
 <td>句号替换.</td>
 <td><a target="_blank" rel="noopener" href="http://127.0.0.1/">http://127。0。0。1</a></td>
 </tr>
 <tr>
-<td>host不等于localhost/127.0.0.1</td>
+<td>host 不等于 localhost/127.0.0.1</td>
 <td>省略</td>
 <td><a target="_blank" rel="noopener" href="http://127.0.0.1/">http://127.1</a></td>
 </tr>
 <tr>
-<td>host不等于localhost/127.0.0.1</td>
+<td>host 不等于 localhost/127.0.0.1</td>
 <td>进制转换</td>
 <td><a target="_blank" rel="noopener" href="http://127.0.0.1/">http://0177.0.0.1</a><br><a target="_blank" rel="noopener" href="http://127.0.0.1/">http://0x7f.0.0.1</a><br><a target="_blank" rel="noopener" href="http://127.0.0.1/">http://2130706433</a></td>
 </tr>
 <tr>
-<td>服务端先做一次DNS解析，再判断解析出的host值</td>
-<td>DNS重绑定</td>
-<td>简单讲就是设置域名的TTL为0，这时候DNS解析和后续发起请求就会存在一个时间差，以此来绕过。</td>
+<td>服务端先做一次 DNS 解析，再判断解析出的 host 值</td>
+<td>DNS 重绑定</td>
+<td>简单讲就是设置域名的 TTL 为 0，这时候 DNS 解析和后续发起请求就会存在一个时间差，以此来绕过。</td>
 </tr>
 <tr>
 <td>authority.startswith()！= 数字</td>
@@ -571,11 +571,11 @@
 <td><a href="http://127.0.0.1%23123">http://127.0.0.1%23123</a></td>
 </tr>
 </tbody></table>
-<h2 id="Gopher协议"><a href="#Gopher协议" class="headerlink" title="Gopher协议"></a>Gopher协议</h2><h3 id="简介-1"><a href="#简介-1" class="headerlink" title="简介"></a>简介</h3><p>Gopher是Internet上一个非常有名的信息查找系统，它将Internet上的文件组织成某种索引，很方便地将用户从Internet的一处带到另一处。在WWW出现之前，Gopher是Internet上最主要的信息检索工具，Gopher站点也是最主要的站点，使用tcp 70端口。但在WWW出现后，Gopher失去了昔日的辉煌。现在它基本过时。</p>
+<h2 id="Gopher-协议"><a href="#Gopher-协议" class="headerlink" title="Gopher 协议"></a>Gopher 协议</h2><h3 id="简介-1"><a href="#简介-1" class="headerlink" title="简介"></a>简介</h3><p>Gopher 是 Internet 上一个非常有名的信息查找系统，它将 Internet 上的文件组织成某种索引，很方便地将用户从 Internet 的一处带到另一处。在 WWW 出现之前，Gopher 是 Internet 上最主要的信息检索工具，Gopher 站点也是最主要的站点，使用 tcp 70 端口。但在 WWW 出现后，Gopher 失去了昔日的辉煌。现在它基本过时。</p>
 <h3 id="格式"><a href="#格式" class="headerlink" title="格式"></a>格式</h3><p><code>gopher://&lt;host&gt;:&lt;port&gt;/&lt;gopher-path&gt;_data</code></p>
-<p>默认端口是70，后边的data可以理解为socket请求的数据报文。</p>
-<p>需要注意的是换行符需要使用<code>\r\n</code> </p>
-<h3 id="用途"><a href="#用途" class="headerlink" title="用途"></a>用途</h3><p>Gopher 协议可以做很多事情，特别是在 SSRF 中可以发挥很多重要的作用。利用此协议可以攻击内网的 FTP、Telnet、Redis、Memcache，也可以进行 GET、POST等HTTP 请求。这极大拓宽了 SSRF 的攻击面。</p>
+<p>默认端口是 70，后边的 data 可以理解为 socket 请求的数据报文。</p>
+<p>需要注意的是换行符需要使用<code>\r\n</code></p>
+<h3 id="用途"><a href="#用途" class="headerlink" title="用途"></a>用途</h3><p>Gopher 协议可以做很多事情，特别是在 SSRF 中可以发挥很多重要的作用。利用此协议可以攻击内网的 FTP、Telnet、Redis、Memcache，也可以进行 GET、POST 等 HTTP 请求。这极大拓宽了 SSRF 的攻击面。</p>
 <h3 id="轮子"><a href="#轮子" class="headerlink" title="轮子"></a>轮子</h3><p><a target="_blank" rel="noopener" href="https://github.com/tarunkant/Gopherus">https://github.com/tarunkant/Gopherus</a> 做了一些协议的封装</p>
 <h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a target="_blank" rel="noopener" href="https://tttang.com/archive/1648/">https://tttang.com/archive/1648/</a></p>
 
