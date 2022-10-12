@@ -6,7 +6,7 @@
   <link href="https://outlaws-bai.github.io/atom.xml" rel="self"/>
   
   <link href="https://outlaws-bai.github.io/"/>
-  <updated>2022-10-12T12:04:43.473Z</updated>
+  <updated>2022-10-12T15:52:49.919Z</updated>
   <id>https://outlaws-bai.github.io/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>SSRF</title>
+    <link href="https://outlaws-bai.github.io/2022/10/12/ssrf/"/>
+    <id>https://outlaws-bai.github.io/2022/10/12/ssrf/</id>
+    <published>2022-10-12T12:08:52.000Z</published>
+    <updated>2022-10-12T15:52:49.919Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;SSRF&quot;&gt;&lt;a href=&quot;#SSRF&quot; class=&quot;headerlink&quot; title=&quot;SSRF&quot;&gt;&lt;/a&gt;SSRF&lt;/h1&gt;&lt;h2 id=&quot;简介&quot;&gt;&lt;a href=&quot;#简介&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    
+    <category term="常规Web漏洞" scheme="https://outlaws-bai.github.io/tags/%E5%B8%B8%E8%A7%84Web%E6%BC%8F%E6%B4%9E/"/>
+    
+    <category term="SSRF" scheme="https://outlaws-bai.github.io/tags/SSRF/"/>
+    
+  </entry>
   
   <entry>
     <title>sqlmap 浅析</title>
