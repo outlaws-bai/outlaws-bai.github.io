@@ -488,14 +488,14 @@
             <div id="articleContent">
                 <h1 id="SSTI"><a href="#SSTI" class="headerlink" title="SSTI"></a>SSTI</h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>SSTI( Server-Side Template Injection, 服务端模板注入), 注入漏洞的一种。</p>
 <p>按照其他漏洞的思路去理解，其实就像 SQL 注入中预编译后的 SQL 语句，在生成之后可以多次使用，如此既能提升效率还能防止不受控制的参数污染。</p>
-<h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>还是以 SQL 注入举例，跟预编译后的 SQL 语句一样，无漏洞情况下需要渲染的参数在模板中就是占位符，模板引擎不会傻到对占位符所在的位置做为模板本身的一部分去执行。所以通常在 SSTI 出现的时候，都是模板本身可控，而不是参数可控。</p>
+<h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>还是以 SQL 注入举例，跟预编译后的 SQL 语句一样，无漏洞情况下需要渲染的参数在模板中就是占位符，模板引擎不会傻到把用户提交的数据作为模板一部分去执行。所以通常在 SSTI 出现的时候，都是模板本身可控，而不是参数可控。</p>
 <h2 id="业务场景"><a href="#业务场景" class="headerlink" title="业务场景"></a>业务场景</h2><p>所有需要渲染页面的位置，如 html 返回、通过用户数据生成 pdf、word 等。</p>
 <h2 id="危害"><a href="#危害" class="headerlink" title="危害"></a>危害</h2><ul>
 <li>敏感信息泄露</li>
 <li>本地文件读取</li>
 <li>任意命令执行</li>
 </ul>
-<h2 id="常见模板引擎"><a href="#常见模板引擎" class="headerlink" title="常见模板引擎"></a>常见模板引擎</h2><p><img src="https://raw.githubusercontent.com/outlaws-bai/picture/main/img/1344396-20200911174631687-758048107.png" alt="img"></p>
+<h2 id="常见模板引擎"><a href="#常见模板引擎" class="headerlink" title="常见模板引擎"></a>常见模板引擎</h2><p><img src="https://raw.githubusercontent.com/outlaws-bai/picture/main/img/1344396-20200911174631687-758048107.png"></p>
 <h1 id="python-ssti-flask"><a href="#python-ssti-flask" class="headerlink" title="python ssti - flask"></a>python ssti - flask</h1><p>本文主要讲 flask 的 ssti。</p>
 <h2 id="flask"><a href="#flask" class="headerlink" title="flask"></a>flask</h2><p>flask 的模板渲染引擎是 jinja2。</p>
 <h2 id="业务示例"><a href="#业务示例" class="headerlink" title="业务示例"></a>业务示例</h2><p><img src="https://raw.githubusercontent.com/outlaws-bai/picture/main/img/image-20221013233617889.png"></p>
@@ -513,7 +513,7 @@
 {{config}}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <h2 id="绕过姿势"><a href="#绕过姿势" class="headerlink" title="绕过姿势"></a>绕过姿势</h2><h3 id="限制"><a href="#限制" class="headerlink" title="限制."></a>限制<code>.</code></h3><p>利用其他的获取属性的方式。[]、attr</p>
-<pre class="line-numbers language-jinja2" data-language="jinja2"><code class="language-jinja2">`{{""['__class__']}}`
+<pre class="line-numbers language-jinja2" data-language="jinja2"><code class="language-jinja2">{{""['__class__']}}
 {{""|attr('__class__')}}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
 <h3 id="限制-1"><a href="#限制-1" class="headerlink" title="限制_"></a>限制<code>_</code></h3><p>编码、获取<code>_</code></p>
