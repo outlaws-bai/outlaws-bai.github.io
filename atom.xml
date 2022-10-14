@@ -6,7 +6,7 @@
   <link href="https://outlaws-bai.github.io/atom.xml" rel="self"/>
   
   <link href="https://outlaws-bai.github.io/"/>
-  <updated>2022-10-13T16:57:45.122Z</updated>
+  <updated>2022-10-12T15:53:49.194Z</updated>
   <id>https://outlaws-bai.github.io/</id>
   
   <author>
@@ -15,35 +15,6 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
-  
-  <entry>
-    <title>python ssti - flask</title>
-    <link href="https://outlaws-bai.github.io/2022/10/13/python-ssti-flask/"/>
-    <id>https://outlaws-bai.github.io/2022/10/13/python-ssti-flask/</id>
-    <published>2022-10-13T15:15:36.000Z</published>
-    <updated>2022-10-13T16:57:45.122Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;SSTI&quot;&gt;&lt;a href=&quot;#SSTI&quot; class=&quot;headerlink&quot; title=&quot;SSTI&quot;&gt;&lt;/a&gt;SSTI&lt;/h1&gt;&lt;h2 id=&quot;简介&quot;&gt;&lt;a href=&quot;#简介&quot; class=&quot;headerlink&quot;</summary>
-        
-      
-    
-    
-    
-    
-    <category term="python" scheme="https://outlaws-bai.github.io/tags/python/"/>
-    
-    <category term="ssti" scheme="https://outlaws-bai.github.io/tags/ssti/"/>
-    
-    <category term="jinja2" scheme="https://outlaws-bai.github.io/tags/jinja2/"/>
-    
-    <category term="常规web漏洞" scheme="https://outlaws-bai.github.io/tags/%E5%B8%B8%E8%A7%84web%E6%BC%8F%E6%B4%9E/"/>
-    
-  </entry>
   
   <entry>
     <title>SSRF</title>
