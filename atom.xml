@@ -6,7 +6,7 @@
   <link href="https://outlaws-bai.github.io/atom.xml" rel="self"/>
   
   <link href="https://outlaws-bai.github.io/"/>
-  <updated>2022-10-17T15:52:53.874Z</updated>
+  <updated>2022-10-17T16:50:49.266Z</updated>
   <id>https://outlaws-bai.github.io/</id>
   
   <author>
@@ -17,11 +17,36 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>CORS配置不当</title>
+    <link href="https://outlaws-bai.github.io/2022/10/17/cors-pei-zhi-bu-dang/"/>
+    <id>https://outlaws-bai.github.io/2022/10/17/cors-pei-zhi-bu-dang/</id>
+    <published>2022-10-17T15:56:18.000Z</published>
+    <updated>2022-10-17T16:50:49.266Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;CORS&quot;&gt;&lt;a href=&quot;#CORS&quot; class=&quot;headerlink&quot; title=&quot;CORS&quot;&gt;&lt;/a&gt;CORS&lt;/h1&gt;&lt;p&gt;上文介绍了&lt;a</summary>
+        
+      
+    
+    
+    
+    
+    <category term="CORS" scheme="https://outlaws-bai.github.io/tags/CORS/"/>
+    
+    <category term="前端安全" scheme="https://outlaws-bai.github.io/tags/%E5%89%8D%E7%AB%AF%E5%AE%89%E5%85%A8/"/>
+    
+  </entry>
+  
+  <entry>
     <title>前端跨域问题</title>
     <link href="https://outlaws-bai.github.io/2022/10/17/qian-duan-kua-yu-wen-ti/"/>
     <id>https://outlaws-bai.github.io/2022/10/17/qian-duan-kua-yu-wen-ti/</id>
     <published>2022-10-17T15:09:45.000Z</published>
-    <updated>2022-10-17T15:52:53.874Z</updated>
+    <updated>2022-10-17T16:27:59.285Z</updated>
     
     
       
