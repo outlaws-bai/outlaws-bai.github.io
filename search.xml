@@ -4,6 +4,35 @@
   
     
     <entry>
+      <title>前端跨域问题</title>
+      <link href="/2022/10/17/qian-duan-kua-yu-wen-ti/"/>
+      <url>/2022/10/17/qian-duan-kua-yu-wen-ti/</url>
+      
+        <content type="html"><![CDATA[<h1 id="跨域"><a href="#跨域" class="headerlink" title="跨域"></a>跨域</h1><p>想要了解前端安全安全，跨域是一个绕不过的话题。</p><h2 id="出现原因"><a href="#出现原因" class="headerlink" title="出现原因"></a>出现原因</h2><p>同源策略（Same Orgin Policy）是一种约定，它是浏览器核心也最基本的安全功能，它会阻止一个域的js脚本和另外一个域的内容进行交互，如果缺少了同源策略，浏览器很容易受到XSS、CSFR等攻击。</p><h2 id="同源"><a href="#同源" class="headerlink" title="同源"></a>同源</h2><p>先看一下URL的完整格式</p><pre class="line-numbers language-none"><code class="language-none">scheme://username:password@host:port/path/query#fragment<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p><img src="https://raw.githubusercontent.com/outlaws-bai/picture/main/img/image-20221017231332368.png" alt="image-20221017231332368"></p><p>游览器认为两个站点scheme、host、port中任意一个不相同即为不同源</p><h2 id="跨域的解决方案"><a href="#跨域的解决方案" class="headerlink" title="跨域的解决方案"></a>跨域的解决方案</h2><h3 id="1-代理"><a href="#1-代理" class="headerlink" title="1.代理"></a>1.代理</h3><p>nginx以及其他web后端/node框架都会提供代理功能，这也是最安全的方案。</p><h3 id="2-CORS"><a href="#2-CORS" class="headerlink" title="2.CORS"></a>2.CORS</h3><p>允许浏览器向不同源站点发起XMLHttpRequest请求，但需要服务端做CORS相关配置。</p><p>CORS需要浏览器和服务器同时支持。目前，所有浏览器都支持该功能，IE浏览器不能低于IE10。</p><h4 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h4><p>A站点<code>http://192.168.1.4:8000/</code> B站点 <code>http://192.168.1.4:5000/</code></p><p>a.我们在flask配置跨域支持</p><pre class="line-numbers language-python" data-language="python"><code class="language-python">CORS<span class="token punctuation">(</span>app<span class="token punctuation">,</span> resources<span class="token operator">=</span><span class="token punctuation">{</span><span class="token string">r"/*"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token string">"origins"</span><span class="token punctuation">:</span> <span class="token string">"*"</span><span class="token punctuation">}</span><span class="token punctuation">}</span><span class="token punctuation">,</span> supports_credentials<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p>b.在前端发起XMLHttpRequest时设置<code>withCredentials</code> 为<code>true</code></p><p><img src="https://raw.githubusercontent.com/outlaws-bai/picture/main/img/image-20221017233613596.png" alt="image-20221017233613596"></p><p>c.点击init cookies后再点击获取敏感信息，可以看到已经获得了敏感信息</p><p><img src="https://raw.githubusercontent.com/outlaws-bai/picture/main/img/image-20221017233549702.png" alt="image-20221017233549702"></p><p>d.此时观察burp，发现会有两条http请求</p><p>首先游览器会发起OPTIONS方法请求需要跨域访问接口，得到服务端在响应头中的允许之后才会发起POST请求，并且因为在第一条请求中设置了Access-Control-Allow-Credentials为true，因此第二条请求还会携带Cookie</p><p><img src="https://raw.githubusercontent.com/outlaws-bai/picture/main/img/image-20221017233657395.png" alt="image-20221017233657395"></p><p><img src="https://raw.githubusercontent.com/outlaws-bai/picture/main/img/image-20221017233708163.png" alt="image-20221017233708163"></p><h3 id="3-JSONP"><a href="#3-JSONP" class="headerlink" title="3.JSONP"></a>3.JSONP</h3><p>利用可以允许跨域的html标签。如<code>img</code> <code>script</code> 等</p><h4 id="示例-1"><a href="#示例-1" class="headerlink" title="示例"></a>示例</h4><p>A站点<code>http://192.168.1.4:2333/</code> B站点 <code>http://192.168.1.4:5000/</code></p><pre class="line-numbers language-html" data-language="html"><code class="language-html"># index.html<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span><span class="token punctuation">&gt;</span></span><span class="token script"><span class="token language-javascript"><span class="token keyword">function</span> <span class="token function">userInfo</span><span class="token punctuation">(</span><span class="token parameter">data</span><span class="token punctuation">)</span><span class="token punctuation">{</span>  <span class="token function">alert</span><span class="token punctuation">(</span>data<span class="token punctuation">.</span>username<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token punctuation">}</span></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>http://192.168.1.4:5000/vuls/jsonp/getUserInfo?callback=userInfo<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span><span class="token script"></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">&gt;</span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><p>保存为<code>index.html</code> 后，启动python web服务</p><pre class="line-numbers language-python" data-language="python"><code class="language-python">python <span class="token operator">-</span>m http<span class="token punctuation">.</span>server <span class="token number">2333</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p><img src="https://raw.githubusercontent.com/outlaws-bai/picture/main/img/image-20221017235002661.png" alt="image-20221017235002661"></p><p>使用游览器访问<code>http://192.168.1.4:2333/</code> ，可以看到已经获跨域成功</p><p><img src="https://raw.githubusercontent.com/outlaws-bai/picture/main/img/image-20221017235109628.png" alt="image-20221017235109628"></p><p>此时观察burp，有两条流量，一条获取html源码，一条向B站点发起跨域请求。</p><p><img src="https://raw.githubusercontent.com/outlaws-bai/picture/main/img/image-20221017235210844.png" alt="image-20221017235210844"></p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> CORS </tag>
+            
+            <tag> JSONP </tag>
+            
+            <tag> 前端安全 </tag>
+            
+            <tag> 钓鱼 </tag>
+            
+            <tag> 同源策略 </tag>
+            
+            <tag> 跨域 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>SSRF</title>
       <link href="/2022/10/12/ssrf/"/>
       <url>/2022/10/12/ssrf/</url>
