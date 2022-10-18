@@ -521,7 +521,7 @@
 
 <h3 id="危害"><a href="#危害" class="headerlink" title="危害"></a>危害</h3><p>敏感信息泄露，如邮箱、手机号、姓名等。</p>
 <h3 id="修复方案"><a href="#修复方案" class="headerlink" title="修复方案"></a>修复方案</h3><p>验证 JSONP 的调用来源（Referer），服务端判断 Referer 是否是白名单，或者部署随机 Token 来防御</p>
-<h2 id="XSS"><a href="#XSS" class="headerlink" title="XSS"></a>XSS</h2><h3 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h3><p>我们注意到<a target="_blank" rel="noopener" href="http://192.168.1.4:5000/vuls/jsonp/getUserInfo?callback=userInfo%E8%BF%99%E4%B8%AA%E6%8E%A5%E5%8F%A3%EF%BC%8C%E8%AE%BF%E9%97%AE%E5%9B%9E%E6%98%BE%E5%A6%82%E4%B8%8B">http://192.168.1.4:5000/vuls/jsonp/getUserInfo?callback=userInfo这个接口，访问回显如下</a></p>
+<h2 id="XSS"><a href="#XSS" class="headerlink" title="XSS"></a>XSS</h2><h3 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h3><p>我们注意到<a target="_blank" rel="noopener" href="http://192.168.1.4:5000/vuls/jsonp/getUserInfo?callback=userInfo">http://192.168.1.4:5000/vuls/jsonp/getUserInfo?callback=userInfo</a> 这个接口，访问回显如下</p>
 <p><img src="https://raw.githubusercontent.com/outlaws-bai/picture/main/img/image-20221018233219832.png"></p>
 <p>如果我们修改 callback 的值，发现页面内容会随之更改</p>
 <p><img src="https://raw.githubusercontent.com/outlaws-bai/picture/main/img/image-20221018233253547.png"></p>
