@@ -6,7 +6,7 @@
   <link href="https://outlaws-bai.github.io/atom.xml" rel="self"/>
   
   <link href="https://outlaws-bai.github.io/"/>
-  <updated>2022-10-17T16:50:49.266Z</updated>
+  <updated>2022-10-18T15:59:59.070Z</updated>
   <id>https://outlaws-bai.github.io/</id>
   
   <author>
@@ -17,11 +17,40 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>jsonp的安全问题</title>
+    <link href="https://outlaws-bai.github.io/2022/10/18/jsonp-de-an-quan-wen-ti/"/>
+    <id>https://outlaws-bai.github.io/2022/10/18/jsonp-de-an-quan-wen-ti/</id>
+    <published>2022-10-18T15:08:54.000Z</published>
+    <updated>2022-10-18T15:59:59.070Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;JSONP-的安全问题&quot;&gt;&lt;a href=&quot;#JSONP-的安全问题&quot; class=&quot;headerlink&quot; title=&quot;JSONP 的安全问题&quot;&gt;&lt;/a&gt;JSONP 的安全问题&lt;/h1&gt;&lt;p&gt;之前的文章讲了&lt;a</summary>
+        
+      
+    
+    
+    
+    
+    <category term="JSONP" scheme="https://outlaws-bai.github.io/tags/JSONP/"/>
+    
+    <category term="跨域" scheme="https://outlaws-bai.github.io/tags/%E8%B7%A8%E5%9F%9F/"/>
+    
+    <category term="XSS" scheme="https://outlaws-bai.github.io/tags/XSS/"/>
+    
+    <category term="JSONP劫持" scheme="https://outlaws-bai.github.io/tags/JSONP%E5%8A%AB%E6%8C%81/"/>
+    
+  </entry>
+  
+  <entry>
     <title>CORS配置不当</title>
     <link href="https://outlaws-bai.github.io/2022/10/17/cors-pei-zhi-bu-dang/"/>
     <id>https://outlaws-bai.github.io/2022/10/17/cors-pei-zhi-bu-dang/</id>
     <published>2022-10-17T15:56:18.000Z</published>
-    <updated>2022-10-17T16:50:49.266Z</updated>
+    <updated>2022-10-18T16:10:36.303Z</updated>
     
     
       
@@ -35,9 +64,13 @@
     
     
     
+    <category term="常规web漏洞" scheme="https://outlaws-bai.github.io/tags/%E5%B8%B8%E8%A7%84web%E6%BC%8F%E6%B4%9E/"/>
+    
     <category term="CORS" scheme="https://outlaws-bai.github.io/tags/CORS/"/>
     
     <category term="前端安全" scheme="https://outlaws-bai.github.io/tags/%E5%89%8D%E7%AB%AF%E5%AE%89%E5%85%A8/"/>
+    
+    <category term="CORS配置不当" scheme="https://outlaws-bai.github.io/tags/CORS%E9%85%8D%E7%BD%AE%E4%B8%8D%E5%BD%93/"/>
     
   </entry>
   

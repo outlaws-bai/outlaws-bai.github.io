@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="前端跨域问题, outlaws&#39;s blog">
+    <meta name="keywords" content="jsonp的安全问题, outlaws&#39;s blog">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>前端跨域问题 | outlaws&#39;s blog</title>
+    <title>jsonp的安全问题 | outlaws&#39;s blog</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -313,12 +313,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/19.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/11.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">前端跨域问题</h1>
+                    <h1 class="description center-align post-title">jsonp的安全问题</h1>
                 </div>
             </div>
         </div>
@@ -434,28 +434,20 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/CORS/">
-                                <span class="chip bg-color">CORS</span>
-                            </a>
-                        
                             <a href="/tags/JSONP/">
                                 <span class="chip bg-color">JSONP</span>
                             </a>
                         
-                            <a href="/tags/%E5%89%8D%E7%AB%AF%E5%AE%89%E5%85%A8/">
-                                <span class="chip bg-color">前端安全</span>
-                            </a>
-                        
-                            <a href="/tags/%E9%92%93%E9%B1%BC/">
-                                <span class="chip bg-color">钓鱼</span>
-                            </a>
-                        
-                            <a href="/tags/%E5%90%8C%E6%BA%90%E7%AD%96%E7%95%A5/">
-                                <span class="chip bg-color">同源策略</span>
-                            </a>
-                        
                             <a href="/tags/%E8%B7%A8%E5%9F%9F/">
                                 <span class="chip bg-color">跨域</span>
+                            </a>
+                        
+                            <a href="/tags/XSS/">
+                                <span class="chip bg-color">XSS</span>
+                            </a>
+                        
+                            <a href="/tags/JSONP%E5%8A%AB%E6%8C%81/">
+                                <span class="chip bg-color">JSONP劫持</span>
                             </a>
                         
                     </div>
@@ -470,7 +462,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2022-10-17
+                    2022-10-18
                 </div>
                 
 
@@ -494,30 +486,9 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="跨域"><a href="#跨域" class="headerlink" title="跨域"></a>跨域</h1><p>想要了解前端安全安全，跨域是一个绕不过的话题。</p>
-<h2 id="出现原因"><a href="#出现原因" class="headerlink" title="出现原因"></a>出现原因</h2><p>同源策略（Same Orgin Policy）是一种约定，它是浏览器核心也最基本的安全功能，它会阻止一个域的 js 脚本和另外一个域的内容进行交互，如果缺少了同源策略，浏览器很容易受到 XSS、CSFR 等攻击。</p>
-<h2 id="同源"><a href="#同源" class="headerlink" title="同源"></a>同源</h2><p>先看一下 URL 的完整格式</p>
-<pre class="line-numbers language-none"><code class="language-none">scheme://username:password@host:port/path/query#fragment<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
-<p><img src="https://raw.githubusercontent.com/outlaws-bai/picture/main/img/image-20221017231332368.png"></p>
-<p>游览器认为两个站点 scheme、host、port 中任意一个不相同即为不同源</p>
-<h2 id="跨域的解决方案"><a href="#跨域的解决方案" class="headerlink" title="跨域的解决方案"></a>跨域的解决方案</h2><h3 id="1-代理"><a href="#1-代理" class="headerlink" title="1.代理"></a>1.代理</h3><p>nginx 以及其他 web 后端/node 框架都会提供代理功能，这也是最安全的方案。</p>
-<h3 id="2-CORS"><a href="#2-CORS" class="headerlink" title="2.CORS"></a>2.CORS</h3><p>允许浏览器向不同源站点发起 XMLHttpRequest 请求，但需要服务端做 CORS 相关配置。</p>
-<p>CORS 需要浏览器和服务器同时支持。目前，所有浏览器都支持该功能，IE 浏览器不能低于 IE10。</p>
-<h4 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h4><p>A 站点<code>http://192.168.1.4:8000/</code> B 站点 <code>http://192.168.1.4:5000/</code></p>
-<p>a.我们在 flask 配置跨域支持</p>
-<pre class="line-numbers language-python" data-language="python"><code class="language-python">CORS<span class="token punctuation">(</span>app<span class="token punctuation">,</span> resources<span class="token operator">=</span><span class="token punctuation">{</span><span class="token string">r"/*"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token string">"origins"</span><span class="token punctuation">:</span> <span class="token string">"*"</span><span class="token punctuation">}</span><span class="token punctuation">}</span><span class="token punctuation">,</span> supports_credentials<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span>  <span class="token comment"># 其实这里就存在安全问题</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
-<p>b.在前端发起 XMLHttpRequest 时设置<code>withCredentials</code> 为<code>true</code></p>
-<p><img src="https://raw.githubusercontent.com/outlaws-bai/picture/main/img/image-20221017233613596.png"></p>
-<p>c.点击 init cookies 后再点击获取敏感信息，可以看到已经获得了敏感信息</p>
-<p><img src="https://raw.githubusercontent.com/outlaws-bai/picture/main/img/image-20221017233549702.png"></p>
-<p>d.此时观察 burp，发现会有两条 http 请求</p>
-<p>首先游览器会发起 OPTIONS 方法请求需要跨域访问接口，得到服务端在响应头中的允许之后才会发起 POST 请求，并且因为在第一条请求中设置了 Access-Control-Allow-Credentials 为 true，因此第二条请求还会携带 Cookie</p>
-<p><img src="https://raw.githubusercontent.com/outlaws-bai/picture/main/img/image-20221017233657395.png"></p>
-<p><img src="https://raw.githubusercontent.com/outlaws-bai/picture/main/img/image-20221017233708163.png"></p>
-<h3 id="3-JSONP"><a href="#3-JSONP" class="headerlink" title="3.JSONP"></a>3.JSONP</h3><p>利用可以允许跨域的 html 标签。如<code>img</code> <code>script</code> 等</p>
-<h4 id="示例-1"><a href="#示例-1" class="headerlink" title="示例"></a>示例</h4><p>A 站点<code>http://192.168.1.4:2333/</code> B 站点 <code>http://192.168.1.4:5000/</code></p>
+                <h1 id="JSONP-的安全问题"><a href="#JSONP-的安全问题" class="headerlink" title="JSONP 的安全问题"></a>JSONP 的安全问题</h1><p>之前的文章讲了<a href="https://outlaws-bai.github.io/2022/10/17/qian-duan-kua-yu-wen-ti/">前端跨域问题</a>以及几种常见的解决方案。本文详细讲述其中 JSONP 所遇到的安全问题。</p>
+<p>JSONP 作为一种被 jQuery 封装的跨域方案，使用还是非常广泛的，其常会遇到 JSONP 劫持、XSS 攻击。</p>
+<h2 id="JSONP-劫持"><a href="#JSONP-劫持" class="headerlink" title="JSONP 劫持"></a>JSONP 劫持</h2><h3 id="过程"><a href="#过程" class="headerlink" title="过程"></a>过程</h3><p>业务站点 A <code>http://192.168.1.4:5000</code> 攻击站点 B <code>http://192.168.1.4:2333</code></p>
 <pre class="line-numbers language-html" data-language="html"><code class="language-html"># index.html
 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span><span class="token punctuation">&gt;</span></span><span class="token script"><span class="token language-javascript">
   <span class="token keyword">function</span> <span class="token function">userInfo</span><span class="token punctuation">(</span><span class="token parameter">data</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
@@ -534,6 +505,41 @@
 <p><img src="https://raw.githubusercontent.com/outlaws-bai/picture/main/img/image-20221017235109628.png"></p>
 <p>此时观察 burp，有两条流量，一条获取 html 源码，一条向 B 站点发起跨域请求。</p>
 <p><img src="https://raw.githubusercontent.com/outlaws-bai/picture/main/img/image-20221017235210844.png"></p>
+<p>这里以弹窗进行展示，实际过程中攻击站点 B 在获取到敏感信息后可以发送到站点 B 的后台</p>
+<p>具体攻击流程如下图</p>
+<p><img src="https://raw.githubusercontent.com/outlaws-bai/picture/main/img/image-20221018235541788.png"></p>
+<p>jQuery 下可以使用下边的 html</p>
+<pre class="line-numbers language-html" data-language="html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>http://cdn.static.runoob.com/libs/jquery/1.8.3/jquery.js<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span><span class="token script"></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>text/javascript<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span><span class="token script"><span class="token language-javascript">
+  $<span class="token punctuation">.</span><span class="token function">getJSON</span><span class="token punctuation">(</span>
+    <span class="token string">'http://192.168.1.4:5000/vuls/jsonp/getUserInfo?callback=?'</span><span class="token punctuation">,</span>
+    <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token parameter">data</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token function">alert</span><span class="token punctuation">(</span>data<span class="token punctuation">.</span>username<span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">)</span>
+</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">&gt;</span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="危害"><a href="#危害" class="headerlink" title="危害"></a>危害</h3><p>敏感信息泄露，如邮箱、手机号、姓名等。</p>
+<h3 id="修复方案"><a href="#修复方案" class="headerlink" title="修复方案"></a>修复方案</h3><p>验证 JSONP 的调用来源（Referer），服务端判断 Referer 是否是白名单，或者部署随机 Token 来防御</p>
+<h2 id="XSS"><a href="#XSS" class="headerlink" title="XSS"></a>XSS</h2><h3 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h3><p>我们注意到<a target="_blank" rel="noopener" href="http://192.168.1.4:5000/vuls/jsonp/getUserInfo?callback=userInfo%E8%BF%99%E4%B8%AA%E6%8E%A5%E5%8F%A3%EF%BC%8C%E8%AE%BF%E9%97%AE%E5%9B%9E%E6%98%BE%E5%A6%82%E4%B8%8B">http://192.168.1.4:5000/vuls/jsonp/getUserInfo?callback=userInfo这个接口，访问回显如下</a></p>
+<p><img src="https://raw.githubusercontent.com/outlaws-bai/picture/main/img/image-20221018233219832.png"></p>
+<p>如果我们修改 callback 的值，发现页面内容会随之更改</p>
+<p><img src="https://raw.githubusercontent.com/outlaws-bai/picture/main/img/image-20221018233253547.png"></p>
+<p>此时就可以插入 XSS payload</p>
+<p><img src="https://raw.githubusercontent.com/outlaws-bai/picture/main/img/image-20221018233337205.png"></p>
+<h3 id="修复方案-1"><a href="#修复方案-1" class="headerlink" title="修复方案"></a>修复方案</h3><p>这里是因为 callback 的值可控并且会回显到页面上，可以通过修改 content-type 来修复，不建议对 payload 进行过滤，容易被绕过。</p>
+<p><img src="https://raw.githubusercontent.com/outlaws-bai/picture/main/img/image-20221018233719505.png"></p>
+<p><img src="https://raw.githubusercontent.com/outlaws-bai/picture/main/img/image-20221018233838193.png"></p>
+<p><img src="https://raw.githubusercontent.com/outlaws-bai/picture/main/img/image-20221018233846582.png"></p>
+<p><img src="https://raw.githubusercontent.com/outlaws-bai/picture/main/img/image-20221018234955080.png"></p>
+<h1 id="挖掘思路"><a href="#挖掘思路" class="headerlink" title="挖掘思路"></a>挖掘思路</h1><p>真实场景中</p>
+<ul>
+<li>通过请求参数，callback 的参数名可能会发生变化，常见的有<code>callback</code>、<code>cb</code>、<code>json</code> 、<code>jsonp</code>、<code>jsonpcallback</code>等</li>
+<li>通过响应格式，jsonp 的响应格式为 xxx({})</li>
+</ul>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a target="_blank" rel="noopener" href="https://blog.gm7.org/%E4%B8%AA%E4%BA%BA%E7%9F%A5%E8%AF%86%E5%BA%93/01.%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/02.WEB%E6%BC%8F%E6%B4%9E/21.JSONP%E6%95%B0%E6%8D%AE%E5%8A%AB%E6%8C%81/">https://blog.gm7.org/%E4%B8%AA%E4%BA%BA%E7%9F%A5%E8%AF%86%E5%BA%93/01.%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/02.WEB%E6%BC%8F%E6%B4%9E/21.JSONP%E6%95%B0%E6%8D%AE%E5%8A%AB%E6%8C%81/</a></p>
+<p><a target="_blank" rel="noopener" href="http://drops.xmd5.com/static/drops/papers-6630.html">http://drops.xmd5.com/static/drops/papers-6630.html</a></p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/62694920">https://zhuanlan.zhihu.com/p/62694920</a></p>
 
                 
             </div>
@@ -560,7 +566,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://outlaws-bai.github.io/2022/10/17/qian-duan-kua-yu-wen-ti/">https://outlaws-bai.github.io/2022/10/17/qian-duan-kua-yu-wen-ti/</a>
+                    <a href="https://outlaws-bai.github.io/2022/10/18/jsonp-de-an-quan-wen-ti/">https://outlaws-bai.github.io/2022/10/18/jsonp-de-an-quan-wen-ti/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -598,28 +604,20 @@
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/CORS/">
-                                    <span class="chip bg-color">CORS</span>
-                                </a>
-                            
                                 <a href="/tags/JSONP/">
                                     <span class="chip bg-color">JSONP</span>
                                 </a>
                             
-                                <a href="/tags/%E5%89%8D%E7%AB%AF%E5%AE%89%E5%85%A8/">
-                                    <span class="chip bg-color">前端安全</span>
-                                </a>
-                            
-                                <a href="/tags/%E9%92%93%E9%B1%BC/">
-                                    <span class="chip bg-color">钓鱼</span>
-                                </a>
-                            
-                                <a href="/tags/%E5%90%8C%E6%BA%90%E7%AD%96%E7%95%A5/">
-                                    <span class="chip bg-color">同源策略</span>
-                                </a>
-                            
                                 <a href="/tags/%E8%B7%A8%E5%9F%9F/">
                                     <span class="chip bg-color">跨域</span>
+                                </a>
+                            
+                                <a href="/tags/XSS/">
+                                    <span class="chip bg-color">XSS</span>
+                                </a>
+                            
+                                <a href="/tags/JSONP%E5%8A%AB%E6%8C%81/">
+                                    <span class="chip bg-color">JSONP劫持</span>
                                 </a>
                             
                         </div>
@@ -665,9 +663,68 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
+            <div class="card">
+                <a href="/2022/10/18/jsonp-de-an-quan-wen-ti/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/11.jpg" class="responsive-img" alt="jsonp的安全问题">
+                        
+                        <span class="card-title">jsonp的安全问题</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-10-18
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            outlaws
+                            
+                        </span>
+                    </div>
+                </div>
+
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/JSONP/">
+                        <span class="chip bg-color">JSONP</span>
+                    </a>
+                    
+                    <a href="/tags/%E8%B7%A8%E5%9F%9F/">
+                        <span class="chip bg-color">跨域</span>
+                    </a>
+                    
+                    <a href="/tags/XSS/">
+                        <span class="chip bg-color">XSS</span>
+                    </a>
+                    
+                    <a href="/tags/JSONP%E5%8A%AB%E6%8C%81/">
+                        <span class="chip bg-color">JSONP劫持</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
             <div class="card">
                 <a href="/2022/10/17/cors-pei-zhi-bu-dang/">
                     <div class="card-image">
@@ -685,9 +742,9 @@
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2022-10-17
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-10-17
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
@@ -713,55 +770,6 @@
                     
                     <a href="/tags/CORS%E9%85%8D%E7%BD%AE%E4%B8%8D%E5%BD%93/">
                         <span class="chip bg-color">CORS配置不当</span>
-                    </a>
-                    
-                </div>
-                
-            </div>
-        </div>
-        
-        
-        <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge right-badge text-color">
-                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
-            </div>
-            <div class="card">
-                <a href="/2022/10/12/ssrf/">
-                    <div class="card-image">
-                        
-                        
-                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="SSRF">
-                        
-                        <span class="card-title">SSRF</span>
-                    </div>
-                </a>
-                <div class="card-content article-content">
-                    <div class="summary block-with-text">
-                        
-                            
-                        
-                    </div>
-                    <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-10-12
-                            </span>
-                        <span class="publish-author">
-                            
-                            <i class="fas fa-user fa-fw"></i>
-                            outlaws
-                            
-                        </span>
-                    </div>
-                </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/%E5%B8%B8%E8%A7%84Web%E6%BC%8F%E6%B4%9E/">
-                        <span class="chip bg-color">常规Web漏洞</span>
-                    </a>
-                    
-                    <a href="/tags/SSRF/">
-                        <span class="chip bg-color">SSRF</span>
                     </a>
                     
                 </div>
