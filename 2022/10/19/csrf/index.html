@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="jsonp的安全问题, outlaws&#39;s blog">
+    <meta name="keywords" content="CSRF, outlaws&#39;s blog">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>jsonp的安全问题 | outlaws&#39;s blog</title>
+    <title>CSRF | outlaws&#39;s blog</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -313,12 +313,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/11.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/20.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">jsonp的安全问题</h1>
+                    <h1 class="description center-align post-title">CSRF</h1>
                 </div>
             </div>
         </div>
@@ -434,20 +434,20 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/JSONP/">
-                                <span class="chip bg-color">JSONP</span>
+                            <a href="/tags/%E5%B8%B8%E8%A7%84web%E6%BC%8F%E6%B4%9E/">
+                                <span class="chip bg-color">常规web漏洞</span>
                             </a>
                         
-                            <a href="/tags/%E8%B7%A8%E5%9F%9F/">
-                                <span class="chip bg-color">跨域</span>
+                            <a href="/tags/%E5%89%8D%E7%AB%AF%E5%AE%89%E5%85%A8/">
+                                <span class="chip bg-color">前端安全</span>
                             </a>
                         
-                            <a href="/tags/XSS/">
-                                <span class="chip bg-color">XSS</span>
+                            <a href="/tags/%E9%92%93%E9%B1%BC/">
+                                <span class="chip bg-color">钓鱼</span>
                             </a>
                         
-                            <a href="/tags/JSONP%E5%8A%AB%E6%8C%81/">
-                                <span class="chip bg-color">JSONP劫持</span>
+                            <a href="/tags/CSRF/">
+                                <span class="chip bg-color">CSRF</span>
                             </a>
                         
                     </div>
@@ -462,7 +462,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2022-10-18
+                    2022-10-19
                 </div>
                 
 
@@ -486,60 +486,89 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="JSONP-的安全问题"><a href="#JSONP-的安全问题" class="headerlink" title="JSONP 的安全问题"></a>JSONP 的安全问题</h1><p>之前的文章讲了<a href="https://outlaws-bai.github.io/2022/10/17/qian-duan-kua-yu-wen-ti/">前端跨域问题</a>以及几种常见的解决方案。本文详细讲述其中 JSONP 所遇到的安全问题。</p>
-<p>JSONP 作为一种被 jQuery 封装的跨域方案，使用还是非常广泛的，其常会遇到 JSONP 劫持、XSS 攻击。</p>
-<h2 id="JSONP-劫持"><a href="#JSONP-劫持" class="headerlink" title="JSONP 劫持"></a>JSONP 劫持</h2><h3 id="过程"><a href="#过程" class="headerlink" title="过程"></a>过程</h3><p>业务站点 A <code>http://192.168.1.4:5000</code> 攻击站点 B <code>http://192.168.1.4:2333</code></p>
-<pre class="line-numbers language-html" data-language="html"><code class="language-html"># index.html
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span><span class="token punctuation">&gt;</span></span><span class="token script"><span class="token language-javascript">
-  <span class="token keyword">function</span> <span class="token function">userInfo</span><span class="token punctuation">(</span><span class="token parameter">data</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token function">alert</span><span class="token punctuation">(</span>data<span class="token punctuation">.</span>username<span class="token punctuation">)</span>
-  <span class="token punctuation">}</span>
-</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">&gt;</span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>http://192.168.1.4:5000/vuls/jsonp/getUserInfo?callback=userInfo<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span><span class="token script"></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">&gt;</span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>保存为<code>index.html</code> 后，启动 python web 服务</p>
-<pre class="line-numbers language-python" data-language="python"><code class="language-python">python <span class="token operator">-</span>m http<span class="token punctuation">.</span>server <span class="token number">2333</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
-<p><img src="https://raw.githubusercontent.com/outlaws-bai/picture/main/img/image-20221017235002661.png"></p>
-<p>使用游览器访问<code>http://192.168.1.4:2333/</code> ，可以看到已经获跨域成功并获取到了信息</p>
-<p><img src="https://raw.githubusercontent.com/outlaws-bai/picture/main/img/image-20221017235109628.png"></p>
-<p>此时观察 burp，有两条流量，一条获取 html 源码，一条向 B 站点发起跨域请求。</p>
-<p><img src="https://raw.githubusercontent.com/outlaws-bai/picture/main/img/image-20221017235210844.png"></p>
-<p>这里以弹窗进行展示，实际过程中攻击站点 B 在获取到敏感信息后可以发送到站点 B 的后台</p>
-<p>具体攻击流程如下图</p>
-<p><img src="https://raw.githubusercontent.com/outlaws-bai/picture/main/img/image-20221018235541788.png"></p>
-<p>jQuery 下可以使用下边的 html</p>
-<pre class="line-numbers language-html" data-language="html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>http://cdn.static.runoob.com/libs/jquery/1.8.3/jquery.js<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span><span class="token script"></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">&gt;</span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>text/javascript<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span><span class="token script"><span class="token language-javascript">
-  $<span class="token punctuation">.</span><span class="token function">getJSON</span><span class="token punctuation">(</span>
-    <span class="token string">'http://192.168.1.4:5000/vuls/jsonp/getUserInfo?callback=?'</span><span class="token punctuation">,</span>
-    <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token parameter">data</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-      <span class="token function">alert</span><span class="token punctuation">(</span>data<span class="token punctuation">.</span>username<span class="token punctuation">)</span>
-    <span class="token punctuation">}</span>
-  <span class="token punctuation">)</span>
-</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">&gt;</span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h3 id="危害"><a href="#危害" class="headerlink" title="危害"></a>危害</h3><p>敏感信息泄露，如邮箱、手机号、姓名等。</p>
-<h3 id="修复方案"><a href="#修复方案" class="headerlink" title="修复方案"></a>修复方案</h3><p>验证 JSONP 的调用来源（Referer），服务端判断 Referer 是否是白名单，或者部署随机 Token 来防御</p>
-<h2 id="XSS"><a href="#XSS" class="headerlink" title="XSS"></a>XSS</h2><h3 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h3><p>我们注意到<a target="_blank" rel="noopener" href="http://192.168.1.4:5000/vuls/jsonp/getUserInfo?callback=userInfo">http://192.168.1.4:5000/vuls/jsonp/getUserInfo?callback=userInfo</a> 这个接口，访问回显如下</p>
-<p><img src="https://raw.githubusercontent.com/outlaws-bai/picture/main/img/image-20221018233219832.png"></p>
-<p>如果我们修改 callback 的值，发现页面内容会随之更改</p>
-<p><img src="https://raw.githubusercontent.com/outlaws-bai/picture/main/img/image-20221018233253547.png"></p>
-<p>此时就可以插入 XSS payload</p>
-<p><img src="https://raw.githubusercontent.com/outlaws-bai/picture/main/img/image-20221018233337205.png"></p>
-<h3 id="修复方案-1"><a href="#修复方案-1" class="headerlink" title="修复方案"></a>修复方案</h3><p>这里是因为 callback 的值可控并且会回显到页面上，可以通过修改 content-type 来修复，不建议对 payload 进行过滤，容易被绕过。</p>
-<p><img src="https://raw.githubusercontent.com/outlaws-bai/picture/main/img/image-20221018233719505.png"></p>
-<p><img src="https://raw.githubusercontent.com/outlaws-bai/picture/main/img/image-20221018233838193.png"></p>
-<p><img src="https://raw.githubusercontent.com/outlaws-bai/picture/main/img/image-20221018233846582.png"></p>
-<p><img src="https://raw.githubusercontent.com/outlaws-bai/picture/main/img/image-20221018234955080.png"></p>
-<h1 id="挖掘思路"><a href="#挖掘思路" class="headerlink" title="挖掘思路"></a>挖掘思路</h1><p>真实场景中</p>
+                <h1 id="CSRF"><a href="#CSRF" class="headerlink" title="CSRF"></a>CSRF</h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>CSRF（Cross-site request forgery）跨站请求伪造。攻击者诱导受害者进入第三方网站，在第三方网站中，向被攻击网站发送跨站请求。利用受害者在被攻击网站已经获取的注册凭证，绕过后台的用户验证，达到冒充用户对被攻击的网站执行某项操作的目的。</p>
+<h2 id="攻击流程"><a href="#攻击流程" class="headerlink" title="攻击流程"></a>攻击流程</h2><p>业务站点 A、恶意站点 B</p>
 <ul>
-<li>通过请求参数，callback 的参数名可能会发生变化，常见的有<code>callback</code>、<code>cb</code>、<code>json</code> 、<code>jsonp</code>、<code>jsonpcallback</code>等</li>
-<li>通过响应格式，jsonp 的响应格式为 xxx({})</li>
+<li>受害者登录 A，并保留了 A 的 cookie</li>
+<li>攻击者通过钓鱼等手段诱使受害者访问 B</li>
+<li>B 向 A 发起一个请求，此时游览器会默认携带 A 站点的 Cookie</li>
+<li>A 站点收到请求后，认为是受害者自己发送的请求，执行正常的业务逻辑</li>
+<li>攻击完成，攻击者在受害者不知情的情况下冒充受害者请求 A 站点</li>
 </ul>
-<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a target="_blank" rel="noopener" href="https://blog.gm7.org/%E4%B8%AA%E4%BA%BA%E7%9F%A5%E8%AF%86%E5%BA%93/01.%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/02.WEB%E6%BC%8F%E6%B4%9E/21.JSONP%E6%95%B0%E6%8D%AE%E5%8A%AB%E6%8C%81/">https://blog.gm7.org/%E4%B8%AA%E4%BA%BA%E7%9F%A5%E8%AF%86%E5%BA%93/01.%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/02.WEB%E6%BC%8F%E6%B4%9E/21.JSONP%E6%95%B0%E6%8D%AE%E5%8A%AB%E6%8C%81/</a></p>
-<p><a target="_blank" rel="noopener" href="http://drops.xmd5.com/static/drops/papers-6630.html">http://drops.xmd5.com/static/drops/papers-6630.html</a></p>
-<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/62694920">https://zhuanlan.zhihu.com/p/62694920</a></p>
+<h2 id="复现"><a href="#复现" class="headerlink" title="复现"></a>复现</h2><h3 id="GET-型"><a href="#GET-型" class="headerlink" title="GET 型"></a>GET 型</h3><p>业务站点 A<code>http://silk-dream.outlaws.com/</code> 、恶意站点 B<code>http://192.168.1.4:2333</code></p>
+<p>模拟情况为业务站点 A 有一个接口<code>/vus/csrf/attack</code> ，恶意站点 B 也可以访问到该接口即为攻击成功</p>
+<p>保存下方内容为<code>index.html</code> ，并使用 python 在 2333 启动 web 服务</p>
+<pre class="line-numbers language-html" data-language="html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>html</span><span class="token punctuation">&gt;</span></span>
+  <span class="token comment">&lt;!-- CSRF PoC - generated by Burp Suite Professional --&gt;</span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>body</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span><span class="token punctuation">&gt;</span></span><span class="token script"><span class="token language-javascript">
+      history<span class="token punctuation">.</span><span class="token function">pushState</span><span class="token punctuation">(</span><span class="token string">''</span><span class="token punctuation">,</span> <span class="token string">''</span><span class="token punctuation">,</span> <span class="token string">'/'</span><span class="token punctuation">)</span>
+    </span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>form</span> <span class="token attr-name">action</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>http://silk-dream.outlaws.com/api/vuls/csrf/attack<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>hidden<span class="token punctuation">"</span></span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>attack<span class="token punctuation">"</span></span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>csrf<span class="token punctuation">"</span></span> <span class="token punctuation">/&gt;</span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>submit<span class="token punctuation">"</span></span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>Submit request<span class="token punctuation">"</span></span> <span class="token punctuation">/&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>form</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>body</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>html</span><span class="token punctuation">&gt;</span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">python -m http.server <span class="token number">2333</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p><img src="https://raw.githubusercontent.com/outlaws-bai/picture/main/img/image-20221020000218408.png"></p>
+<p>观察 burp，向模拟接口发起了请求，并且携带了 cookie</p>
+<p><img src="https://raw.githubusercontent.com/outlaws-bai/picture/main/img/image-20221020000311710.png"></p>
+<h3 id="POST-型"><a href="#POST-型" class="headerlink" title="POST 型"></a>POST 型</h3><p><code>index.html</code>变更为下边的内容</p>
+<pre class="line-numbers language-html" data-language="html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>html</span><span class="token punctuation">&gt;</span></span>
+  <span class="token comment">&lt;!-- CSRF PoC - generated by Burp Suite Professional --&gt;</span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>body</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span><span class="token punctuation">&gt;</span></span><span class="token script"><span class="token language-javascript">
+      history<span class="token punctuation">.</span><span class="token function">pushState</span><span class="token punctuation">(</span><span class="token string">''</span><span class="token punctuation">,</span> <span class="token string">''</span><span class="token punctuation">,</span> <span class="token string">'/'</span><span class="token punctuation">)</span>
+    </span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>form</span>
+      <span class="token attr-name">action</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>http://silk-dream.outlaws.com/api/vuls/csrf/attack<span class="token punctuation">"</span></span>
+      <span class="token attr-name">method</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>POST<span class="token punctuation">"</span></span>
+    <span class="token punctuation">&gt;</span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>hidden<span class="token punctuation">"</span></span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>attack<span class="token punctuation">"</span></span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>csrf<span class="token punctuation">"</span></span> <span class="token punctuation">/&gt;</span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>submit<span class="token punctuation">"</span></span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>Submit request<span class="token punctuation">"</span></span> <span class="token punctuation">/&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>form</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>body</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>html</span><span class="token punctuation">&gt;</span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><img src="https://raw.githubusercontent.com/outlaws-bai/picture/main/img/image-20221020003930512.png" alt="image-20221020003930512"></p>
+<h2 id="CSRF-的特点"><a href="#CSRF-的特点" class="headerlink" title="CSRF 的特点"></a>CSRF 的特点</h2><ul>
+<li><p>CSRF(通常)发生在第三方站点</p>
+</li>
+<li><p>利用 CSRF 的攻击者并不能获取到用户的 Cookie，只是借用</p>
+</li>
+</ul>
+<h2 id="防御"><a href="#防御" class="headerlink" title="防御"></a>防御</h2><p>通过 CSRF 的特点我们可以针对性的进行防护</p>
+<h3 id="同源检测"><a href="#同源检测" class="headerlink" title="同源检测"></a>同源检测</h3><p>由于 CSRF(通常)发生在第三方站点，那么我们可以直接禁止外域（或者不受信任的域名）对我们发起请求。</p>
+<p>在游览器发起请求时通常会带有 Referer 请求头，并且不能由前端自定义，服务端可以通过判断 Referer 头来确定是否同源。</p>
+<h3 id="CSRF-Token"><a href="#CSRF-Token" class="headerlink" title="CSRF Token"></a>CSRF Token</h3><p>前面讲到 CSRF 的另一个特征是，攻击者无法直接窃取到用户的信息（Cookie，Header，网站内容等），仅仅是冒用 Cookie 中的信息。而 CSRF 攻击之所以能够成功，是因为服务器误把攻击者发送的请求当成了用户自己的请求。那么我们可以要求所有的用户请求都携带一个 CSRF 攻击者无法获取到的 Token。服务器通过校验请求是否携带正确的 Token，来把正常的请求和攻击的请求区分开，也可以防范 CSRF 的攻击。</p>
+<p>在用户请求 html 时，服务端生成 CSRF Token，并将其嵌入在表单 hidden 中，在提交表单时就会自动带入</p>
+<pre class="line-numbers language-html" data-language="html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>”hidden”<span class="token punctuation">"</span></span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>”csrftoken”<span class="token punctuation">"</span></span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>”tokenvalue”<span class="token punctuation">"</span></span> <span class="token punctuation">/&gt;</span></span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>不过在当前 restful 盛行的情况下，该选项并不使用，还有一种简单的就是前端在利用 axios、ajax 等发起请求时，在 header 和 cookie 中同时放入 CSRF Token，也可以起到相似的作用。</p>
+<h3 id="Samesite-Cookie-属性"><a href="#Samesite-Cookie-属性" class="headerlink" title="Samesite Cookie 属性"></a>Samesite Cookie 属性</h3><p>防止 CSRF 攻击的办法已经有上面的预防措施。为了从源头上解决这个问题，Google 起草了一份草案来改进 HTTP 协议，那就是为 Set-Cookie 响应头新增 Samesite 属性，它用来标明这个 Cookie 是个“同站 Cookie”，同站 Cookie 只能作为第一方 Cookie，不能作为第三方 Cookie，Samesite 有两个属性值，分别是 Strict 和 Lax。</p>
+<h4 id="Strict"><a href="#Strict" class="headerlink" title="Strict"></a>Strict</h4><p>严格模式，表明这个 Cookie 在任何情况下都不可能作为第三方 Cookie，绝无例外。例如我们修改我们的 Access-Token 的 Samesite 为 Strict</p>
+<p><img src="https://raw.githubusercontent.com/outlaws-bai/picture/main/img/image-20221020001836283.png"></p>
+<p>此时再按照复现中的步骤进行就会发现再向模拟请求发起请求时不会携带 Cookie，从而被拦截</p>
+<p>GET</p>
+<p><img src="https://raw.githubusercontent.com/outlaws-bai/picture/main/img/image-20221020002317302.png"></p>
+<p>POST</p>
+<p><img src="https://raw.githubusercontent.com/outlaws-bai/picture/main/img/image-20221020001940107.png"></p>
+<h4 id="Lax"><a href="#Lax" class="headerlink" title="Lax"></a>Lax</h4><p>这种称为宽松模式，比 Strict 放宽了点限制</p>
+<p><img src="https://raw.githubusercontent.com/outlaws-bai/picture/main/img/image-20221020002400434.png"></p>
+<p>GET</p>
+<p><img src="https://raw.githubusercontent.com/outlaws-bai/picture/main/img/image-20221020002407183.png"></p>
+<p>POST</p>
+<p><img src="https://raw.githubusercontent.com/outlaws-bai/picture/main/img/image-20221020003435433.png"></p>
+<p>也就是说 Lax 只对 POST 有效，对 GET 无效</p>
+<h3 id="RESTful-JSON"><a href="#RESTful-JSON" class="headerlink" title="RESTful+JSON"></a>RESTful+JSON</h3><p>RESTful 并不是一种 CSRF 的解决方案，而是一种编码风格。其规定 C/S 通信时常用 GET、POST、PUT、DELETE 四种 HTTP 请求动词。</p>
+<p>GET 常用来获取资源；POST 用来新建资源；PUT 用来更新资源；DELETE 用来删除资源。</p>
+<p>其中 POST、PUT、DELETE 请求时<code>Content-Type</code>为<code>application/json</code> ，我们知道像 CSRF、JSONP 劫持都是没有办法发起 JSON 请求的，而 GET 仅仅用来获取资源的话，CSRF 攻击也就无法成功了。JSON 请求只能使用 XMLHTTPRequest 发起，但该请求方式受到 CORS 配置的影响，不属于 CSRF 的范畴。</p>
+<p><strong>推荐的防御措施是：使用 RESTful+JSON 编码风格并且设置 Cookie 的 Samesite 属性</strong></p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a target="_blank" rel="noopener" href="https://www.runoob.com/w3cnote/restful-architecture.html">https://www.runoob.com/w3cnote/restful-architecture.html</a></p>
+<p><a target="_blank" rel="noopener" href="https://tech.meituan.com/2018/10/11/fe-security-csrf.html">https://tech.meituan.com/2018/10/11/fe-security-csrf.html</a></p>
 
                 
             </div>
@@ -566,7 +595,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://outlaws-bai.github.io/2022/10/18/jsonp-de-an-quan-wen-ti/">https://outlaws-bai.github.io/2022/10/18/jsonp-de-an-quan-wen-ti/</a>
+                    <a href="https://outlaws-bai.github.io/2022/10/19/csrf/">https://outlaws-bai.github.io/2022/10/19/csrf/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -604,20 +633,20 @@
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/JSONP/">
-                                    <span class="chip bg-color">JSONP</span>
+                                <a href="/tags/%E5%B8%B8%E8%A7%84web%E6%BC%8F%E6%B4%9E/">
+                                    <span class="chip bg-color">常规web漏洞</span>
                                 </a>
                             
-                                <a href="/tags/%E8%B7%A8%E5%9F%9F/">
-                                    <span class="chip bg-color">跨域</span>
+                                <a href="/tags/%E5%89%8D%E7%AB%AF%E5%AE%89%E5%85%A8/">
+                                    <span class="chip bg-color">前端安全</span>
                                 </a>
                             
-                                <a href="/tags/XSS/">
-                                    <span class="chip bg-color">XSS</span>
+                                <a href="/tags/%E9%92%93%E9%B1%BC/">
+                                    <span class="chip bg-color">钓鱼</span>
                                 </a>
                             
-                                <a href="/tags/JSONP%E5%8A%AB%E6%8C%81/">
-                                    <span class="chip bg-color">JSONP劫持</span>
+                                <a href="/tags/CSRF/">
+                                    <span class="chip bg-color">CSRF</span>
                                 </a>
                             
                         </div>
@@ -663,9 +692,10 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
                 <a href="/2022/10/19/csrf/">
                     <div class="card-image">
@@ -683,9 +713,9 @@
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2022-10-19
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-10-19
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
@@ -694,6 +724,7 @@
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -724,13 +755,13 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2022/10/17/cors-pei-zhi-bu-dang/">
+                <a href="/2022/10/18/jsonp-de-an-quan-wen-ti/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/20.jpg" class="responsive-img" alt="CORS配置不当">
+                        <img src="/medias/featureimages/11.jpg" class="responsive-img" alt="jsonp的安全问题">
                         
-                        <span class="card-title">CORS配置不当</span>
+                        <span class="card-title">jsonp的安全问题</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -741,7 +772,7 @@
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-10-17
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-10-18
                             </span>
                         <span class="publish-author">
                             
@@ -754,20 +785,20 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E5%B8%B8%E8%A7%84web%E6%BC%8F%E6%B4%9E/">
-                        <span class="chip bg-color">常规web漏洞</span>
+                    <a href="/tags/JSONP/">
+                        <span class="chip bg-color">JSONP</span>
                     </a>
                     
-                    <a href="/tags/CORS/">
-                        <span class="chip bg-color">CORS</span>
+                    <a href="/tags/%E8%B7%A8%E5%9F%9F/">
+                        <span class="chip bg-color">跨域</span>
                     </a>
                     
-                    <a href="/tags/%E5%89%8D%E7%AB%AF%E5%AE%89%E5%85%A8/">
-                        <span class="chip bg-color">前端安全</span>
+                    <a href="/tags/XSS/">
+                        <span class="chip bg-color">XSS</span>
                     </a>
                     
-                    <a href="/tags/CORS%E9%85%8D%E7%BD%AE%E4%B8%8D%E5%BD%93/">
-                        <span class="chip bg-color">CORS配置不当</span>
+                    <a href="/tags/JSONP%E5%8A%AB%E6%8C%81/">
+                        <span class="chip bg-color">JSONP劫持</span>
                     </a>
                     
                 </div>

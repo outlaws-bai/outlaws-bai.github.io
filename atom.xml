@@ -6,7 +6,7 @@
   <link href="https://outlaws-bai.github.io/atom.xml" rel="self"/>
   
   <link href="https://outlaws-bai.github.io/"/>
-  <updated>2022-10-18T16:19:40.886Z</updated>
+  <updated>2022-10-19T16:39:46.088Z</updated>
   <id>https://outlaws-bai.github.io/</id>
   
   <author>
@@ -15,6 +15,35 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>CSRF</title>
+    <link href="https://outlaws-bai.github.io/2022/10/19/csrf/"/>
+    <id>https://outlaws-bai.github.io/2022/10/19/csrf/</id>
+    <published>2022-10-19T15:18:18.000Z</published>
+    <updated>2022-10-19T16:39:46.088Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;CSRF&quot;&gt;&lt;a href=&quot;#CSRF&quot; class=&quot;headerlink&quot; title=&quot;CSRF&quot;&gt;&lt;/a&gt;CSRF&lt;/h1&gt;&lt;h2 id=&quot;简介&quot;&gt;&lt;a href=&quot;#简介&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    
+    <category term="常规web漏洞" scheme="https://outlaws-bai.github.io/tags/%E5%B8%B8%E8%A7%84web%E6%BC%8F%E6%B4%9E/"/>
+    
+    <category term="前端安全" scheme="https://outlaws-bai.github.io/tags/%E5%89%8D%E7%AB%AF%E5%AE%89%E5%85%A8/"/>
+    
+    <category term="钓鱼" scheme="https://outlaws-bai.github.io/tags/%E9%92%93%E9%B1%BC/"/>
+    
+    <category term="CSRF" scheme="https://outlaws-bai.github.io/tags/CSRF/"/>
+    
+  </entry>
   
   <entry>
     <title>jsonp的安全问题</title>
